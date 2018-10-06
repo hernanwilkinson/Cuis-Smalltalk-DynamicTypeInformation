@@ -6,53 +6,53 @@ There is a Cuis image with everything install to play with.
 
 ## Instance variable types important messages
 To start storing type info on a class inst. vars. do:
-aClass initializeInstanceVariablesTypes
+- aClass initializeInstanceVariablesTypes
 
 To start storing type info on all classes inst. vars. do:
-InstanceVariablesTypes initializeForAllClasses
+- InstanceVariablesTypes initializeForAllClasses
 
 To get type info on all inst. vars. of a class do:
-instVarsTypes := aClass instanceVariablesTypes.  "NOTE: it is instVar(s)Types"
+- instVarsTypes := aClass instanceVariablesTypes.  "NOTE: it is instVar(s)Types"
 
 Then you can ask types per inst. var, for example:
-instVarTypes := instVarsTypes typesOf: 'anInstVarName'  "NOTE: is is instVarTypes no Var(s)"
+- instVarTypes := instVarsTypes typesOf: 'anInstVarName'  "NOTE: is is instVarTypes no Var(s)"
 
 Now you can ask type info for that inst. var, for example:
-instVarTypes types --> returns all the stored types for that inst. var
-instVarTypes commonSupertype --> returns the common supertype for that inst. var
-instVarTypes isMegamorphic
-etc... (See InstanceVariableTypes)
+- instVarTypes types --> returns all the stored types for that inst. var
+- instVarTypes commonSupertype --> returns the common supertype for that inst. var
+- instVarTypes isMegamorphic
+- etc... (See InstanceVariableTypes)
 
 ## Method type information
 Right now temp. vars types and return type is supported.
 To start storing type info on a method do:
-aCompiledMethod initializeTypeInformation.
+- aCompiledMethod initializeTypeInformation.
 
 For example:
-(Fraction>>#+) initializeTypeInformation.
+- (Fraction>>#+) initializeTypeInformation.
 
 To start storing type info on all methods of a class do:
-aClass initializeMethodsTypeInformation
+- aClass initializeMethodsTypeInformation
 
 For example:
-Fraction initializeMethodsTypeInformation
+- Fraction initializeMethodsTypeInformation
 
 To initialize storing method type info in a hierarchy do:
-aClass initializeWithAllSubclassesMethodsTypeInformation
+- aClass initializeWithAllSubclassesMethodsTypeInformation
 
 To start storing method type info in all classes do:
-ProtoObject initializeWithAllSubclassesMethodsTypeInformation
+- ProtoObject initializeWithAllSubclassesMethodsTypeInformation
 
 To get temp. vars type info do:
-tempVarsTypes := aCompiledMethod temporaryVariablesTypes.
+- tempVarsTypes := aCompiledMethod temporaryVariablesTypes.
 
 To get temp. var type info do:
-tempVarTypes := tempVarsType typeOf: 'aTempVarName'
+- tempVarTypes := tempVarsType typeOf: 'aTempVarName'
 
 You can do with tempVarTpes the same as with an instance variable types, like sending #types, #commonSupertype, etc.
 
 To get return type info do:
-returnTypes := aCompiledMethod returnTypes
+- returnTypes := aCompiledMethod returnTypes
 
 You can do with returnType the same as with an instance and temp variable types, like sending #types, #commonSupertype, etc.
 
