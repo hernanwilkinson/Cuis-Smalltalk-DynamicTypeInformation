@@ -1,5 +1,5 @@
 # DynamicTypeInformation
-Changes to the the opensmalltalk-vm and Cuis image to generate dynamic type information 
+Changes to the the opensmalltalk-vm and Cuis image to generate dynamic type information
 
 Look for the VM of you OS at the VMs directory.
 There is a Cuis image with everything install to play with.
@@ -60,4 +60,3 @@ You can do with returnType the same as with an instance and temp variable types,
 - New classes do not automatically store type info for their inst. vars or methods.
 - Changing a class shape looses all inst vars types and those of recompiled methods
 - Changing a method does not keep previous type info
-- Parameters do not store type info yet
