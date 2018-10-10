@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 5 October 2018 at 8:14:39 pm'!
-'Description Temp vars and return type support'!
-!provides: 'DynamicTypeInformation' 1 2!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 10 October 2018 at 7:11:05 am'!
+'Description first tests'!
+!provides: 'DynamicTypeInformation' 1 3!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
@@ -12,6 +12,16 @@ TestCase subclass: #CustomerTest
 	category: 'DynamicTypeInformation'!
 !classDefinition: 'CustomerTest class' category: #DynamicTypeInformation!
 CustomerTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #InstanceVariablesTypesTest category: #DynamicTypeInformation!
+TestCase subclass: #InstanceVariablesTypesTest
+	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'!
+!classDefinition: 'InstanceVariablesTypesTest class' category: #DynamicTypeInformation!
+InstanceVariablesTypesTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #Customer category: #DynamicTypeInformation!
@@ -132,6 +142,195 @@ test03
 
 	(TestCase allSubclasses select: [:aTestCase | aTestCase category =  'Regex-Tests-Core']) 
 		do: [:aTestCase | aTestCase suite run ].! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:55:00'!
+test01
+
+	self class initializeInstanceVariablesTypes.
+	
+	self assert: self class rawInstanceVariablesTypes size equals: self class instSize.
+	self class rawInstanceVariablesTypes allButLastDo: [ :instVarTypes |
+		self assert: (instVarTypes allSatisfy: [ :aType | aType isNil ])].
+	self assert: self class rawInstanceVariablesTypes last isNil! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:12:01'!
+test02
+
+	| testSelectorTypes |
+	
+	self class initializeInstanceVariablesTypesWithAllInstances.
+	
+	self assert: self class rawInstanceVariablesTypes size equals: self class instSize.
+	testSelectorTypes := self class instanceVariablesTypes typesOf: 'testSelector'.
+	self assert: testSelectorTypes typesSize equals: 1.
+	self assert: (testSelectorTypes typesIncludes: Symbol)! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:15:48'!
+test03
+
+	| instVar1Types instVar2Types |
+	
+	self class initializeInstanceVariablesTypes.
+	
+	instVar1 := 'hello'.
+	instVar2 := 1.
+	
+	instVar1Types := self class instanceVariablesTypes typesOf: 'instVar1'.
+	self assert: instVar1Types typesSize equals: 1.
+	self assert: (instVar1Types typesIncludes: instVar1 class).
+	
+	instVar2Types := self class instanceVariablesTypes typesOf: 'instVar2'.
+	self assert: instVar2Types typesSize equals: 1.
+	self assert: (instVar2Types typesIncludes: instVar2 class).
+	! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:17:25'!
+test04
+
+	| instVar1Types instVar2Types |
+	
+	self class initializeInstanceVariablesTypes.
+	
+	instVar1 := 'hello'.
+	instVar1 := #hello.
+	instVar2 := 1.
+	instVar2 := 1/2.
+	
+	instVar1Types := self class instanceVariablesTypes typesOf: 'instVar1'.
+	self assert: instVar1Types typesSize equals: 2.
+	self assert: (instVar1Types typesIncludes: 'hello' class).
+	self assert: (instVar1Types typesIncludes: #hello class).
+	
+	instVar2Types := self class instanceVariablesTypes typesOf: 'instVar2'.
+	self assert: instVar2Types typesSize equals: 2.
+	self assert: (instVar2Types typesIncludes: 1 class).
+	self assert: (instVar2Types typesIncludes: (1/2) class).
+	! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:19:06'!
+test05
+
+	| instVar3Types |
+	
+	self class initializeInstanceVariablesTypes.
+	
+	instVar3 := 'hello'.
+	instVar3 := #hello.
+	
+	instVar3Types := self class instanceVariablesTypes typesOf: 'instVar3'.
+	self assert: instVar3Types typesSize equals: 1.
+	self assert: (instVar3Types typesIncludes: 'hello' class).
+	
+		! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:47:25'!
+test06
+
+	| instVar4Types |
+	
+	self class initializeInstanceVariablesTypes.
+	
+	instVar4 := 'hello'.
+	instVar4 := #hello.
+	
+	instVar4Types := self class instanceVariablesTypes typesOf: 'instVar4'.
+	self assert: instVar4Types types isEmpty.
+	
+		! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:51:26'!
+test07
+
+	| commonSupertype |
+
+	self class initializeInstanceVariablesTypes.
+	
+	instVar2 := 1.
+	instVar2 := 1/2.
+	
+	commonSupertype := self class instanceVariablesTypes commonSupertypeOf: 'instVar2'.
+	self assert: commonSupertype equals: Number! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:51:52'!
+test08
+
+	| commonSupertype |
+
+	self class initializeInstanceVariablesTypes.
+	
+	instVar1 := 'hello'.
+	instVar1 := #hello.
+	
+	commonSupertype := self class instanceVariablesTypes commonSupertypeOf: 'instVar1'.
+	self assert: commonSupertype equals: String! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:58:01'!
+test09
+
+	| commonSupertype |
+
+	self class initializeInstanceVariablesTypes.
+	
+	instVar1 := #hello.
+	instVar1 := 'hello'.
+	
+	commonSupertype := self class instanceVariablesTypes commonSupertypeOf: 'instVar1'.
+	self assert: commonSupertype equals: String! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:58:48'!
+test10
+
+	| commonSupertype |
+
+	self class initializeInstanceVariablesTypes.
+	
+	instVar1 := 'hello'.
+	instVar1 := 1.
+	
+	commonSupertype := self class instanceVariablesTypes commonSupertypeOf: 'instVar1'.
+	self assert: commonSupertype equals: Object! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 07:01:46'!
+test11
+
+	| commonSupertype |
+
+	self class initializeInstanceVariablesTypes.
+	
+	commonSupertype := self class instanceVariablesTypes commonSupertypeOf: 'instVar4'.
+	self assert: commonSupertype equals: ProtoObject! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 07:08:08'!
+test12
+
+	| commonSupertype |
+
+	self class initializeInstanceVariablesTypes.
+	
+	commonSupertype := self class instanceVariablesTypes commonSupertypeOf: 'instVar4' ifNoTypes: [ Array ].
+	self assert: commonSupertype equals: Array! !
+
+!InstanceVariablesTypesTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 07:10:02'!
+test13
+
+	| types |
+
+	self class initializeInstanceVariablesTypes.
+	
+	instVar1 := 'hello'.
+	instVar1 := nil.
+		
+	types := self class instanceVariablesTypes typesOf: 'instVar1'.
+	self assert: types commonSupertype equals: String.
+	self assert: (types typesIncludes: nil class)! !
+
+!InstanceVariablesTypesTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 06:47:58'!
+createInstanceVariableTypesFor: anInstVarName
+
+	anInstVarName = 'instVar3' ifTrue: [ ^ Array new: 1 ].
+	anInstVarName = 'instVar4' ifTrue: [ ^ nil ].
+	
+	^super createInstanceVariableTypesFor: anInstVarName! !
 
 !Customer methodsFor: 'initialization' stamp: 'HAW 9/27/2018 16:44:01'!
 initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
@@ -285,8 +484,13 @@ commonSelectorsPreviousTo: aSuperclassToExclude
 	
 	^commonSelectors 	! !
 
-!VariableTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 17:09:23'!
+!VariableTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 07:07:30'!
 commonSupertype
+	
+	^self commonSupertypeIfNoTypes: [ ProtoObject ]! !
+
+!VariableTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 07:07:30'!
+commonSupertypeIfNoTypes: aBlock
 	"
 	SimpleMeasure commonSupertypeOf: 'unit'.
 	SimpleMeasure commonSupertypeOf: 'amount'.
@@ -295,17 +499,17 @@ commonSupertype
 	
 	types := self types.
 	types := types reject: [ :aType | aType = UndefinedObject ].
-	types isEmpty ifTrue: [ ^ProtoObject ].
+	types isEmpty ifTrue: [ ^aBlock value ].
 	types size = 1 ifTrue: [ ^types first ].
 	
 	commonSupertypes := types 
-		inject: types first allSuperclasses 
-		into: [ :temporaryCommonSupertypes :type | temporaryCommonSupertypes intersection: type allSuperclasses ].
+		inject: types first withAllSuperclasses 
+		into: [ :temporaryCommonSupertypes :type | temporaryCommonSupertypes intersection: type withAllSuperclasses ].
 	
 	commonSupertypeSuperclassesSize := 0.
 	
 	commonSupertypes do: [ :currentType | | currentTypeSuperclassesSize |
-		currentTypeSuperclassesSize := currentType allSuperclasses size.
+		currentTypeSuperclassesSize := currentType withAllSuperclasses size.
 		currentTypeSuperclassesSize > commonSupertypeSuperclassesSize ifTrue: [
 			commonSupertypeSuperclassesSize := currentTypeSuperclassesSize.
 			commonSupertype := currentType ]].
@@ -354,6 +558,11 @@ initializeOf: anInstVarName at: anInstVarIndex in: aClass are: aRawTypes
 	instVarIndex := anInstVarIndex.
 	class := aClass.
 	rawTypes := aRawTypes ! !
+
+!InstanceVariableTypes methodsFor: 'testing' stamp: 'HAW 10/10/2018 06:13:10'!
+typesIncludes: aType
+
+	^self types includes: aType ! !
 
 !InstanceVariableTypes class methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 15:31:49'!
 of: anInstVarName at: anInstVarIndex in: aClass are: rawTypes
@@ -413,6 +622,11 @@ commonSupertypeOf: aVarName
 	"
 	^ (self typesOf: aVarName) commonSupertype ! !
 
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 07:08:08'!
+commonSupertypeOf: aVarName ifNoTypes: aBlock
+
+	^ (self typesOf: aVarName) commonSupertypeIfNoTypes: aBlock! !
+
 !VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 16:51:47'!
 typesOf: aVarName
 
@@ -429,16 +643,16 @@ addTypeInformationOf: anInstance using: instVarTypes
 	instVarTypes do: [ :anInstVarTypes | anInstVarTypes addTypeFrom: anInstance ]
 	! !
 
+!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 05:47:42'!
+createEachInstanceVariableTypes
+
+	rawTypes ifNotNil: [ 
+		class allInstVarNames withIndexDo: [ :instVarName :instVarIndex | rawTypes at: instVarIndex put: (class createInstanceVariableTypesFor: instVarName) ]]! !
+
 !InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/4/2018 22:58:38'!
 hasInformation
 	
 	^rawTypes notNil and: [ class allInstVarNames anySatisfy: [ :instVarName | (self typesOf: instVarName) hasInformation ]]! !
-
-!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 15:08:27'!
-initializeEachInstanceVariableTypes
-
-	rawTypes ifNotNil: [ 
-		class allInstVarNames withIndexDo: [ :instVarName :instVarIndex | rawTypes at: instVarIndex put: (class createInstanceVariableTypesFor: instVarName) ]]! !
 
 !InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/4/2018 21:10:24'!
 initializeOf: aClass rawTypes: aRawTypes
@@ -521,7 +735,7 @@ of: aClass rawTypes: rawTypes
 
 	^self new initializeOf: aClass rawTypes: rawTypes! !
 
-!TemporaryVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 16:44:31'!
+!TemporaryVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/7/2018 23:07:46'!
 initializeOf: aCompiledMethod 
 	
 	| methodNode |
@@ -530,7 +744,7 @@ initializeOf: aCompiledMethod
 	rawTypes := aCompiledMethod rawTemporaryVariablesTypes.
 	
 	methodNode := method methodNode.
-	variablesNames := (methodNode arguments collect: [ :variableNode | variableNode name ]), (methodNode temporaries collect: [ :variableNode | variableNode name ])! !
+	variablesNames := (methodNode arguments collect: [ :variableNode | variableNode name ]) reverse, (methodNode temporaries collect: [ :variableNode | variableNode name ])! !
 
 !TemporaryVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 16:48:15'!
 typesOf: aTempVarName
@@ -577,6 +791,11 @@ initializeWithAllSubclassesMethodsTypeInformation
 	"
 	self withAllSubclassesDo: [ :aClass | aClass initializeMethodsTypeInformation ]! !
 
+!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/10/2018 05:47:42'!
+createEachInstanceVariableTypes
+
+	self instanceVariablesTypes createEachInstanceVariableTypes	! !
+
 !ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/5/2018 15:09:24'!
 createInstanceVariableTypesFor: anInstVarName
 
@@ -593,13 +812,7 @@ defaultInstanceVaraibleTypesSize
 
 	^10! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/5/2018 15:05:09'!
-initializeEachInstanceVariableTypes
-
-	self instanceVariablesTypes initializeEachInstanceVariableTypes
-	! !
-
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/5/2018 15:13:39'!
+!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/10/2018 06:08:23'!
 initializeInstanceVariablesTypes
 
 	"
@@ -608,9 +821,18 @@ initializeInstanceVariablesTypes
 	
 	self 
 		createInstanceVariablesTypes;
-		initializeEachInstanceVariableTypes;
-		storeAllInstancesCurrentTypes
-! !
+		createEachInstanceVariableTypes! !
+
+!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/10/2018 06:08:42'!
+initializeInstanceVariablesTypesWithAllInstances
+
+	"
+	self initializeInstanceVariablesTypes
+	"
+	
+	self 
+		initializeInstanceVariablesTypes;
+		storeAllInstancesCurrentTypes! !
 
 !ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 20:06:00'!
 instanceVariablesTypes
