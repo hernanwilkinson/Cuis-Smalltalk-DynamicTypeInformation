@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 16 October 2018 at 1:20:30 am'!
-'Description more tests, inst var in hierarchy info, rename to VariableTypeInfo, etc'!
-!provides: 'DynamicTypeInformation' 1 5!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 16 October 2018 at 8:50:30 am'!
+'Description back to not caching inst vars types'!
+!provides: 'DynamicTypeInformation' 1 6!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
@@ -176,7 +176,7 @@ VariablesTypes class
 
 !classDefinition: #InstanceVariablesTypes category: #DynamicTypeInformation!
 VariablesTypes subclass: #InstanceVariablesTypes
-	instanceVariableNames: 'class rawTypes typesInfo'
+	instanceVariableNames: 'class rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'!
@@ -525,13 +525,13 @@ test09EvaluatesIfAbsentBlockWhenAskTypeInfoForNonExistingInstVar
 	self class instanceVariablesTypes typeInfoOf: 'xyz' ifAbsent: [ ^self ].
 	self fail! !
 
-!InstanceVariablesTypesTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 00:07:49'!
-createInstanceVariableRawTypesFor: anInstVarName
+!InstanceVariablesTypesTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 08:45:21'!
+instanceVariableRawTypesSizeFor: anInstVarName
 
-	anInstVarName = 'instVar3' ifTrue: [ ^ Array new: 1 ].
-	anInstVarName = 'instVar4' ifTrue: [ ^ nil ].
+	anInstVarName = 'instVar3' ifTrue: [ ^ 1 ].
+	anInstVarName = 'instVar4' ifTrue: [ ^ 0 ].
 	
-	^super createInstanceVariableRawTypesFor: anInstVarName! !
+	^super instanceVariableRawTypesSizeFor: anInstVarName! !
 
 !MethodTypesMigrationTest methodsFor: 'asserting' stamp: 'NPM 10/11/2018 00:42:33'!
 assert: aCompiledMethod hasInformationForNumberOfTemporaryVariables: aQuantity 
@@ -1763,12 +1763,6 @@ addTypeInformationOf: anInstance using: instVarTypes
 	instVarTypes do: [ :anInstVarTypes | anInstVarTypes addTypeFrom: anInstance ]
 	! !
 
-!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 00:07:49'!
-createEachInstanceVariableRawTypes
-
-	rawTypes ifNotNil: [ 
-		class allInstVarNames withIndexDo: [ :instVarName :instVarIndex | rawTypes at: instVarIndex put: (class createInstanceVariableRawTypesFor: instVarName) ]]! !
-
 !InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 01:10:21'!
 createTypeInfoOf: anInstVarName ifAbsent: anAbsentBlock
 
@@ -1780,12 +1774,18 @@ createTypeInfoOf: anInstVarName ifAbsent: anAbsentBlock
 	types := rawTypes at: index.
 	^ InstanceVariableTypeInfo of: anInstVarName at: index in: class are: types! !
 
-!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 01:11:29'!
+!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 08:43:30'!
+initializeEachInstanceVariableRawTypes
+
+	rawTypes ifNotNil: [ 
+		class allInstVarNames withIndexDo: [ :instVarName :instVarIndex | rawTypes at: instVarIndex put: (class createInstanceVariableRawTypesFor: instVarName) ]]! !
+
+!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 06:43:18'!
 initializeOf: aClass rawTypes: aRawTypes
 	
 	class := aClass.
 	rawTypes := aRawTypes.
-	typesInfo := Dictionary new.! !
+	! !
 
 !InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/15/2018 22:37:35'!
 megamorphicInstanceVariables
@@ -1819,10 +1819,17 @@ typeInfoOf: anInstVarName
 	^self typeInfoOf: anInstVarName ifAbsent: [ self error: 'Invalid instance variable name' ].
 	! !
 
-!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 01:11:15'!
+!InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 08:48:22'!
 typeInfoOf: anInstVarName ifAbsent: anAbsentBlock
 
-	^typesInfo at: anInstVarName ifAbsentPut: [ self createTypeInfoOf: anInstVarName ifAbsent: [ ^anAbsentBlock value ] ]! !
+	| index types |
+	
+	index := class indexOfInstanceVariable: anInstVarName ifAbsent: [ ^ anAbsentBlock value ].
+	types := (rawTypes isNil or: [ index > rawTypes size ]) 
+		ifTrue: [ nil ]
+		ifFalse: [ rawTypes at: index ].
+		
+	^ class createInstanceVariableTypeInfoOf: anInstVarName at: index with: types! !
 
 !InstanceVariablesTypes class methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 00:53:42'!
 allMegamorphicInstanceVariables
@@ -1976,16 +1983,16 @@ initializeWithAllSubclassesMethodsTypeInformation
 	"
 	self withAllSubclassesDo: [ :aClass | aClass initializeMethodsTypeInformation ]! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/16/2018 01:05:51'!
+!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/16/2018 08:41:39'!
 initializeInstanceVariablesRawTypes
 
 	"
 	self initializeInstanceVariablesTypes
 	"
 	
-	self 
-		createInstanceVariablesRawTypes;
-		createEachInstanceVariableRawTypes! !
+	instanceVariablesRawTypes := self createInstanceVariablesRawTypes.
+	self initializeEachInstanceVariableRawTypes
+		! !
 
 !ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/16/2018 01:06:09'!
 initializeInstanceVariablesRawTypesWithAllInstances
@@ -1998,11 +2005,10 @@ initializeInstanceVariablesRawTypesWithAllInstances
 		initializeInstanceVariablesRawTypes;
 		storeAllInstancesCurrentTypes! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/16/2018 01:06:40'!
+!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 20:06:00'!
 instanceVariablesTypes
 
-	instanceVariablesTypes ifNil: [ instanceVariablesTypes := InstanceVariablesTypes of: self ].
-	^instanceVariablesTypes ! !
+	^InstanceVariablesTypes of: self! !
 
 !AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 15:43:03'!
 initializeReturnTypes
