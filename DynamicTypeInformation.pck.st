@@ -1,15 +1,22 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 21 October 2018 at 2:34:32 am'!
-'Description better model, big refactoring, type senders first try'!
-!provides: 'DynamicTypeInformation' 1 7!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 23 October 2018 at 11:26:57 pm'!
+'Description printing type info on class definition, source code and on demand on source code'!
+!provides: 'DynamicTypeInformation' 1 8!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
 !classDefinition: #TypedMessageSendsCollector category: #DynamicTypeInformation!
 ParseNodeVisitor subclass: #TypedMessageSendsCollector
-	instanceVariableNames: 'sent senders toAnalize'
+	instanceVariableNames: 'sent senders toAnalize sentSelector sentMethodClass'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+sent : <>
+senders : <>
+toAnalize : <>
+sentSelector : <>
+sentMethodClass : <>
+"!
 !classDefinition: 'TypedMessageSendsCollector class' category: #DynamicTypeInformation!
 TypedMessageSendsCollector class
 	instanceVariableNames: ''!
@@ -39,7 +46,13 @@ TestCase subclass: #InstanceVariablesTypesTest
 	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+instVar1 : <>
+instVar2 : <>
+instVar3 : <>
+instVar4 : <>
+"!
 !classDefinition: 'InstanceVariablesTypesTest class' category: #DynamicTypeInformation!
 InstanceVariablesTypesTest class
 	instanceVariableNames: ''!
@@ -49,7 +62,10 @@ TestCase subclass: #TypedSendersOfTest
 	instanceVariableNames: 'v1'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+v1 : <TypedSendersOfTest>
+"!
 !classDefinition: 'TypedSendersOfTest class' category: #DynamicTypeInformation!
 TypedSendersOfTest class
 	instanceVariableNames: ''!
@@ -59,7 +75,13 @@ TestCase subclass: #VariableTypeInfoTest
 	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+instVar1 : <>
+instVar2 : <>
+instVar3 : <>
+instVar4 : <>
+"!
 !classDefinition: 'VariableTypeInfoTest class' category: #DynamicTypeInformation!
 VariableTypeInfoTest class
 	instanceVariableNames: ''!
@@ -69,7 +91,12 @@ Object subclass: #Customer
 	instanceVariableNames: 'firstName lastName dateOfBirth'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+firstName : <String | SmallInteger> # Object
+lastName : <String | SmallInteger> # Object
+dateOfBirth : <Date | DateAndTime> # Object
+"!
 !classDefinition: 'Customer class' category: #DynamicTypeInformation!
 Customer class
 	instanceVariableNames: ''!
@@ -79,7 +106,13 @@ Object subclass: #Customer1
 	instanceVariableNames: 'firstName lastName dateOfBirth x'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+firstName : <>
+lastName : <>
+dateOfBirth : <>
+x : <>
+"!
 !classDefinition: 'Customer1 class' category: #DynamicTypeInformation!
 Customer1 class
 	instanceVariableNames: ''!
@@ -99,7 +132,10 @@ Object subclass: #IVTIRoot
 	instanceVariableNames: 'ivroot'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+ivroot : <SmallFloat64>
+"!
 !classDefinition: 'IVTIRoot class' category: #DynamicTypeInformation!
 IVTIRoot class
 	instanceVariableNames: ''!
@@ -109,7 +145,10 @@ IVTIRoot subclass: #IVTISibling1
 	instanceVariableNames: 'ivsibling1'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+ivsibling1 : <>
+"!
 !classDefinition: 'IVTISibling1 class' category: #DynamicTypeInformation!
 IVTISibling1 class
 	instanceVariableNames: ''!
@@ -139,7 +178,10 @@ Object subclass: #VariableTypeInfo
 	instanceVariableNames: 'rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+rawTypes : <UndefinedObject | Array> # Array
+"!
 !classDefinition: 'VariableTypeInfo class' category: #DynamicTypeInformation!
 VariableTypeInfo class
 	instanceVariableNames: ''!
@@ -149,7 +191,11 @@ VariableTypeInfo subclass: #InstanceVariableTypeInfo
 	instanceVariableNames: 'class varName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+class : <EmptyLine class | TextLine class | EventSensor class | BlockClosure class | SharedQueue class | Fraction class | AdditionalMethodState class | Behavior class | Point class | MethodContext class | Association class | ReadOnlyVariableBinding class | LookupKey class | DateAndTime class | Duration class | Time class | Metaclass | InstanceVariableTypeInfoInClass class | MethodVariableTypeInfo class | VariableTypeInfo class> # ClassDescription
+varName : <String>
+"!
 !classDefinition: 'InstanceVariableTypeInfo class' category: #DynamicTypeInformation!
 InstanceVariableTypeInfo class
 	instanceVariableNames: ''!
@@ -179,7 +225,12 @@ VariableTypeInfo subclass: #MethodVariableTypeInfo
 	instanceVariableNames: 'varName varIndex method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+varName : <String>
+varIndex : <SmallInteger>
+method : <CompiledMethod>
+"!
 !classDefinition: 'MethodVariableTypeInfo class' category: #DynamicTypeInformation!
 MethodVariableTypeInfo class
 	instanceVariableNames: ''!
@@ -189,7 +240,10 @@ VariableTypeInfo subclass: #ReturnTypeInfo
 	instanceVariableNames: 'method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+method : <CompiledMethod | UndefinedObject> # CompiledMethod
+"!
 !classDefinition: 'ReturnTypeInfo class' category: #DynamicTypeInformation!
 ReturnTypeInfo class
 	instanceVariableNames: ''!
@@ -209,47 +263,52 @@ VariablesTypes subclass: #InstanceVariablesTypes
 	instanceVariableNames: 'class rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+class : <InstanceVariablesTypes class | InstructionStream class | ContextPart class | MethodContext class | Metaclass | DiskProxy class | Point class | TextLine class | EmptyLine class | BlockClosure class> # ClassDescription
+rawTypes : <Array | UndefinedObject> # Array
+"!
 !classDefinition: 'InstanceVariablesTypes class' category: #DynamicTypeInformation!
 InstanceVariablesTypes class
 	instanceVariableNames: ''!
 
 !classDefinition: #MethodVariablesTypes category: #DynamicTypeInformation!
 VariablesTypes subclass: #MethodVariablesTypes
-	instanceVariableNames: 'method rawTypes variablesNames'
+	instanceVariableNames: 'method rawTypes variablesNames paramentersSize'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
+	category: 'DynamicTypeInformation'
+"
+method : <CompiledMethod>
+rawTypes : <Array | UndefinedObject> # Array
+variablesNames : <Array | OrderedCollection> # SequenceableCollection
+paramentersSize : <>
+"!
 !classDefinition: 'MethodVariablesTypes class' category: #DynamicTypeInformation!
 MethodVariablesTypes class
 	instanceVariableNames: ''!
 
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 00:01:28'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:59:02'!
 initializeIn: toAnalizeCompiledMethod of: aSentCompiledMethod 
 
 	toAnalize := toAnalizeCompiledMethod.
 	sent := aSentCompiledMethod.
+	sentSelector := sent selector.
+	sentMethodClass := sent methodClass.
 	senders := OrderedCollection new! !
-
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 23:53:30'!
-initializeOf: aSentCompiledMethod
-
-	sent := aSentCompiledMethod.
-	senders := OrderedCollection new.! !
 
 !TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 23:56:39'!
 senders
 	
 	^senders! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 00:43:13'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:58:43'!
 visitMessageNode: aMessageNode
 	
-	(aMessageNode selector named: sent selector) ifTrue: [ | receiveTypes sentClass |
-		receiveTypes := aMessageNode receiver typesIn: toAnalize.
-		sentClass := sent methodClass.
-		(receiveTypes anySatisfy: [ :aReceiverType | aReceiverType includesBehavior: sentClass]) ifTrue: [ senders add: aMessageNode ]].
+	(aMessageNode selector named: sentSelector) ifTrue: [ | receiverTypes |
+		receiverTypes := aMessageNode receiver typesIn: toAnalize.
+		(receiverTypes anySatisfy: [ :aReceiverType | aReceiverType includesBehavior: sentMethodClass]) ifTrue: [ senders add: aMessageNode ]].
 		
 	^super visitMessageNode: aMessageNode 
 	! !
@@ -259,11 +318,6 @@ in: toAnalizeCompiledMethod of: aSentCompiledMethod
 	
 	^self new initializeIn: toAnalizeCompiledMethod of: aSentCompiledMethod 
 ! !
-
-!TypedMessageSendsCollector class methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 23:51:03'!
-of: aSentCompiledMethod 
-	
-	^self new initializeOf: aSentCompiledMethod ! !
 
 !CustomerTest methodsFor: 'as yet unclassified' stamp: 'HAW 9/27/2018 16:44:07'!
 test01
@@ -763,6 +817,45 @@ test13
 	
 	self assert: (self class>>thisContext selector doesTypedSend: (1 class lookupSelector: #+))! !
 
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:42:03'!
+test14
+	
+	"
+	self class initializeMethodsTypeInformation.
+	"
+	
+	TypedSendersOfTest m1.
+	
+	self assert: (self class>>thisContext selector doesTypedSend: (self class class lookupSelector: #m1))! !
+
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:43:27'!
+test15
+	
+	"
+	self class initializeMethodsTypeInformation.
+	"
+	| t1 |
+	
+	t1 := TypedSendersOfTest.
+	t1 m1.
+	
+	self assert: (self class>>thisContext selector doesTypedSend: (self class class lookupSelector: #m1))! !
+
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:59:15'!
+test16
+	
+	"
+	self class initializeMethodsTypeInformation.
+	"
+	$a asCharacter.
+	
+	self assert: (self class>>thisContext selector doesTypedSend: ($a class lookupSelector: #asCharacter))! !
+
+!TypedSendersOfTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:40:36'!
+m1
+
+	^1+1! !
+
 !VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 10/15/2018 22:48:38'!
 test01IsEmptyWhenAllTypesAreNil
 
@@ -1199,6 +1292,20 @@ messageListMenuOptions
 			} asDictionary}`
 ! !
 
+!DynamicTypeInfoMenues class methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 16:16:20'!
+smalltalkEditorMenuOptions
+
+	^`{
+			{
+				#itemGroup 		-> 		30.
+				#itemOrder 		-> 		15.
+				#label 			-> 		'Print type info (P)'.
+				#selector 		-> 		#printSelectionTypeInfo.
+				#icon 			-> 		#helpIcon
+			} asDictionary.
+		}`
+! !
+
 !IVTIRoot methodsFor: 'as yet unclassified' stamp: 'HAW 10/15/2018 23:17:17'!
 ivroot: anObject
 
@@ -1464,6 +1571,52 @@ ifMegamorphicAddTo: allMegamorphicVariables
 	self isMegamorphic ifTrue: [ allMegamorphicVariables add: (self identifier -> self typesSize) ]
 ! !
 
+!VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 16:11:19'!
+printAsCommentedTypesOn: aStream
+
+	aStream nextPut: $".
+	self printTypesOn: aStream.
+	aStream nextPut: $".
+	! !
+
+!VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 16:08:24'!
+printOn: aStream
+
+	aStream 
+		nextPutAll: self variableName;
+		nextPutAll: ' : '.
+		
+	self printTypesOn: aStream
+	! !
+
+!VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 16:11:57'!
+printTextAsCommentedTypes 
+
+	^ Text streamContents: [:aStream| self printAsCommentedTypesOn: aStream]
+! !
+
+!VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 16:09:17'!
+printTypesOn: aStream
+
+	aStream nextPut: $<.
+	
+	self types
+		do: [:aType | aStream nextPutAll: aType name ]
+		separatedBy: [ aStream nextPutAll: ' | ' ].
+			
+	aStream nextPut: $>.
+	
+	self typesSize > 1 ifTrue: [
+		aStream 
+			nextPutAll: ' # ';
+			nextPutAll: self commonSupertype name ].
+	! !
+
+!VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:21:04'!
+variableName
+
+	self subclassResponsibility ! !
+
 !VariableTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 20:37:07'!
 errorDescriptionFor: aClass isNotInSuperclassesOf: anotherClass
 
@@ -1477,10 +1630,10 @@ addTypeFrom: anInstance
 	instVarType := (anInstance instVarNamed: varName) class.
 	self addType: instVarType ! !
 
-!InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:09:46'!
+!InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:22:19'!
 identifier
 
-	^class->varName ! !
+	^class->self variableName ! !
 
 !InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:09:46'!
 initializeOf: anInstVarName in: aClass are: aRawTypes
@@ -1488,6 +1641,11 @@ initializeOf: anInstVarName in: aClass are: aRawTypes
 	varName := anInstVarName.
 	class := aClass.
 	self initializeRawTypes: aRawTypes ! !
+
+!InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:21:20'!
+variableName
+
+	^varName ! !
 
 !InstanceVariableTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 16:36:20'!
 of: anInstVarName in: aClass are: rawTypes
@@ -1539,10 +1697,10 @@ typesSize
 	
 	^self types size! !
 
-!MethodVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/17/2018 19:43:00'!
+!MethodVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:22:07'!
 identifier
 
-	^method -> varName ! !
+	^method -> self variableName ! !
 
 !MethodVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 09:48:40'!
 initializeOf: aVarName at: anIndex in: aCompiledMethod are: aRawTypes
@@ -1552,22 +1710,32 @@ initializeOf: aVarName at: anIndex in: aCompiledMethod are: aRawTypes
 	method := aCompiledMethod.
 	self initializeRawTypes: aRawTypes ! !
 
+!MethodVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:21:41'!
+variableName
+
+	^varName ! !
+
 !MethodVariableTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 10/5/2018 16:56:37'!
 of: aVarName at: anIndex in: aCompiledMethod are: rawTypes
 
 	^self new initializeOf: aVarName at: anIndex in: aCompiledMethod are: rawTypes
 ! !
 
-!ReturnTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/17/2018 19:42:44'!
+!ReturnTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:22:00'!
 identifier
 
-	^method -> '^'! !
+	^method -> self variableName ! !
 
 !ReturnTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 09:52:35'!
 initializeOf: aCompiledMethod are: aRawTypes  
 	
 	method := aCompiledMethod.
 	self initializeRawTypes: aRawTypes ! !
+
+!ReturnTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:21:53'!
+variableName
+
+	^'^'! !
 
 !ReturnTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 09:50:38'!
 of: aCompiledMethod 
@@ -1579,21 +1747,21 @@ of: aCompiledMethod are: aRawTypes
 	
 	^self new initializeOf: aCompiledMethod are: aRawTypes ! !
 
-!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:00:20'!
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:21:44'!
 addMegamorphicVariablesTo: allMegamorphicVariables
 	
-	self do: [ :aVarTypeInfo | aVarTypeInfo ifMegamorphicAddTo: allMegamorphicVariables ]
+	self typesInfoDo: [ :aVarTypeInfo | aVarTypeInfo ifMegamorphicAddTo: allMegamorphicVariables ]
 		! !
 
-!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:46:05'!
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:21:50'!
 addTypesSizesTo: aBagCollector
 
-	self do: [ :aVarTypeInfo | aBagCollector add: aVarTypeInfo typesSize ]! !
+	self typesInfoDo: [ :aVarTypeInfo | aBagCollector add: aVarTypeInfo typesSize ]! !
 
-!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 20:16:22'!
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:21:56'!
 addWithNoCommonSupertypeTo: allWithNoCommonSupertype
 
-	self do: [ :aVarTypeInfo | aVarTypeInfo addIfNoCommonSupertypeTo: allWithNoCommonSupertype ]! !
+	self typesInfoDo: [ :aVarTypeInfo | aVarTypeInfo addIfNoCommonSupertypeTo: allWithNoCommonSupertype ]! !
 
 !VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/15/2018 22:37:35'!
 commonSelectorsOf: aVarName
@@ -1627,15 +1795,37 @@ commonSupertypeOf: aVarName ifNoTypes: aBlock
 
 	^ (self typeInfoOf: aVarName) commonSupertypeIfNoTypes: aBlock! !
 
-!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/15/2018 22:37:35'!
-do: aBlock
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 14:17:36'!
+printTypeInfo: typeInfo on: aStream
 	
-	self variablesNames do: [ :variableName | aBlock value: (self typeInfoOf: variableName) ]! !
+	aStream 
+		print: typeInfo;
+		newLine! !
 
-!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'NPM 10/10/2018 22:47:54'!
-numberOfVariables
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 14:18:04'!
+printTypesInfoFooterOn: aStream 
+
+	aStream nextPut: $" ! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:28:33'!
+printTypesInfoHeaderOn: aStream
 	
-	^ self variablesNames size! !
+	self class printTypesInfoHeaderOn: aStream
+	! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 14:17:21'!
+printTypesInfoOn: aStream
+	
+	self typesInfoDo: [ :typeInfo | self printTypeInfo: typeInfo on: aStream ].
+	! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 14:17:56'!
+printVariablesTypesOn: aStream
+
+	self typesInfoNotEmpty ifTrue: [
+		self printTypesInfoHeaderOn: aStream.
+		self printTypesInfoOn: aStream.
+		self printTypesInfoFooterOn: aStream ]! !
 
 !VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 20:10:39'!
 typeInfoOf: aVarName
@@ -1647,6 +1837,26 @@ typeInfoOf: aVarName
 typeInfoOf: aVarName ifAbsent: anAbsentBlock
 
 	self subclassResponsibility ! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:21:14'!
+typesInfoDo: aBlock
+	
+	self variablesNames do: [ :variableName | aBlock value: (self typeInfoOf: variableName) ]! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:34:19'!
+typesInfoIsEmpty
+	
+	^self typesInfoSize = 0! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:34:00'!
+typesInfoNotEmpty
+	
+	^self typesInfoIsEmpty not! !
+
+!VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 12:22:15'!
+typesInfoSize
+	
+	^self variablesNames size! !
 
 !VariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 00:26:50'!
 typesOf: aVarName
@@ -1718,6 +1928,16 @@ numberOfTypesForAll
 of: aClass do: aBlock
 
 	self subclassResponsibility ! !
+
+!VariablesTypes class methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:41:51'!
+printTypesInfoHeaderOn: aStream
+
+	self subclassResponsibility ! !
+
+!VariablesTypes class methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:29:39'!
+typesInfoHeader
+		
+	^String streamContents: [ :stream | self printTypesInfoHeaderOn: stream ]! !
 
 !InstanceVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:39:51'!
 addNumberOfRawTypesTo: aBagCollector
@@ -1858,6 +2078,20 @@ of: aClass rawTypes: rawTypes
 
 	^self new initializeOf: aClass rawTypes: rawTypes! !
 
+!InstanceVariablesTypes class methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:41:25'!
+printTypesInfoHeaderOn: aStream
+
+	aStream 
+		newLine;
+		nextPut: $";
+		newLine.	
+		! !
+
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:02:12'!
+do: aBlock withIndices: indices
+
+	indices do: [ :index | aBlock value: (self typeInfoAt: index named: (variablesNames at: index)) ]! !
+
 !MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 18:16:07'!
 initializeEachMethodVariableRawTypes
 	
@@ -1869,7 +2103,7 @@ initializeEachMethodVariableRawTypes
 		variablesNames withIndexDo: [ :varName :varIndex | 
 			rawTypes at: varIndex put: (methodClass createMethodVariableRawTypesFor: varName in: method) ]]! !
 
-!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 18:34:33'!
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:37:40'!
 initializeOf: aCompiledMethod rawTypes: aRawTypes  
 	
 	| methodNode |
@@ -1878,17 +2112,47 @@ initializeOf: aCompiledMethod rawTypes: aRawTypes
 	rawTypes := aRawTypes.
 	
 	methodNode := method methodNode.
-	variablesNames := (methodNode arguments collect: [ :variableNode | variableNode name ]) reverse, (methodNode temporaries collect: [ :variableNode | variableNode name ])! !
-
-!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:06:54'!
-typeInfoOf: aVarName ifAbsent: anAbsentBlock
-
-	| index types |
+	variablesNames := (methodNode arguments collect: [ :variableNode | variableNode name ]) reverse.
+	paramentersSize := variablesNames size.
 	
-	index := variablesNames indexOf: aVarName ifAbsent: [ ^anAbsentBlock value ].
+	variablesNames := variablesNames, (methodNode temporaries collect: [ :variableNode | variableNode name ])! !
+
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:01:48'!
+parametersDo: aBlock
+
+	self do: aBlock withIndices: (paramentersSize to: 1 by: -1)! !
+
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:03:21'!
+printTypesInfoOn: aStream
+	
+	self parametersDo: [ :typeInfo | self printTypeInfo: typeInfo on: aStream ].
+	self temporariesDo: [ :typeInfo | self printTypeInfo: typeInfo on: aStream ].
+	! !
+
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:07:43'!
+temporariesDo: aBlock
+
+	self do: aBlock withIndices: (paramentersSize + 1 to: variablesNames size)
+	
+	! !
+
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:00:19'!
+typeInfoAt: index named: aVarName
+	
+	| types |
+	
 	types := rawTypes isNil ifTrue: [ nil ] ifFalse: [ rawTypes at: index ifAbsent: [ nil ] ].
 	
  	 ^ method methodClass createMethodVariableTypeInfoOf: aVarName at: index in: method are: types ! !
+
+!MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:00:03'!
+typeInfoOf: aVarName ifAbsent: anAbsentBlock
+
+	| index |
+	
+	index := variablesNames indexOf: aVarName ifAbsent: [ ^anAbsentBlock value ].
+	^self typeInfoAt: index named: aVarName
+	! !
 
 !MethodVariablesTypes methodsFor: 'as yet unclassified' stamp: 'NPM 10/10/2018 20:22:02'!
 variablesNames
@@ -1918,6 +2182,73 @@ of: aCompiledMethod rawTypes: aRawTypes
 
 	^self new initializeOf: aCompiledMethod rawTypes: aRawTypes ! !
 
+!MethodVariablesTypes class methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 15:43:23'!
+printTypesInfoHeaderOn: aStream
+
+	aStream 
+		newLine;
+		nextPutAll: '"Type info:';
+		newLine.	
+		! !
+
+!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/22/2018 08:47:57'!
+createReturnTypeInfoOf: aCompiledMethod
+
+	(aCompiledMethod selector = #class and: [ aCompiledMethod methodClass = Object ]) 
+		ifTrue: [ ^ReturnTypeInfo of: aCompiledMethod are: { Behavior } ].
+	
+	^super createReturnTypeInfoOf: aCompiledMethod! !
+
+!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/22/2018 08:48:42'!
+methodReturnRawTypesSizeOf: aCompiledMethod
+
+	(aCompiledMethod selector = #class and: [ aCompiledMethod methodClass = Object ]) ifTrue: [ ^0 ].
+	
+	^super methodReturnRawTypesSizeOf: aCompiledMethod! !
+
+!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:35:09'!
+isModeStyleable
+	"determine if Shout can style in the current mode"
+	^ self showingSource 
+		or: [self showingTypedSource 
+		or: [self showingPrettyPrint 
+		or: [self showingDecompile]]]! !
+
+!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/22/2018 20:45:31'!
+showingTypedSourceString
+	
+	^ (self showingTypedSource 
+		ifTrue:
+			['<yes>']
+		ifFalse:
+			['<no>']), 'typed source'! !
+
+!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:40:25'!
+textToCompile: aText
+
+	| startOfTypeInfo |
+	
+	self showingTypedSource ifFalse: [ ^aText ].
+	startOfTypeInfo := aText indexOfSubCollection: MethodVariablesTypes typesInfoHeader startingAt: 1 ifAbsent: [ ^aText ].
+	^aText copyFrom: 1 to: startOfTypeInfo - 1
+	
+	! !
+
+!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:40:40'!
+toggleTypedSource
+
+	self showingTypedSource
+		ifTrue: [ self contentsSymbol: #source]
+		ifFalse: [ self contentsSymbol: #typedSource]! !
+
+!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:37:12'!
+typedSource
+
+	^ String streamContents: [ :stream | 
+		stream nextPutAll: self sourceStringPrettifiedAndDiffed.
+		currentCompiledMethod ifNotNil: [ currentCompiledMethod printTypeInfoOn: stream ]]
+			! !
+
 !Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/15/2018 23:08:28'!
 classOfInstVarNamed: aName
 
@@ -1930,6 +2261,138 @@ classOfTempVarNamed: aName
 	^currentCompiledMethod ifNotNil: [ | typeInfo |
 		typeInfo := currentCompiledMethod methodVariablesTypes typeInfoOf: aName ifAbsent: [ ^nil ].
 		typeInfo commonSupertypeIfNoTypes: [ nil ] ]! !
+
+!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:36:12'!
+contents: input notifying: aRequestor
+	"The retrieved information has changed and its source must now be
+	 updated. The information can be a variety of things, depending on
+	 the list selections (such as templates for class or message definition,
+	 methods) or the user menu commands (such as definition, comment,
+	 hierarchy).  Answer the result of updating the source."
+
+	| aString aText theClass |
+	aString _ input asString.
+	aText _ input asText.
+	editSelection == #editSystemCategories ifTrue: [ ^ self changeSystemCategories: aString ].
+	editSelection == #editClass | (editSelection == #newClass) ifTrue: [ ^ self defineClass: aString notifying: aRequestor ].
+	editSelection == #editComment
+		ifTrue: [
+			theClass _ self selectedClass.
+			theClass
+				ifNil: [
+					self inform: 'You must select a class
+before giving it a comment.'.
+					^ false].
+			theClass comment: aText stamp: Utilities changeStamp.
+			self changed: #classCommentText.
+			^ true].
+	editSelection == #hierarchy ifTrue: [ ^ true ].
+	editSelection == #editMessageCategories ifTrue: [ ^ self changeMessageCategories: aString ].
+	editSelection == #editMessage | (editSelection == #newMessage)
+		ifTrue: [
+			^ self okayToAccept
+				ifFalse:[ false ]
+				ifTrue: [
+					(self compileMessage: (self textToCompile: aText) notifying: aRequestor)
+						ifTrue: [ self triggerEvent: #annotationChanged ];
+						yourself ]].
+	editSelection == #none
+		ifTrue: [
+			self inform: 'This text cannot be accepted
+in this part of the browser.'.
+			^ false].
+	self error: 'unacceptable accept'! !
+
+!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:37:55'!
+selectedMessage
+	"Answer a copy of the source code for the selected message."
+
+	| class selector method textToShow |
+	
+	self showingDecompile ifTrue: [ ^ self decompiledSource ].
+
+	class _ self selectedClassOrMetaClass.
+	selector _ self selectedMessageName.
+	method _ class compiledMethodAt: selector ifAbsent: [^ ''].	"method deleted while in another project"
+	currentCompiledMethod _ method.
+
+	textToShow _ (self showingDocumentation
+		ifFalse: [ 
+			self showingTypedSource 
+				ifTrue: [ self typedSource ]
+				ifFalse: [ self sourceStringPrettifiedAndDiffed ]]
+		ifTrue: [ self commentContents ]).
+		
+	^textToShow copy ! !
+
+!MessageSet methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:40:28'!
+contents: aString notifying: aRequestor 
+	"Compile the code in aString. Notify aRequestor of any syntax errors. 
+	Answer false if the compilation fails. Otherwise, if the compilation 
+	created a new method, deselect the current selection. Then answer true."
+
+	| category selector class oldSelector |
+	self okayToAccept ifFalse: [^ false].
+	selectedMessage ifNil: [^ false].
+	class _ selectedMessage actualClass.
+	oldSelector _ selectedMessage methodSymbol.
+	(oldSelector notNil and: [oldSelector first isUppercase]) ifTrue:
+		[oldSelector == #Comment ifTrue:
+			[class comment: aString stamp: Utilities changeStamp.
+			self triggerEvent: #annotationChanged.
+ 			self changed: #clearUserEdits.
+			^ false].
+		oldSelector == #Definition ifTrue: [
+			Compiler
+				evaluate: aString
+				notifying: aRequestor
+				logged: true.
+			self changed: #clearUserEdits.
+ 			^ false].
+		oldSelector == #Hierarchy ifTrue:
+			[self inform: 'To change the hierarchy, edit the class definitions'. 
+			^ false]].
+	"Normal method accept"
+	category _ class organization categoryOfElement: oldSelector.
+	selector _ class compile: (self textToCompile: aString)
+				classified: category
+				notifying: aRequestor.
+	selector
+		ifNil: [^ false].
+	selector == oldSelector ifFalse: [
+		self reformulateListNoting: selector].
+	self triggerEvent: #annotationChanged.
+	^ true! !
+
+!MessageSet methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:36:37'!
+selectedMessage
+	"Answer the source method for the currently selected message."
+
+	| class selector |
+	selectedMessage ifNil: [^ 'Class vanished'].
+	
+	class _ selectedMessage actualClass.
+	selector _ selectedMessage methodSymbol.
+	selector ifNil: [ ^'prims'].
+
+	selector first isUppercase ifTrue: [
+		selector == #Comment ifTrue: [
+			currentCompiledMethod _ class organization commentRemoteStr.
+			^ class comment].
+		selector == #Definition ifTrue: [
+			^ class definition].
+		selector == #Hierarchy ifTrue: [^ class printHierarchy]].
+	(class includesSelector: selector) ifFalse: [
+		currentCompiledMethod _ nil.
+		^ 'Missing'].
+	
+	self showingDecompile ifTrue: [ ^ self decompiledSource ].
+
+	currentCompiledMethod _ class compiledMethodAt: selector ifAbsent: nil.
+	self showingDocumentation ifTrue: [^ self commentContents ].
+	self showingTypedSource ifTrue: [ ^self typedSource ].
+
+	^self sourceStringPrettifiedAndDiffed! !
 
 !Behavior methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 21:07:29'!
 indexOfInstanceVariable: anInstVarName ifAbsent: aBlock
@@ -2092,6 +2555,11 @@ typeInfoOfInstanceVariableNamed: anInstVarName
 
 	^self instanceVariablesTypes typeInfoOf: anInstVarName ! !
 
+!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:57:58'!
+typeInfoOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock
+
+	^self instanceVariablesTypes typeInfoOf: anInstVarName ifAbsent: aBlock! !
+
 !ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:08:50'!
 typeInfoOfMethodVariableNamed: aVarName at: aSelector
 
@@ -2113,6 +2581,19 @@ typesOfMethodVariableNamed: aVarName at: aSelector
 isSubclassesEmpty
 
 	^subclasses isNil ! !
+
+!Metaclass methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:55:06'!
+definition
+	"Refer to the comment in ClassDescription|definition."
+
+	^ String streamContents: [ :strm |
+		strm print: self;
+			newLine;
+			tab;
+			nextPutAll: 'instanceVariableNames: ';
+			store: self instanceVariablesString.
+			
+		self printInstanceVariablesTypesOn: strm]! !
 
 !Metaclass methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/17/2018 20:31:37'!
 isSubclassesEmpty
@@ -2195,6 +2676,23 @@ methodVariablesTypes
 
 	^self methodClass methodVariablesTypesOf: self! !
 
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:43:21'!
+printTypeInfoOn: aStream
+
+	| variablesTypes beforeVariablesTypesPosition |
+	
+	variablesTypes := self methodVariablesTypes.
+	beforeVariablesTypesPosition := aStream position.
+	
+	variablesTypes printVariablesTypesOn: aStream.
+	beforeVariablesTypesPosition = aStream position 
+		ifTrue: [ variablesTypes printTypesInfoHeaderOn: aStream ]
+		ifFalse: [ aStream position: aStream position - 1].
+	
+	self returnTypeInfo printOn: aStream.
+	aStream newLine.
+	variablesTypes printTypesInfoFooterOn: aStream! !
+
 !CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/5/2018 17:00:19'!
 rawReturnTypes
 	
@@ -2229,6 +2727,16 @@ typedMessageSendersOf: aCompiledMethod
 	
 	^sendersCollector senders! !
 
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:05:40'!
+typesInfoOfVariableNamed: aVarName 
+
+	^self methodVariablesTypes typeInfoOf: aVarName! !
+
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:05:35'!
+typesInfoOfVariableNamed: aVarName ifAbsent: aBlock
+
+	^self methodVariablesTypes typeInfoOf: aVarName ifAbsent: aBlock! !
+
 !CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:08:07'!
 typesOfInstanceVariableNamed: anInstVarName
 
@@ -2239,7 +2747,7 @@ typesOfVariableNamed: aVarName
 
 	^self methodVariablesTypes typesOf: aVarName! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 02:12:05'!
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:03:59'!
 typesOfVariableNamed: aVarName ifAbsent: aBlock
 
 	^self methodVariablesTypes typesOf: aVarName ifAbsent: aBlock! !
@@ -2267,20 +2775,58 @@ typesIn: aCompiledMethod
 	
 	self subclassResponsibility ! !
 
+!Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:26:10'!
+parseNodeAt: aRange ifAbsent: aBlockClosure 
+
+	sourceRanges associationsDo: [ :nodeToRange | nodeToRange value = aRange ifTrue: [ ^ nodeToRange key ]].
+	^aBlockClosure value! !
+
+!Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 23:19:46'!
+parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
+
+	| minimum nodeWithRangeAtPosition |
+	
+	minimum := nil.
+	nodeWithRangeAtPosition := nil.
+	sourceRanges associationsDo: [ :nodeAtRange | | currentNodeRange currentNodeRangeSize ranges |
+		currentNodeRange := nodeAtRange value.
+		ranges := currentNodeRange isInterval ifTrue: [ Array with: currentNodeRange ] ifFalse: [ currentNodeRange ].
+		ranges do: [ :aRange |
+			(aRange includes: aPosition) ifTrue: [ 
+				currentNodeRangeSize := aRange size.
+				(minimum isNil or: [currentNodeRangeSize < minimum]) ifTrue: [ 
+					minimum := currentNodeRangeSize.
+					nodeWithRangeAtPosition := nodeAtRange key -> aRange ]]]].
+	
+	^ nodeWithRangeAtPosition ifNil: aBlockClosure ifNotNil: [ nodeWithRangeAtPosition ]
+			! !
+
 !AssignmentNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 02:25:55'!
 typesIn: aCompiledMethod 
 	
 	^value typesIn: aCompiledMethod ! !
+
+!BraceNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 12:13:43'!
+typesIn: aCompiledMethod 
+	
+	^elements 
+		inject: Set new
+		into: [ :types :aParseNode | types addAll: (aParseNode typesIn: aCompiledMethod). types ]! !
 
 !LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:35:07'!
 typesIn: aCompiledMethod 
 	
 	^Array with: self literalValue class! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:53:41'!
-isFalse
+!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:57:13'!
+isFalsePseudoVariable
 	
 	^key = 'false'! !
+
+!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 12:15:09'!
+isNilPseudoVariable
+	
+	^ key = 'nil'! !
 
 !VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 01:07:27'!
 isSuperPseudoVariable
@@ -2292,19 +2838,20 @@ isThisContextPseudoVariable
 	
 	^key = 'thisContext'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:52:58'!
-isTrue
+!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:56:52'!
+isTruePseudoVariable
 	
 	^ key = 'true'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 01:12:36'!
+!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:57:13'!
 typesIn: aCompiledMethod 
 	
 	self isSelfPseudoVariable ifTrue: [ ^Array with: aCompiledMethod methodClass ].
 	self isSuperPseudoVariable ifTrue: [ ^Array with: aCompiledMethod methodClass superclass ].
-	self isTrue ifTrue: [ ^Array with: true class ].
-	self isFalse ifTrue: [ ^Array with: false class ].
+	self isTruePseudoVariable ifTrue: [ ^Array with: true class ].
+	self isFalsePseudoVariable ifTrue: [ ^Array with: false class ].
 	self isThisContextPseudoVariable ifTrue: [ ^Array with: thisContext class ]. 
+	self isNilPseudoVariable ifTrue: [ ^Array with: nil class ]. 
 	
 	self error: 'Unsupported variable node'! !
 
@@ -2335,6 +2882,113 @@ typesIn: aCompiledMethod
 			messageReturnTypes ].
 		
 	^types! !
+
+!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:22:51'!
+parseNodeAt: anInterval 
+	self shouldBeImplemented.! !
+
+!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:23:52'!
+parseNodeAt: aRange ifAbsent: aBlockClosure 
+	
+	^encoder parseNodeAt: aRange ifAbsent: aBlockClosure ! !
+
+!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 23:01:06'!
+parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
+	
+	^encoder parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
+! !
+
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 23:24:00'!
+printSelectionTypeInfo
+
+	| class typeInfo nodeAtRange methodNode types |
+
+	class := self codeProvider selectedClassOrMetaClass.
+	methodNode := class methodNodeFor: model actualContents.
+	
+	nodeAtRange := methodNode parseNodeIncluding: self startIndex ifAbsent: [ ^nil ].
+	types := nodeAtRange key typesIn: (class compiledMethodAt: methodNode selector ifAbsent: [^self]).
+	typeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
+	self 
+		insertAndSelect: ((' ', typeInfo printTextAsCommentedTypes, ' ') initialFontFrom: emphasisHere) 
+		at: nodeAtRange value last + 1
+	
+	! !
+
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 22:52:28'!
+printSelectionTypeInfo2
+
+	| selection class method selector typeInfo |
+self halt.
+	self hasSelection ifFalse: [ self selectWord ].
+	selection := self selection string withBlanksTrimmed.
+	selection isEmpty ifTrue: [ ^self].
+	class := self codeProvider selectedClassOrMetaClass.
+	selector := self codeProvider selectedMessageName.
+	(class isNil or: [ selector isNil ]) ifTrue: [ ^self ].
+	method := class compiledMethodAt: selector ifAbsent: [^self].
+	typeInfo := method typesInfoOfVariableNamed: selection ifAbsent: [ nil ].
+	typeInfo ifNil: [ typeInfo := class typeInfoOfInstanceVariableNamed: selection ifAbsent: [ nil ]].
+	typeInfo ifNil: [ selection = '^' ifTrue: [ typeInfo := method returnTypeInfo ] ifFalse: [ nil ]].
+	typeInfo ifNil: [ typeInfo := self typeInfoOfSelectedMessageSendIn: class ].
+	typeInfo ifNotNil: [ self afterSelectionInsertAndSelect: ((' ', typeInfo printTextAsCommentedTypes, ' ') initialFontFrom: emphasisHere) ]
+	
+	! !
+
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:16:25'!
+printSelectionTypeInfo: aKeyboardEvent
+
+	self printSelectionTypeInfo.
+	^true! !
+
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 22:42:20'!
+typeInfoOfSelectedMessageSendIn: class 
+	
+	| methodNode node types |
+	self halt.
+	methodNode := class methodNodeFor: model actualContents.
+	
+	node := methodNode parseNodeAt: (self startIndex to: self stopIndex - 1) ifAbsent: [ ^nil ].
+	node isMessageNode ifFalse: [ ^nil ].
+	
+	types := node typesIn: class >> methodNode selector.
+	
+	^ReturnTypeInfo of: nil are: types asArray! !
+
+!SmalltalkEditor class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:17:43'!
+cmdShortcutsSpec
+	"
+	Editor initialize
+	"
+	"arranged in QWERTY keyboard order"
+	^#(
+		#(		$r	#acceptAndDebugTest:		'Saves method and debugs it')
+		#(		$t	#acceptAndTest:				'Saves method, runs it as test and then all tests in class. Opens debugger if error')
+		#(		$y	#acceptAndTestAll:				'Saves method, runs it as test and then all tests in class category. Opens debugger if error')
+		#(		$i	#inspectIt:							'Inspect it (selection is a valid expression, or selection is over an inspect-ilst)')
+		#(		$p	#printIt:								'Print it (selection is a valid expression)')
+		#(		$P	#printSelectionTypeInfo:		'Prints type info of selection')
+
+		#(		$s	#save:								'Save (i.e. accept)')
+		#(		$d	#doIt:								'Do it (selection is a valid expression)')
+
+		#(		$b	#browseIt:							'Browse it (selection is a class name or cursor is over a class-list or message-list)')
+		#(		$n	#sendersOfIt:						'Senders of it (selection is a message selector or cursor is over a class-list or message-list)')
+		#(		$m	#implementorsOfIt:				'Implementors of it (selection is a message selector or cursor is over a class-list or message-list)')
+
+		#(		$E	#methodStringsContainingit:'Method strings containing it')
+		#(		$T	#displayIfTrue:					'Insert #ifTrue:')
+		#(		$I	#exploreIt:							'Inspect via Object Explorer')
+
+		#(		$Q	#argPrev:							'Previous argument')
+		#(		$A	#argNext:							'Next argument')
+		#(		$D	#debugIt:							'Debug it')
+		#(		$F	#displayIfFalse:					'Insert #ifFalse:')
+		#(		$G	#fileItIn:							'File in selection')
+
+		#(		$V	#pasteInitials:					'Paste author initials')
+		#(		$N	#referencesToIt:					'References to it (selection is a class name, or cursor is over a class-list or message-list)')
+	)! !
 
 !MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:30:37'!
 doesTypedSend: aCompiledMethod 
