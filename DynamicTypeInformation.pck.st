@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 28 October 2018 at 11:08:53 pm'!
-'Description typed senders and implementors on source code - a lot to improve and fix'!
-!provides: 'DynamicTypeInformation' 1 9!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3470] on 5 November 2018 at 8:56:14 am'!
+'Description typed renamed, more changes on senders and implementors - used at smalltalks 2018'!
+!provides: 'DynamicTypeInformation' 1 11!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
@@ -16,7 +16,7 @@ IncompleteTypeInfo class
 
 !classDefinition: #TypedMessageSendsCollector category: #DynamicTypeInformation!
 ParseNodeVisitor subclass: #TypedMessageSendsCollector
-	instanceVariableNames: 'sent toAnalize sentSelector sentMethodClass unsafeSenders safeSenders'
+	instanceVariableNames: 'sent toAnalize sentSelector sentMethodClass sureSenders unsureSenders'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
@@ -25,8 +25,8 @@ sent : <CompiledMethod>
 toAnalize : <CompiledMethod>
 sentSelector : <Symbol>
 sentMethodClass : <TypedSendersOfTest class | SmallInteger class | Integer class | True class | False class | ContextPart class | TestCase class | Metaclass | Character class | TicTacToe class> # ClassDescription
-unsafeSenders : <OrderedCollection>
-safeSenders : <OrderedCollection>
+sureSenders : <OrderedCollection>
+unsureSenders : <OrderedCollection>
 "!
 !classDefinition: 'TypedMessageSendsCollector class' category: #DynamicTypeInformation!
 TypedMessageSendsCollector class
@@ -66,6 +66,20 @@ instVar4 : <>
 "!
 !classDefinition: 'InstanceVariablesTypesTest class' category: #DynamicTypeInformation!
 InstanceVariablesTypesTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #ReturnTypeInfoTest category: #DynamicTypeInformation!
+TestCase subclass: #ReturnTypeInfoTest
+	instanceVariableNames: 'iv1 iv2'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+iv1 : <>
+iv2 : <SmallFloat64 | SmallInteger> # Number
+"!
+!classDefinition: 'ReturnTypeInfoTest class' category: #DynamicTypeInformation!
+ReturnTypeInfoTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #TypedSendersOfTest category: #DynamicTypeInformation!
@@ -112,20 +126,20 @@ dateOfBirth : <Date | DateAndTime> # Object
 Customer class
 	instanceVariableNames: ''!
 
-!classDefinition: #Customer1 category: #DynamicTypeInformation!
-Object subclass: #Customer1
-	instanceVariableNames: 'firstName lastName dateOfBirth x'
+!classDefinition: #Customer2 category: #DynamicTypeInformation!
+Object subclass: #Customer2
+	instanceVariableNames: 'lastName dateOfBirth x firstName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-firstName : <>
 lastName : <>
 dateOfBirth : <>
 x : <>
+firstName : <>
 "!
-!classDefinition: 'Customer1 class' category: #DynamicTypeInformation!
-Customer1 class
+!classDefinition: 'Customer2 class' category: #DynamicTypeInformation!
+Customer2 class
 	instanceVariableNames: ''!
 
 !classDefinition: #DynamicTypeInfoMenues category: #DynamicTypeInformation!
@@ -158,7 +172,7 @@ IVTIRoot subclass: #IVTISibling1
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-ivsibling1 : <>
+ivsibling1 : <SmallFloat64>
 "!
 !classDefinition: 'IVTISibling1 class' category: #DynamicTypeInformation!
 IVTISibling1 class
@@ -181,8 +195,8 @@ Object subclass: #NotCompiledYetMethod
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-class : <UndefinedObject class | SmalltalkEditor class> # Object class
-selector : <Symbol>
+class : <>
+selector : <>
 "!
 !classDefinition: 'NotCompiledYetMethod class' category: #DynamicTypeInformation!
 NotCompiledYetMethod class
@@ -218,7 +232,7 @@ VariableTypeInfo subclass: #InstanceVariableTypeInfo
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-class : <ReturnTypeInfo class | AnObsoleteClassToAddParameter class | AnObsoleteClassToAddInstVar class | EmptyLine class | TextLine class | AdditionalMethodState class | BlockClosure class | AnObsoleteSubclassWithInstVar class | DecompilerTestFailuresCollector class | AnObsoleteClassToAddInstVar class | AnObsoleteClassToAddInstVar class | Point class | AnObsoleteSuperclassWithInstVar class | AnObsoleteSuperclassWithInstVar class | MethodContext class | AnObsoleteSubclassWithInstVar class | InstanceVariableTypeInfoInClass class | MethodVariableTypeInfo class | VariableTypeInfo class> # Object class
+class : <TheWorldMenu class | Preference class | ClassBuilder class | SHRange class | AnObsoleteClassToAddParameter class | BlockClosure class | AnObsoleteClassToAddInstVar class | AnObsoleteSubclassWithInstVar class | AnObsoleteClassToAddInstVar class | AnObsoleteSuperclassWithInstVar class | AnObsoleteClassToExtractTemp class | AnObsoleteClassToRefactorSuperclass class | IVTISibling1 class | IVTIRoot class | InstanceVariableTypeInfoInClass class | AnObsoleteClassToAddSuperclass class | ClassOrganizer class | PseudoClassOrganizer class | SystemOrganizer class | Monitor class> # Object class
 varName : <String>
 "!
 !classDefinition: 'InstanceVariableTypeInfo class' category: #DynamicTypeInformation!
@@ -290,7 +304,7 @@ VariablesTypes subclass: #InstanceVariablesTypes
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-class : <InstanceVariablesTypes class | InstructionStream class | ContextPart class | MethodContext class | Point class | TextLine class | EmptyLine class | BlockClosure class | Parser class | DenotativeObjectParser class> # Object class
+class : <InstanceVariablesTypes class | ClassOrganizer class | PseudoClassOrganizer class | SystemOrganizer class | Monitor class | TheWorldMenu class | UISupervisor class | Preference class | ClassBuilder class | BitBlt class> # Object class
 rawTypes : <Array | UndefinedObject> # Array
 "!
 !classDefinition: 'InstanceVariablesTypes class' category: #DynamicTypeInformation!
@@ -319,17 +333,17 @@ isResumable
 	
 	^ true! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/28/2018 21:56:34'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 doesTypedSendSafely
 
-	^safeSenders notEmpty and: [ unsafeSenders isEmpty ]! !
+	^sureSenders notEmpty and: [ unsureSenders isEmpty ]! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/28/2018 21:56:23'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 doesTypedSendUnsafely
 
-	^ unsafeSenders notEmpty! !
+	^ unsureSenders notEmpty! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/28/2018 21:56:34'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 initializeIn: toAnalizeCompiledMethod of: aSentCompiledMethod 
 
 	toAnalize := toAnalizeCompiledMethod.
@@ -337,20 +351,20 @@ initializeIn: toAnalizeCompiledMethod of: aSentCompiledMethod
 	sentSelector := sent selector.
 	sentMethodClass := sent methodClass.
 	
-	safeSenders := OrderedCollection new.
-	unsafeSenders := OrderedCollection new.! !
+	sureSenders := OrderedCollection new.
+	unsureSenders := OrderedCollection new.! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/28/2018 21:57:11'!
-safeSenders
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:29'!
+sureSenders
 	
-	^safeSenders! !
+	^sureSenders! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/28/2018 21:56:54'!
-unsafeSenders
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
+unsureSenders
 	
-	^unsafeSenders ! !
+	^unsureSenders ! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/28/2018 22:05:17'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 visitMessageNode: aMessageNode
 	
 	(aMessageNode selector named: sentSelector) ifTrue: [ | receiverTypes incompleteTypeInfo incompleteTypeInfoReasons |
@@ -365,10 +379,10 @@ visitMessageNode: aMessageNode
 				anError resume ].
 			
 		receiverTypes isEmpty
-			ifTrue: [ unsafeSenders add: aMessageNode->(Array with: 'Could not get receiver''s type info') ]
+			ifTrue: [ unsureSenders add: aMessageNode->(Array with: 'Could not get receiver''s type info') ]
 			ifFalse: [ (receiverTypes anySatisfy: [ :aReceiverType | aReceiverType includesBehavior: sentMethodClass]) 
-				ifTrue: [ safeSenders add: aMessageNode ]
-				ifFalse: [ incompleteTypeInfo ifTrue: [ unsafeSenders add: aMessageNode->incompleteTypeInfoReasons ]]]].
+				ifTrue: [ sureSenders add: aMessageNode ]
+				ifFalse: [ incompleteTypeInfo ifTrue: [ unsureSenders add: aMessageNode->incompleteTypeInfoReasons ]]]].
 		
 	^super visitMessageNode: aMessageNode 
 	! !
@@ -717,6 +731,139 @@ instanceVariableRawTypesSizeFor: anInstVarName
 	
 	^super instanceVariableRawTypesSizeFor: anInstVarName! !
 
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:57:51'!
+assertReturnTypeOf: aSelector are: types
+
+	| method methodReturnTypeInfo |
+	
+	method := self class >> aSelector.
+	method initializeTypeInformation.
+	methodReturnTypeInfo := method returnTypeInfo.
+	
+	self assert: types size equals: methodReturnTypeInfo typesSize.
+	self assert: (methodReturnTypeInfo typesIncludesAllOf: types)! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:58:16'!
+assertReturnTypeOf: aSelector is: aType
+
+	self assertReturnTypeOf: aSelector are: (Array with: aType)! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:40:21'!
+quickReturnFalse
+
+	^false! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:51:45'!
+quickReturnFirstInstanceVariable
+
+	^iv1! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:43:30'!
+quickReturnMinusOne
+
+	^-1! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:42:16'!
+quickReturnNil
+
+	^nil! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:44:40'!
+quickReturnOne
+
+	^1! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 22:12:20'!
+quickReturnSecondInstanceVariable
+
+	^iv2! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:24:29'!
+quickReturnSelf
+
+	^self! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:36:02'!
+quickReturnTrue
+
+	^true! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:50:11'!
+quickReturnTwo
+
+	^2! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:49:22'!
+quickReturnZero
+
+	^0! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:40:11'!
+test01QuickReturnSelfMethodsReturnSelfAsReturnType
+
+	self assertReturnTypeOf: #quickReturnSelf is: self class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:39:17'!
+test02QuickReturnTrueMethodsReturnTrueReturnType
+
+	self assertReturnTypeOf: #quickReturnTrue is: true class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:40:42'!
+test03QuickReturnFalseMethodsReturnFalseAsReturnType
+
+	self assertReturnTypeOf: #quickReturnFalse is: false class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:42:36'!
+test04QuickReturnNilMethodsReturnUndefinedObjectAsReturnType
+
+	self assertReturnTypeOf: #quickReturnNil is: nil class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:44:02'!
+test05QuickReturnMinusOneMethodsReturnSmallIntegerAsReturnType
+
+	self assertReturnTypeOf: #quickReturnMinusOne is: -1 class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:45:51'!
+test06QuickReturnZeroMethodsReturnSmallIntegerAsReturnType
+
+	self assertReturnTypeOf: #quickReturnZero is: 0 class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:45:38'!
+test07QuickReturnOneMethodsReturnSmallIntegerAsReturnType
+
+	self assertReturnTypeOf: #quickReturnOne is: 1 class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:51:55'!
+test08QuickReturnTwoMethodsReturnSmallIntegerAsReturnType
+
+	self assertReturnTypeOf: #quickReturnTwo is: 2 class.
+	! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 22:00:09'!
+test09QuickReturnOfFirstInstanceVariableMethodsReturnInstanceVariableTypesAsReturnType
+
+	self class initializeInstanceVariablesRawTypes.
+	iv1 := 'hello'.
+	iv1 := 1.
+	
+	self assertReturnTypeOf: #quickReturnFirstInstanceVariable are: (Array with: 'hello' class with: 1 class)! !
+
+!ReturnTypeInfoTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 22:13:24'!
+test10QuickReturnOfSecondInstanceVariableMethodsReturnInstanceVariableTypesAsReturnType
+
+	self class initializeInstanceVariablesRawTypes.
+	iv2 := 1.0.
+	iv2 := 1.
+	
+	self assertReturnTypeOf: #quickReturnSecondInstanceVariable are: (Array with: 1.0 class with: 1 class)! !
+
 !TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 00:21:22'!
 assert: expected isIdenticalTo: actual
 	
@@ -757,16 +904,16 @@ m3: anObject
 
 	^anObject + 2! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test01
 
 	v1 := self.
 	
 	v1 m1.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: self class>>#m1)! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: self class>>#m1)! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test02
 
 	| t1 |
@@ -775,56 +922,56 @@ test02
 	
 	t1 m1.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: self class>>#m1)! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: self class>>#m1)! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test03
 	
 	1 + 2.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (1 class>>#+))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (1 class>>#+))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test04
 	
 	1 factorial.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (1 class lookupSelector: #factorial))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (1 class lookupSelector: #factorial))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test05
 	
 	true & true.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (true class lookupSelector: #&))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (true class lookupSelector: #&))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test06
 	
 	false & true.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (false class lookupSelector: #&))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (false class lookupSelector: #&))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test07
 	
 	thisContext selector.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (thisContext class lookupSelector: #selector))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (thisContext class lookupSelector: #selector))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test08
 	
 	self m1.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (self class lookupSelector: #m1))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (self class lookupSelector: #m1))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test09
 	
 	super selector.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (self class lookupSelector: #selector))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (self class lookupSelector: #selector))! !
 
 !TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 01:16:33'!
 test09_01
@@ -837,14 +984,14 @@ test09_01
 	
 	when receiver is super?"! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test10
 	
 	self selector.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (self class lookupSelector: #selector))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (self class lookupSelector: #selector))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test11
 	
 	"
@@ -853,9 +1000,9 @@ test11
 	
 	self m1 + 2.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (1 class lookupSelector: #+))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (1 class lookupSelector: #+))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test12
 	
 	"
@@ -864,9 +1011,9 @@ test12
 	
 	self m2 m1 + 2.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (1 class lookupSelector: #+))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (1 class lookupSelector: #+))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test13
 	
 	"
@@ -875,9 +1022,9 @@ test13
 	
 	(self m3: 1) + 2.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (1 class lookupSelector: #+))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (1 class lookupSelector: #+))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test14
 	
 	"
@@ -886,9 +1033,9 @@ test14
 	
 	TypedSendersOfTest m1.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (self class class lookupSelector: #m1))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (self class class lookupSelector: #m1))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test15
 	
 	"
@@ -899,9 +1046,9 @@ test15
 	t1 := TypedSendersOfTest.
 	t1 m1.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: (self class class lookupSelector: #m1))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: (self class class lookupSelector: #m1))! !
 
-!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:40:14'!
+!TypedSendersOfTest methodsFor: 'as yet unclassified' stamp: 'HAW 10/31/2018 08:17:53'!
 test16
 	
 	"
@@ -909,7 +1056,7 @@ test16
 	"
 	$a asCharacter.
 	
-	self assert: (self class>>thisContext selector doesTypedSendSafely: ($a class lookupSelector: #asCharacter))! !
+	self assert: (self class>>thisContext selector doesSurelyTypedSend: ($a class lookupSelector: #asCharacter))! !
 
 !TypedSendersOfTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/21/2018 10:40:36'!
 m1
@@ -1329,10 +1476,25 @@ m6
 
 	^false or: [ false ]! !
 
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 05:46:50'!
+m7
+
+	^self! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 05:50:07'!
+m8
+
+	^true! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 06:03:40'!
+m8: a
+
+	^a! !
+
 !Customer class methodsFor: 'instance creation' stamp: 'HAW 9/17/2018 12:09'!
 named: aFirstName with: aLastName bornOn: aDateOfBirth	^self new initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth	! !
 
-!Customer1 methodsFor: 'as yet unclassified' stamp: 'HAW 9/27/2018 16:43:52'!
+!Customer2 methodsFor: 'as yet unclassified' stamp: 'HAW 10/30/2018 16:23:18'!
 initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
 	
 	firstName := aFirstName.
@@ -1391,9 +1553,12 @@ instanceVariableRawTypesSizeFor: anInstVarName
 
 	^ 2! !
 
-!IVTISibling1 methodsFor: 'as yet unclassified' stamp: 'HAW 10/15/2018 23:17:35'!
+!IVTISibling1 methodsFor: 'as yet unclassified' stamp: 'HAW 11/2/2018 08:31:27'!
 ivsibling1: anObject
-
+	"
+	IVTISibling1 initializeInstanceVariablesRawTypes.
+	self new ivsibling1: 1.0 
+	"
 	ivsibling1 := anObject ! !
 
 !IVTISibling1 class methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 01:07:21'!
@@ -1451,16 +1616,13 @@ class: aClass selector: aSelector
 
 	^self new initializeClass: aClass selector: aSelector ! !
 
-!PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/4/2018 09:08:34'!
+!PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 11/1/2018 12:24:48'!
 aconcaguaTime
 
 	"
 	self aconcaguaTime
 	"
-	| a |
 	
-	a _ 1.
-	a _ a + 1.
 	^ self timeToRunTestsOf: 'Aconcagua' ! !
 
 !PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 9/22/2018 21:53:02'!
@@ -1471,6 +1633,36 @@ chaltenTime
 	"
 	
 	^ self timeToRunTestsOf: 'Chalten'! !
+
+!PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 11/1/2018 12:35:04'!
+kernelTestsTime
+
+	"
+	self kernelTestsTime
+	"
+	
+	^#('Tests-Exceptions' "'Tests-Kernel-Numbers'" "'Tests-Kernel'" 'Tests-Kernel-Chronology' 'Tests-Collections' "'Tests-System'" 'Tests-Kernel-Classes' 'Tests-Collections-Arrayed') 
+		sum: [ :aCategory |  self timeToRunTestsOf: aCategory ].
+	! !
+
+!PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 11/1/2018 12:36:38'!
+refactoringTime
+
+	"
+	self refactoringTime
+	"
+	
+	^self timeToRunTestsOf: 'Refactoring'.
+	! !
+
+!PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 11/1/2018 12:26:02'!
+ticTacToeTime
+
+	"
+	self ticTacToeTime
+	"
+	
+	^ self timeToRunTestsOf: 'TicTacToe'! !
 
 !PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 9/22/2018 21:51:11'!
 timeToRunTestsOf: aCategoryBeginName
@@ -1491,10 +1683,10 @@ addType: aType
 			typeAtIndex = aType ifTrue: [ ^self ].
 			typeAtIndex ifNil: [ ^rawTypes at: rawTypesIndex put: aType ]]]! !
 
-!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 10/15/2018 22:48:38'!
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 11/2/2018 11:50:29'!
 isTypesEmpty
 	
-	^rawTypes isNil or: [ rawTypes first isNil ]! !
+	^rawTypes isNil or: [ rawTypes isEmpty or: [rawTypes first isNil ]]! !
 
 !VariableTypeInfo methodsFor: 'types' stamp: 'HAW 10/20/2018 20:06:47'!
 types
@@ -1740,6 +1932,11 @@ printTypesOn: aStream
 			nextPutAll: ' # ';
 			nextPutAll: self commonSupertype name ].
 	! !
+
+!VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:58:58'!
+typesIncludesAllOf: aTypesCollection
+	
+	^self types includesAllOf: aTypesCollection ! !
 
 !VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:21:04'!
 variableName
@@ -2320,18 +2517,21 @@ printTypesInfoHeaderOn: aStream
 		newLine.	
 		! !
 
-!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/22/2018 08:47:57'!
+!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 21:40:43'!
 createReturnTypeInfoOf: aCompiledMethod
 
 	(aCompiledMethod selector = #class and: [ aCompiledMethod methodClass = Object ]) 
 		ifTrue: [ ^ReturnTypeInfo of: aCompiledMethod are: { Behavior } ].
+	aCompiledMethod isReturnField 
+		ifTrue: [ ^ReturnTypeInfo of: aCompiledMethod are: (aCompiledMethod methodClass typesOfInstanceVariableAt: aCompiledMethod returnField + 1) asArray ].
 	
 	^super createReturnTypeInfoOf: aCompiledMethod! !
 
-!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/22/2018 08:48:42'!
+!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 22:02:52'!
 methodReturnRawTypesSizeOf: aCompiledMethod
 
 	(aCompiledMethod selector = #class and: [ aCompiledMethod methodClass = Object ]) ifTrue: [ ^0 ].
+	aCompiledMethod isReturnField ifTrue: [ ^0 ].
 	
 	^super methodReturnRawTypesSizeOf: aCompiledMethod! !
 
@@ -2699,6 +2899,11 @@ typeInfoOfMethodVariableNamed: aVarName at: aSelector
 
 	^(self methodVariablesTypesAt: aSelector) typeInfoOf: aVarName! !
 
+!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 22:10:39'!
+typesOfInstanceVariableAt: anIndex
+
+	^self typesOfInstanceVariableNamed: (self allInstVarNames at: anIndex)! !
+
 !ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 20:49:14'!
 typesOfInstanceVariableNamed: anInstVarName
 
@@ -2793,8 +2998,8 @@ storeOn: aStream
 
 	"review this!!"! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:42:54'!
-doesTypedSendSafely: aCompiledMethod 
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:17:39'!
+doesSurelyTypedSend: aCompiledMethod 
 	
 	| typedMessageSendsCollector |
 	
@@ -2815,6 +3020,11 @@ initializeTypeInformation
 	additionalMethodState := AdditionalMethodState forMethod: self selector: self selector.
 	self penultimateLiteral: additionalMethodState.
 	additionalMethodState initializeTypeInformation ! !
+
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:35:23'!
+isQuickReturnSelf
+	
+	^self primitive = 256! !
 
 !CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 18:36:01'!
 methodVariablesTypes
@@ -2902,44 +3112,44 @@ typesOfVariableNamed: aVarName ifAbsent: aBlock
 
 	^self methodVariablesTypes typesOf: aVarName ifAbsent: aBlock! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 21:58:12'!
+!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:20:38'!
 allTypedCallsOn: aSentCompiledMethod 
 	
-	| allSenders safeTypedSenders unsafeTypedSenders |
+	| allSenders sureTypedSenders unsureTypedSenders |
 	
 	allSenders := self allCallsOn: aSentCompiledMethod selector.
 	
-	safeTypedSenders := OrderedCollection new.
-	unsafeTypedSenders := OrderedCollection new.
+	sureTypedSenders := OrderedCollection new.
+	unsureTypedSenders := OrderedCollection new.
 	
 	allSenders do: [ :aSender | | typedMessageSendersCollector | 
 		typedMessageSendersCollector := aSender typedMessageSendersOf: aSentCompiledMethod.
-		typedMessageSendersCollector doesTypedSendSafely ifTrue: [ safeTypedSenders add: aSender ].
-		typedMessageSendersCollector doesTypedSendUnsafely ifTrue: [ unsafeTypedSenders add: aSender ]].
+		typedMessageSendersCollector doesTypedSendSafely ifTrue: [ sureTypedSenders add: aSender ].
+		typedMessageSendersCollector doesTypedSendUnsafely ifTrue: [ unsureTypedSenders add: aSender ]].
 		
-	^Array with: safeTypedSenders with: unsafeTypedSenders ! !
+	^Array with: sureTypedSenders with: unsureTypedSenders ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 21:58:45'!
+!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:21:02'!
 browseAllTypedCallsOn: aSentCompiledMethod 
 	
-	| unsafeTypedSenders safeTypedSenders typedSenders |
+	| unsureTypedSenders sureTypedSenders typedSenders |
 	
 	typedSenders := self allTypedCallsOn: aSentCompiledMethod.
-	safeTypedSenders := typedSenders first asArray sort.
-	unsafeTypedSenders := typedSenders second asArray sort.
-	unsafeTypedSenders do: [ :aSender | aSender prefixStringVersionWith: '(Unsafe) - ' ].
+	sureTypedSenders := typedSenders first asArray sort.
+	unsureTypedSenders := typedSenders second asArray sort.
+	unsureTypedSenders do: [ :aSender | aSender prefixStringVersionWith: '(Unsure) - ' ].
 	
 	self 			
-		browseMessageList: safeTypedSenders, unsafeTypedSenders 
+		browseMessageList: sureTypedSenders, unsureTypedSenders 
 		name: 'Typed Senders of ' , aSentCompiledMethod classAndSelector
 		autoSelect: aSentCompiledMethod selector ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 21:59:14'!
+!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:21:22'!
 browseAllTypedCallsOn: sentSelector forAll: types  
 	"
 	Smalltalk browseAllTypedCallsOn: #digitLength forAll: (Array with: LargePositiveInteger with: SmallInteger)
 	"
-	| unsafeTypedSenders safeTypedSenders sentImplementors notImplemented |
+	| unsureTypedSenders sureTypedSenders sentImplementors notImplemented |
 	
 	notImplemented := Set new.
 	sentImplementors := types inject: Set new into: [ :sentCompiledMethods :type | 
@@ -2951,19 +3161,19 @@ browseAllTypedCallsOn: sentSelector forAll: types
 	
 	sentImplementors ifEmpty: [ ^self inform: 'There are no implementors of ', sentSelector , ' to look typed senders of' ].
 	
-	safeTypedSenders := Set new. 
-	unsafeTypedSenders := Set new. 	
+	sureTypedSenders := Set new. 
+	unsureTypedSenders := Set new. 	
 	sentImplementors do: [ :aSentImplementor | | typedSenders | 
 		typedSenders := self allTypedCallsOn: aSentImplementor.
-		typedSenders first do: [ :aMethodReference | aMethodReference prefixStringVersionWith: aSentImplementor methodClass name, ' - ' ].
-		typedSenders second do: [ :aMethodReference | aMethodReference prefixStringVersionWith: '(Unsafe) - ', aSentImplementor methodClass name , ' - ' ].
-		safeTypedSenders addAll: typedSenders first.
-		unsafeTypedSenders addAll: typedSenders second ].
+		typedSenders first do: [ :aMethodReference | aMethodReference prefixStringVersionWith: '<', aSentImplementor methodClass name, '> - ' ].
+		typedSenders second do: [ :aMethodReference | aMethodReference prefixStringVersionWith: '(Unsure) - <', aSentImplementor methodClass name , '> - ' ].
+		sureTypedSenders addAll: typedSenders first.
+		unsureTypedSenders addAll: typedSenders second ].
 		
 	self 			
 		browseMessageList: 
-			(safeTypedSenders asArray sort: [ :left :right | left stringVersion < right stringVersion ]), 
-			(unsafeTypedSenders asArray sort: [ :left :right | left stringVersion < right stringVersion ])
+			(sureTypedSenders asArray sort: [ :left :right | left stringVersion < right stringVersion ]), 
+			(unsureTypedSenders asArray sort: [ :left :right | left stringVersion < right stringVersion ])
 		name: 'Typed Senders of ' , sentSelector, ' of ', (sentImplementors collect: [:aSentImplementor | aSentImplementor methodClass name ]) asCommaStringAnd 
 		autoSelect: sentSelector  ! !
 
@@ -2983,6 +3193,11 @@ browseAllTypedImplementorsOn: aSelector forAll: types
 	^self 
 		browseMessageList: implementors asArray sort
 		name: 'Implementors of ' , aSelector, ' local to ', types asCommaStringAnd ! !
+
+!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:45:32'!
+isLiteralVariableNode
+
+	^false! !
 
 !ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:00:11'!
 typesIn: aCompiledMethod 
@@ -3014,6 +3229,19 @@ parseNodeIncluding: aPosition ifAbsent: aBlockClosure
 	
 	^ nodeWithRangeAtPosition ifNil: aBlockClosure ifNotNil: [ nodeWithRangeAtPosition ]
 			! !
+
+!Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:30:24'!
+typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
+	
+	| ranges sortedRanges sendersCollector |
+	
+	sendersCollector := class>>selector typedMessageSendersOf: aCompiledMethod.
+	ranges := sendersCollector sureSenders collect: [ :aMessageSendNode | aMessageSendNode keywordRanges ].
+		
+	ranges isEmpty ifTrue: [ ^aBlock value ].
+	sortedRanges := ranges asSortedCollection: [ :left :right | left first first < right first first ].
+	
+	^sortedRanges ! !
 
 !AssignmentNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:18'!
 typesIn: aCompiledMethod 
@@ -3074,6 +3302,11 @@ typesIn: aCompiledMethod
 	
 	^ aCompiledMethod typesOfInstanceVariableNamed: name ifAbsent: [ #() ]! !
 
+!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:45:00'!
+isLiteralVariableNode
+
+	^true! !
+
 !LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:55'!
 typesIn: aCompiledMethod 
 	
@@ -3124,13 +3357,13 @@ typesIn: aCompiledMethod
 	
 	^aCompiledMethod returnTypes ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 22:04:02'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:42:54'!
 printSelectionTypeInfo
 
 	| class typeInfo nodeAtRange methodNode types methodToAnalyze incompleteTypeInfoReasons |
 
 	class := self codeProvider selectedClassOrMetaClass.
-	methodNode := class methodNodeFor: model actualContents.
+	methodNode := [ class methodNodeFor: model actualContents ] on: Error do: [ :anError |  ^ morph flash  ].
 	
 	nodeAtRange := methodNode parseNodeIncluding: self startIndex ifAbsent: [ ^nil ].
 	methodToAnalyze := class compiledMethodAt: methodNode selector ifAbsent: [ NotCompiledYetMethod class: class selector: methodNode selector ].
@@ -3155,13 +3388,13 @@ printSelectionTypeInfo: aKeyboardEvent
 	self printSelectionTypeInfo.
 	^true! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 23:07:59'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:42:49'!
 typedImplementorsOfIt
 	
 	| class commonSupertype methodNode methodToAnalyze nodeAtRange receiverTypeInfo incompleteTypeInfoReasons types |
 
 	class := self codeProvider selectedClassOrMetaClass.
-	methodNode := class methodNodeFor: model actualContents.
+	methodNode := [ class methodNodeFor: model actualContents ] on: Error do: [ :anError |  ^ morph flash  ].
 	methodToAnalyze := class compiledMethodAt: methodNode selector ifAbsent: [ NotCompiledYetMethod class: class selector: methodNode selector ].
 	
 	self startIndex < methodNode selectorLastPosition ifTrue: [ ^ Smalltalk browseAllTypedImplementorsOn: methodToAnalyze ].
@@ -3204,13 +3437,13 @@ typedImplementorsOfIt: aKeyboardEvent
 	self typedImplementorsOfIt.
 	^true! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 22:12:00'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:42:40'!
 typedSendersOfIt
 	
 	| class commonSupertype method methodNode methodToAnalyze nodeAtRange receiverTypeInfo incompleteTypeInfoReasons types |
 
 	class := self codeProvider selectedClassOrMetaClass.
-	methodNode := class methodNodeFor: model actualContents.
+	methodNode := [ class methodNodeFor: model actualContents ] on: Error do: [ :anError |  ^ morph flash  ].
 	methodToAnalyze := class compiledMethodAt: methodNode selector ifAbsent: [ NotCompiledYetMethod class: class selector: methodNode selector ].
 	
 	self startIndex < methodNode selectorLastPosition ifTrue: [ ^ Smalltalk browseAllTypedCallsOn: methodToAnalyze ].
@@ -3291,10 +3524,10 @@ cmdShortcutsSpec
 		#(		$M	#typedImplementorsOfIt:			'Typed implementors of message under cursor')
 	)! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:40:14'!
-doesTypedSendSafely: aCompiledMethod 
+!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:17:53'!
+doesSurelyTypedSend: aCompiledMethod 
 	
-	^self compiledMethod doesTypedSendSafely: aCompiledMethod ! !
+	^self compiledMethod doesSurelyTypedSend: aCompiledMethod ! !
 
 !MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 10:54:27'!
 prefixStringVersionWith: aString
