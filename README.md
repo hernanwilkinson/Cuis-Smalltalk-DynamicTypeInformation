@@ -4,59 +4,12 @@ Changes to the the opensmalltalk-vm and Cuis image to generate dynamic type info
 Look for the VM of you OS at the VMs directory.
 There is a Cuis image with everything install to play with.
 
-## Instance variable types important messages
-To start storing type info on a class inst. vars. do:
-- aClass initializeInstanceVariablesTypes
+## How to use it
+Type information is stored based on execution. Becuase Smalltalk is a live environment, type info is stored all the time.
+There are many ways to see and use type info:
+- Senders: If you use the editor menu option "Typed Senders of it (B)", it will show only the senders based on the type information. 
+- Implementors: There is also a editor menu option "Typed Implementors of it (M)" that shows implementors based on type info
+- See type info: The option "Print type info (P)" prints the type info of the element where the cursor is. It can be an instance variable, a temporary variable, a message (in which case shows the return type of the message based on the receivers type info) and the return of the method (when the cursor is at the caret).
+- If you want to see the type info all the time, you can select the option "typed source" from the "show..." button in the browser. Doing so, the browser will show type info for the class definition and methods.
+- Rename selector: The rename selector refactoring has a scope option named "Typed". If you select that option then the rename will be based on the type info. That is, it will use typed senders and typed implementors to do the rename, even inside the same method.
 
-To start storing type info on all classes inst. vars. do:
-- InstanceVariablesTypes initializeForAllClasses
-
-To get type info on all inst. vars. of a class do:
-- instVarsTypes := aClass instanceVariablesTypes.  "NOTE: it is instVar(s)Types"
-
-Then you can ask types per inst. var, for example:
-- instVarTypes := instVarsTypes typesOf: 'anInstVarName'  "NOTE: is is instVarTypes no Var(s)"
-
-Now you can ask type info for that inst. var, for example:
-- instVarTypes types --> returns all the stored types for that inst. var
-- instVarTypes commonSupertype --> returns the common supertype for that inst. var
-- instVarTypes isMegamorphic
-- etc... (See InstanceVariableTypes)
-
-## Method type information
-Right now temp. vars types and return type is supported.
-To start storing type info on a method do:
-- aCompiledMethod initializeTypeInformation.
-
-For example:
-- (Fraction>>#+) initializeTypeInformation.
-
-To start storing type info on all methods of a class do:
-- aClass initializeMethodsTypeInformation
-
-For example:
-- Fraction initializeMethodsTypeInformation
-
-To initialize storing method type info in a hierarchy do:
-- aClass initializeWithAllSubclassesMethodsTypeInformation
-
-To start storing method type info in all classes do:
-- ProtoObject initializeWithAllSubclassesMethodsTypeInformation
-
-To get temp. vars type info do:
-- tempVarsTypes := aCompiledMethod temporaryVariablesTypes.
-
-To get temp. var type info do:
-- tempVarTypes := tempVarsType typeOf: 'aTempVarName'
-
-You can do with tempVarTpes the same as with an instance variable types, like sending #types, #commonSupertype, etc.
-
-To get return type info do:
-- returnTypes := aCompiledMethod returnTypes
-
-You can do with returnType the same as with an instance and temp variable types, like sending #types, #commonSupertype, etc.
-
-## Not supported yet
-- New classes do not automatically store type info for their inst. vars or methods.
-- Changing a class shape looses all inst vars types and those of recompiled methods
-- Changing a method does not keep previous type info
