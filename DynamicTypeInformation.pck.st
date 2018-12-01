@@ -1,17 +1,43 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 29 November 2018 at 8:24:44 pm'!
-'Description refactorings'!
-!provides: 'DynamicTypeInformation' 1 22!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 1 December 2018 at 8:45:52 pm'!
+'Description TypeInfoError refactoring'!
+!provides: 'DynamicTypeInformation' 1 24!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
-!classDefinition: #IncompleteTypeInfo category: #DynamicTypeInformation!
-Error subclass: #IncompleteTypeInfo
+!classDefinition: #TypeInfoError category: #DynamicTypeInformation!
+Error subclass: #TypeInfoError
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'!
-!classDefinition: 'IncompleteTypeInfo class' category: #DynamicTypeInformation!
-IncompleteTypeInfo class
+!classDefinition: 'TypeInfoError class' category: #DynamicTypeInformation!
+TypeInfoError class
+	instanceVariableNames: ''!
+
+!classDefinition: #NoImplementorForMessageSend category: #DynamicTypeInformation!
+TypeInfoError subclass: #NoImplementorForMessageSend
+	instanceVariableNames: 'methodReference'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+methodReference : <MethodReference>
+"!
+!classDefinition: 'NoImplementorForMessageSend class' category: #DynamicTypeInformation!
+NoImplementorForMessageSend class
+	instanceVariableNames: ''!
+
+!classDefinition: #NoReturnTypeInfo category: #DynamicTypeInformation!
+TypeInfoError subclass: #NoReturnTypeInfo
+	instanceVariableNames: 'methodReference'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+methodReference : <MethodReference>
+"!
+!classDefinition: 'NoReturnTypeInfo class' category: #DynamicTypeInformation!
+NoReturnTypeInfo class
 	instanceVariableNames: ''!
 
 !classDefinition: #TypedMessageSendsCollector category: #DynamicTypeInformation!
@@ -24,7 +50,7 @@ ParseNodeVisitor subclass: #TypedMessageSendsCollector
 sent : <CompiledMethod>
 toAnalize : <CompiledMethod>
 sentSelector : <Symbol>
-sentMethodClass : <MethodNode class>
+sentMethodClass : <MethodNode class | TicTacToeState class | TicTacToe class> # Object class
 sureSenders : <OrderedCollection>
 unsureSenders : <OrderedCollection>
 "!
@@ -134,6 +160,47 @@ implementor : <>
 TypedRenameSelector class
 	instanceVariableNames: ''!
 
+!classDefinition: #BrowseTypedSelector category: #DynamicTypeInformation!
+Object subclass: #BrowseTypedSelector
+	instanceVariableNames: 'methodNode class cursorPosition morph methodToLookUp incompleteTypeInfoReasons sentSelector types commonSupertype'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+methodNode : <MethodNode>
+class : <TicTacToe class>
+cursorPosition : <SmallInteger>
+morph : <InnerTextMorph>
+methodToLookUp : <CompiledMethod>
+incompleteTypeInfoReasons : <Set>
+sentSelector : <Symbol>
+types : <Array>
+commonSupertype : <TicTacToeState class>
+"!
+!classDefinition: 'BrowseTypedSelector class' category: #DynamicTypeInformation!
+BrowseTypedSelector class
+	instanceVariableNames: ''!
+
+!classDefinition: #BrowseTypedImplementors category: #DynamicTypeInformation!
+BrowseTypedSelector subclass: #BrowseTypedImplementors
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'!
+!classDefinition: 'BrowseTypedImplementors class' category: #DynamicTypeInformation!
+BrowseTypedImplementors class
+	instanceVariableNames: ''!
+
+!classDefinition: #BrowseTypedSenders category: #DynamicTypeInformation!
+BrowseTypedSelector subclass: #BrowseTypedSenders
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'!
+!classDefinition: 'BrowseTypedSenders class' category: #DynamicTypeInformation!
+BrowseTypedSenders class
+	instanceVariableNames: ''!
+
 !classDefinition: #Customer category: #DynamicTypeInformation!
 Object subclass: #Customer
 	instanceVariableNames: 'firstName lastName dateOfBirth'
@@ -187,6 +254,29 @@ selector : <>
 "!
 !classDefinition: 'NotCompiledYetMethod class' category: #DynamicTypeInformation!
 NotCompiledYetMethod class
+	instanceVariableNames: ''!
+
+!classDefinition: #ParseNodeTypesDisplay category: #DynamicTypeInformation!
+Object subclass: #ParseNodeTypesDisplay
+	instanceVariableNames: 'parseNodeToAnalize methodNodeOwner definingClass methodToAnalyze types incompleteTypeInfoReasons typeInfo labels lines selectedIndex icons'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+parseNodeToAnalize : <InstanceVariableNode | TempVariableNode | ReturnNode | MessageNode> # ParseNode
+methodNodeOwner : <MethodNode>
+definingClass : <ParseNodeTypesDisplay class | Metaclass | Customer class | SmalltalkEditor class | RenameSelectorTest class | TicTacToe class | MessageNode class | Behavior class | BrowseTypedSelector class> # ClassDescription
+methodToAnalyze : <CompiledMethod>
+types : <Array | Set> # Collection
+incompleteTypeInfoReasons : <Set | Array> # Collection
+typeInfo : <VariableTypeInfo>
+labels : <OrderedCollection>
+lines : <OrderedCollection>
+selectedIndex : <SmallInteger>
+icons : <OrderedCollection>
+"!
+!classDefinition: 'ParseNodeTypesDisplay class' category: #DynamicTypeInformation!
+ParseNodeTypesDisplay class
 	instanceVariableNames: ''!
 
 !classDefinition: #PerfomanceTest category: #DynamicTypeInformation!
@@ -351,10 +441,90 @@ MethodVariablesTypes class
 	instanceVariableNames: ''!
 
 
-!IncompleteTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:44:47'!
+!TypeInfoError methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:44:47'!
 isResumable
 	
 	^ true! !
+
+!NoImplementorForMessageSend methodsFor: 'initialization' stamp: 'HAW 12/1/2018 20:35:59'!
+initializeFor: aMethodReference 
+	
+	methodReference := aMethodReference ! !
+
+!NoImplementorForMessageSend methodsFor: 'accessing' stamp: 'HAW 12/1/2018 20:35:59'!
+methodReference
+	
+	^methodReference! !
+
+!NoImplementorForMessageSend methodsFor: 'browsing' stamp: 'HAW 12/1/2018 20:35:59'!
+browse
+	
+	BrowserWindow fullOnClass: methodReference actualClass selector: methodReference methodSymbol ! !
+
+!NoImplementorForMessageSend methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:35:59'!
+= anObject
+
+	^ self class = anObject class and: [ methodReference = anObject methodReference ]! !
+
+!NoImplementorForMessageSend methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:35:59'!
+hash
+
+	^methodReference hash! !
+
+!NoImplementorForMessageSend methodsFor: 'exceptionDescription' stamp: 'HAW 12/1/2018 20:44:45'!
+messageText
+ 
+	^'Could not find implementation of #', methodReference methodSymbol , ' in ', methodReference actualClass name, ' hierarchy'! !
+
+!NoImplementorForMessageSend class methodsFor: 'signaling' stamp: 'HAW 12/1/2018 20:35:59'!
+signalFor: aMethodReference 
+	
+	(self for: aMethodReference) signal! !
+
+!NoImplementorForMessageSend class methodsFor: 'instance creation' stamp: 'HAW 12/1/2018 20:35:59'!
+for: aMethodReference 
+	
+	^self new initializeFor: aMethodReference ! !
+
+!NoReturnTypeInfo methodsFor: 'initialization' stamp: 'HAW 12/1/2018 11:59:32'!
+initializeFor: aMethodReference 
+	
+	methodReference := aMethodReference ! !
+
+!NoReturnTypeInfo methodsFor: 'accessing' stamp: 'HAW 12/1/2018 20:10:43'!
+methodReference
+	
+	^methodReference! !
+
+!NoReturnTypeInfo methodsFor: 'browsing' stamp: 'HAW 12/1/2018 20:14:05'!
+browse
+	
+	BrowserWindow fullOnClass: methodReference actualClass selector: methodReference methodSymbol ! !
+
+!NoReturnTypeInfo methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:09:53'!
+= anObject
+
+	^ self class = anObject class and: [ methodReference = anObject methodReference ]! !
+
+!NoReturnTypeInfo methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:10:12'!
+hash
+
+	^methodReference hash! !
+
+!NoReturnTypeInfo methodsFor: 'exceptionDescription' stamp: 'HAW 12/1/2018 12:05:42'!
+messageText
+ 
+	^'There is no return type info for ', methodReference classAndSelector! !
+
+!NoReturnTypeInfo class methodsFor: 'signaling' stamp: 'HAW 12/1/2018 11:59:03'!
+signalFor: aMethodReference 
+	
+	(self for: aMethodReference) signal! !
+
+!NoReturnTypeInfo class methodsFor: 'instance creation' stamp: 'HAW 12/1/2018 11:59:18'!
+for: aMethodReference 
+	
+	^self new initializeFor: aMethodReference ! !
 
 !TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 doesTypedSendSafely
@@ -387,7 +557,7 @@ unsureSenders
 	
 	^unsureSenders ! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 20:15:17'!
 visitMessageNode: aMessageNode
 	
 	(aMessageNode selector named: sentSelector) ifTrue: [ | receiverTypes incompleteTypeInfo incompleteTypeInfoReasons |
@@ -395,7 +565,7 @@ visitMessageNode: aMessageNode
 		incompleteTypeInfoReasons := Set new.
 		
 		receiverTypes := [ aMessageNode receiver typesIn: toAnalize ]
-			on: IncompleteTypeInfo 
+			on: TypeInfoError 
 			do: [ :anError | 
 				incompleteTypeInfoReasons add: anError messageText.
 				incompleteTypeInfo := true. 
@@ -1527,6 +1697,208 @@ from: anOldSelector at: anImplementingClass to: aNewSelector implementors: aColl
 		initializeImplementingClass: anImplementingClass 
 ! !
 
+!BrowseTypedSelector methodsFor: 'initialization' stamp: 'HAW 11/30/2018 18:18:53'!
+initializeOf: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph
+
+	methodNode := aMethodNode.
+	class := aClass.
+	cursorPosition := aPosition.
+	morph := aMorph ! !
+
+!BrowseTypedSelector methodsFor: 'browsing' stamp: 'HAW 12/1/2018 11:14:44'!
+browse
+	
+	| methodSelector |
+
+	methodSelector := methodNode selector.
+	methodToLookUp := class 
+		compiledMethodAt: methodSelector 
+		ifAbsent: [ NotCompiledYetMethod class: class selector: methodSelector ].
+ 	cursorPosition < methodNode selectorLastPosition ifTrue: [ ^self browseWhenAtMethodSelector ].
+	
+	methodNode 
+		withParseNodeIncluding: cursorPosition 
+		do: [ :aNodeUnderCursor | aNodeUnderCursor isMessageNode 
+			ifTrue: [ ^self browseTypedMessageNode: aNodeUnderCursor ] ]
+		ifAbsent: [].
+		
+	 morph flash 
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 11/30/2018 18:28:10'!
+browseAll
+	
+	self subclassResponsibility ! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 11/30/2018 18:31:39'!
+browseForAllTypes
+	
+	self subclassResponsibility ! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 11/30/2018 18:31:48'!
+browseForCommonSupertype
+	
+	self subclassResponsibility ! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/1/2018 11:15:21'!
+browseTypedMessageNode: messageNode 
+
+	sentSelector := messageNode selector key.
+	incompleteTypeInfoReasons := Set new.
+	types := messageNode receiver typesIn: methodToLookUp addingIncompleteTypeInfoTo: incompleteTypeInfoReasons.
+
+	types isEmpty 
+		ifTrue: [ self browseTypedWithNoTypeInfoSendTo: messageNode receiver ]
+		ifFalse: [ self browseTypedWithTypeInfo ].
+		
+		
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/1/2018 11:15:04'!
+browseTypedWithNoTypeInfoSendTo: receiver
+
+	(self confirm: 'There is no type info for ', receiver identifierPrintString, '
+Do you want to see all ', self browseTypeLabel, '?') ifTrue: [ self browseAll ]
+		
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/1/2018 11:15:21'!
+browseTypedWithTypeInfo
+	
+	| receiverTypeInfo |
+	
+	self shouldBrowseAll ifTrue: [ ^self browseAll ].
+			
+	receiverTypeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
+	commonSupertype := receiverTypeInfo commonSupertype.
+	(commonSupertype = Object or: [ commonSupertype = ProtoObject ])
+		ifTrue: [ self browseForAllTypes ]
+		ifFalse: [ self browseForCommonSupertype ]
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 11/30/2018 18:22:11'!
+browseWhenAtMethodSelector
+	
+	self subclassResponsibility ! !
+
+!BrowseTypedSelector methodsFor: 'browsing-asking-private' stamp: 'HAW 12/1/2018 11:25:31'!
+askToSeeAll
+	
+	^(PopUpMenu 
+		confirm: self incompleteTypeQuestionTitle 
+		trueChoice: self showBrowseTypedAnywayLabel 
+		falseChoice: self seeAllLabel 
+		icons: #(acceptIcon cancelIcon)) not! !
+
+!BrowseTypedSelector methodsFor: 'browsing-asking-private' stamp: 'HAW 12/1/2018 11:25:21'!
+incompleteTypeQuestionTitle
+	
+	^String streamContents: [ :stream |
+		stream nextPutAll: 'Incomplete type info due to:'; newLine.
+		incompleteTypeInfoReasons 
+			do: [ :reason | stream nextPutAll: reason ]
+			separatedBy: [ stream newLine ]].
+	
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-asking-private' stamp: 'HAW 11/30/2018 18:33:05'!
+shouldBrowseAll
+
+	^ incompleteTypeInfoReasons notEmpty and: [ self askToSeeAll ]
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-labels-private' stamp: 'HAW 12/1/2018 11:06:22'!
+browseTypeLabel
+
+	self subclassResponsibility ! !
+
+!BrowseTypedSelector methodsFor: 'browsing-labels-private' stamp: 'HAW 12/1/2018 11:06:22'!
+seeAllLabel
+	
+	^'See all ', self browseTypeLabel! !
+
+!BrowseTypedSelector methodsFor: 'browsing-labels-private' stamp: 'HAW 12/1/2018 11:07:34'!
+showBrowseTypedAnywayLabel
+	
+	self subclassResponsibility ! !
+
+!BrowseTypedSelector class methodsFor: 'instance creation' stamp: 'HAW 11/30/2018 18:41:34'!
+browseOf: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph
+
+	^(self of: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph) browse! !
+
+!BrowseTypedSelector class methodsFor: 'instance creation' stamp: 'HAW 11/30/2018 18:18:18'!
+of: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph
+
+	^self new initializeOf: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph
+! !
+
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 11/30/2018 18:36:09'!
+browseAll
+
+	Smalltalk browseAllImplementorsOf: sentSelector 	! !
+
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 11/30/2018 18:36:43'!
+browseForAllTypes
+
+	Smalltalk browseAllTypedImplementorsOf: sentSelector forAll: types ! !
+
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 11/30/2018 18:37:07'!
+browseForCommonSupertype
+
+	Smalltalk browseAllTypedImplementorsOf: sentSelector for: commonSupertype ! !
+
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 11:06:22'!
+browseTypeLabel
+
+	^'implementors'! !
+
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 11/30/2018 18:37:56'!
+browseWhenAtMethodSelector
+
+	Smalltalk browseAllTypedImplementorsOf: methodToLookUp ! !
+
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 11:07:34'!
+showBrowseTypedAnywayLabel
+	
+	^'Show typed implementors anyway' ! !
+
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 10:56:12'!
+browseAll
+
+	Smalltalk browseAllCallsOn: sentSelector ! !
+
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 10:57:00'!
+browseForAllTypes
+
+	 Smalltalk browseAllTypedCallsOn: sentSelector forAll: types ! !
+
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 10:58:45'!
+browseForCommonSupertype
+
+	| implementor |
+	
+	implementor := commonSupertype lookupSelector: sentSelector .
+	implementor isNil
+		ifTrue: [ self browseForAllTypes ]
+		ifFalse: [ Smalltalk browseAllTypedCallsOn: implementor ]
+! !
+
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 11:06:22'!
+browseTypeLabel
+
+	^'senders'! !
+
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 10:59:31'!
+browseWhenAtMethodSelector
+
+	Smalltalk browseAllTypedCallsOn: methodToLookUp ! !
+
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 11:07:34'!
+showBrowseTypedAnywayLabel
+	
+	^'Show typed senders anyway' ! !
+
 !Customer methodsFor: 'initialization' stamp: 'HAW 9/27/2018 16:44:01'!
 initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
 	
@@ -1534,11 +1906,12 @@ initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
 	lastName := aLastName.
 	dateOfBirth := aDateOfBirth! !
 
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:22:40'!
+!Customer methodsFor: 'initialization' stamp: 'HAW 11/30/2018 14:46:58'!
 m1
-
+"self new m1"
 	| t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 |
 	 
+	t1 := nil.
 	t1 := 1.
 	t1 := t1 + (1/3).
 	t2 := 2.0.
@@ -1550,7 +1923,8 @@ m1
 	t8 := 8.
 	t9 := t2+t3+t4+t5+t6+t7+t8.
 	t10 := 'hola'.
-	
+	t1 := 'x'.
+	t9 := t9+1.
 	^t10! !
 
 !Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:22:52'!
@@ -1791,6 +2165,160 @@ class: aClass selector: aSelector
 
 	^self new initializeClass: aClass selector: aSelector ! !
 
+!ParseNodeTypesDisplay methodsFor: 'initialization' stamp: 'HAW 11/30/2018 11:22:41'!
+initliazeOf: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
+
+	parseNodeToAnalize := aParseNodeToAnalize.
+	methodNodeOwner := aMethodNodeOwner.
+	definingClass := aClass.
+	methodToAnalyze := definingClass 
+		compiledMethodAt: methodNodeOwner selector 
+		ifAbsent: [ NotCompiledYetMethod class: definingClass selector: methodNodeOwner selector ].
+	
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing' stamp: 'HAW 11/30/2018 12:12:02'!
+show
+
+	self 
+		calculateTypes;
+		showTypes
+		! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 14:50:27'!
+addCommonSupertypLabel
+	
+	typeInfo commonSupertype = Object 
+		ifTrue: [ 
+			labels add: self commonSelectorsOption.
+			icons add: Theme current spreadsheetIcon ]
+		ifFalse: [ 
+			labels add: typeInfo commonSupertype name.
+			icons add: (typeInfo typesSize = 1 ifTrue: [ Theme current editFindReplaceIcon ] ifFalse: [Theme current goTopIcon ])].
+
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/1/2018 19:52:03'!
+addIncompleteTypesReasons
+	
+	incompleteTypeInfoReasons notEmpty ifTrue: [
+		lines add: labels size.
+		incompleteTypeInfoReasons do: [ :aTypeInfoError | 
+			labels add: aTypeInfoError messageText.
+			icons add: Theme current collapseIcon]]
+	
+	
+	! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 14:50:41'!
+addTypesLabels
+
+	typeInfo typesSize > 1 ifTrue: [
+		lines add: 1.
+		typeInfo typesNames do: [ :aTypeName |
+			labels add: aTypeName.
+			icons add: Theme current editFindReplaceIcon ]].
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:10:33'!
+browseClassNamed: aName
+
+	BrowserWindow fullOnClass: (Smalltalk classNamed: aName) selector: nil ! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/1/2018 19:57:20'!
+browseSelected
+	
+	| typesIndexLimit |
+	
+	typesIndexLimit := labels size - incompleteTypeInfoReasons size.
+	
+	(selectedIndex between: 1 and: typesIndexLimit) 
+		ifTrue: [ | selected |
+		selected := labels at: selectedIndex.
+		selected = self commonSelectorsOption 
+			ifTrue: [ self showCommonSelectors ]
+			ifFalse: [ self browseClassNamed: selected ]].
+		
+	(selectedIndex between: typesIndexLimit + 1 and: labels size) 
+		ifTrue: [ (incompleteTypeInfoReasons at: selectedIndex - typesIndexLimit) browse ]
+			
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 14:50:10'!
+calculateLabelsAndLines
+
+	labels := OrderedCollection new.
+	lines := OrderedCollection new.
+	icons := OrderedCollection new.
+
+	self 
+		addCommonSupertypLabel;
+		addTypesLabels;
+		addIncompleteTypesReasons
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/1/2018 20:11:44'!
+calculateTypes
+
+	incompleteTypeInfoReasons := Set new.
+	types := parseNodeToAnalize typesIn: methodToAnalyze addingIncompleteTypeInfoTo: incompleteTypeInfoReasons.
+	incompleteTypeInfoReasons := incompleteTypeInfoReasons asArray 
+	! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:12'!
+commonSelectorsOption
+
+	^'Common selectors previous to Object'! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:15'!
+initiliazeTypeInfo
+
+	typeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:18'!
+showCommonSelectors
+
+	 | commonSelectors menu selectedSelectorIndex |
+			
+	commonSelectors := typeInfo commonSelectorsPreviousToObject.
+	commonSelectors := commonSelectors sorted.
+	menu := PopUpMenu labelArray: commonSelectors.
+	selectedSelectorIndex := menu startUpWithCaption: 'Common selectors'.
+	selectedSelectorIndex = 0 ifFalse: [ Smalltalk browseAllTypedImplementorsOf: (commonSelectors at: selectedSelectorIndex) forAll: typeInfo types ]! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:32'!
+showTypes
+
+	types isEmpty 
+		ifTrue: [ self inform: 'There is no type info for ', parseNodeToAnalize identifierPrintString ]
+		ifFalse: [ self showTypesWhenNotEmpty ].
+	! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:24:28'!
+showTypesPopUp
+
+	| menu |
+
+	menu := PopUpMenu labelArray: labels lines: lines icons: icons.
+	selectedIndex := menu startUpWithCaption: 'Types of ', parseNodeToAnalize identifierPrintString.
+! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:13:56'!
+showTypesWhenNotEmpty
+
+	self 
+		initiliazeTypeInfo;
+		calculateLabelsAndLines;
+		showTypesPopUp;
+		browseSelected	! !
+
+!ParseNodeTypesDisplay class methodsFor: 'instance creation' stamp: 'HAW 11/30/2018 11:19:56'!
+of: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
+
+	^self new initliazeOf: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
+! !
+
 !PerfomanceTest class methodsFor: 'as yet unclassified' stamp: 'HAW 11/1/2018 12:24:48'!
 aconcaguaTime
 
@@ -1930,6 +2458,11 @@ types
 typesIncludes: aType
 
 	^self types includes: aType ! !
+
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 11/30/2018 11:58:27'!
+typesNames
+	
+	^(self types collect: [ :aType | aType name ]) sorted! !
 
 !VariableTypeInfo methodsFor: 'types' stamp: 'HAW 10/20/2018 20:44:21'!
 typesSize
@@ -3016,18 +3549,18 @@ methodVariablesTypesOf: aMethod
 
 	^MethodVariablesTypes of: aMethod ! !
 
-!Behavior class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/6/2018 17:41:41'!
+!Behavior class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 15:00:52'!
 createInstanceVariableTypeInfoInClassOf: anInstVarName with: types
 
-	"anInstVarName = 'superclass' ifTrue: [^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: {Metaclass. UndefinedObject}]."
+	anInstVarName = 'superclass' ifTrue: [^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: {Metaclass. UndefinedObject}].
 	^super createInstanceVariableTypeInfoInClassOf: anInstVarName with: types
 
 	! !
 
-!Behavior class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/6/2018 17:41:47'!
+!Behavior class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 15:00:45'!
 createInstanceVariableTypeInfoInHierarchyOf: anInstVarName with: types
 
-	"anInstVarName = 'superclass' ifTrue: [^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: {Metaclass. UndefinedObject }]."
+	anInstVarName = 'superclass' ifTrue: [^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: {Metaclass. UndefinedObject }].
 	^super createInstanceVariableTypeInfoInHierarchyOf: anInstVarName with: types
 
 	! !
@@ -3611,10 +4144,16 @@ browseAllTypedCallsOn: sentSelector forAll: types
 		name: 'Typed Senders of ' , sentSelector, ' of ', (sentImplementors collect: [:aSentImplementor | aSentImplementor methodClass name ]) asCommaStringAnd 
 		autoSelect: sentSelector  ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 06:51:51'!
-browseAllTypedImplementorsOf: aCompiledMethod
+!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 17:52:49'!
+browseAllTypedImplementorsOf: aMethod
 
-	self browseAllTypedImplementorsOf: aCompiledMethod selector forAll: (Array with: aCompiledMethod methodClass)
+	self browseAllTypedImplementorsOf: aMethod selector for: aMethod methodClass
+! !
+
+!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 17:50:28'!
+browseAllTypedImplementorsOf: aSelector for: aClass
+
+	self browseAllTypedImplementorsOf: aSelector forAll: (Array with: aClass)
 ! !
 
 !SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 15:29:26'!
@@ -3656,6 +4195,16 @@ isLiteralVariableNode
 typesIn: aCompiledMethod 
 	
 	^#()! !
+
+!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 20:15:17'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: reasons
+
+	^[self typesIn: aCompiledMethod ]
+		on: TypeInfoError 
+		do: [ :aTypeInfoError | 
+			reasons add: aTypeInfoError.
+			aTypeInfoError resume ].
+! !
 
 !Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:26:10'!
 parseNodeAt: aRange ifAbsent: aBlockClosure 
@@ -3775,7 +4324,7 @@ identifierPrintString
 	
 	^selector identifierPrintString ! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:13:35'!
+!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 20:42:48'!
 typesIn: aCompiledMethod 
 	
 	| types sentSelector |
@@ -3785,11 +4334,13 @@ typesIn: aCompiledMethod
 		inject: Set new
 		into: [ :messageReturnTypes :aReceiverType | 
 			(aReceiverType lookupSelector: sentSelector) 
-				ifNil: [ IncompleteTypeInfo signal: 'Could not find implementation of ', sentSelector, ' in ', aReceiverType name, ' hierarchy' ] 
+				ifNil: [
+					"I could add self, the message node to see the sender... - Hernan"
+					NoImplementorForMessageSend signalFor: (MethodReference class: aReceiverType selector: sentSelector). ]
 				ifNotNil: [ :implementor | | returnTypes |
 					returnTypes := implementor returnTypes.
 					returnTypes isEmpty
-						ifTrue: [ IncompleteTypeInfo signal: 'There is no return type info for ', implementor classAndSelector ]
+						ifTrue: [ NoReturnTypeInfo signalFor: implementor methodReference ]
 						ifFalse: [ messageReturnTypes addAll: returnTypes ]].
 			messageReturnTypes ].
 		
@@ -3826,54 +4377,17 @@ typesIn: aCompiledMethod
 	
 	^aCompiledMethod returnTypes ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/29/2018 10:40:39'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 10:52:35'!
 showSelectionTypeInfo
 
-	| class typeInfo nodeAtRange methodNode types methodToAnalyze incompleteTypeInfoReasons choice menu |
+	self 
+		withMethodNodeAndClassDo: [ :methodNode :class | 
+			methodNode 
+				withParseNodeIncluding: self startIndex
+				do: [ :aNodeUnderCursor | self showTypeInfoOf: aNodeUnderCursor in: methodNode definedAt: class ]
+				ifAbsent: [ morph flash ]] 
+		ifErrorsParsing: [ :anError | morph flash ].
 
-	class := self codeProvider selectedClassOrMetaClass.
-	methodNode := [ class methodNodeFor: model actualContents ] on: Error do: [ :anError |  ^ morph flash  ].
-	
-	nodeAtRange := methodNode parseNodeIncluding: self startIndex ifAbsent: [ ^nil ].
-	methodToAnalyze := class compiledMethodAt: methodNode selector ifAbsent: [ NotCompiledYetMethod class: class selector: methodNode selector ].
-	incompleteTypeInfoReasons := Set new.
-	types := [ nodeAtRange key typesIn: methodToAnalyze ] 
-		on: IncompleteTypeInfo 
-		do: [ :anError | 
-			incompleteTypeInfoReasons add: anError messageText.
-			anError resume ].
-		
-	types isEmpty
-		ifTrue: [ self inform: 'There is no type info for ', nodeAtRange key identifierPrintString ]
-		ifFalse: [ | allTypes lines labels |
-			typeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
-			allTypes := OrderedCollection new.
-			lines := OrderedCollection new.
-			typeInfo commonSupertype = Object 
-				ifTrue: [ 
-					allTypes add: 'Common selectors previous to Object'.
-					allTypes add: 'All common selectors' ]
-				ifFalse: [ allTypes add: typeInfo commonSupertype ].
-			typeInfo typesSize > 1 ifTrue: [
-				lines add: allTypes size.
-				allTypes addAll: typeInfo types ].
-			labels := allTypes collect: [ :aType | aType asString "I use asString becuase first element can be a string - Hernan" ].
-			incompleteTypeInfoReasons notEmpty ifTrue: [
-				lines add: allTypes size.
-				labels addAll: incompleteTypeInfoReasons ].
-			menu := PopUpMenu labelArray: labels lines: lines icons: #().
-			choice := menu startUpWithCaption: 'Types of ',nodeAtRange key identifierPrintString.
-			(typeInfo commonSupertype = Object and: [ choice between: 1 and: 2])
-				ifTrue: [ | commonSelectors |
-					commonSelectors := choice = 1 ifTrue: [ typeInfo commonSelectorsPreviousToObject ] ifFalse: [ typeInfo commonSelectors ].
-					commonSelectors := commonSelectors sorted.
-					menu := PopUpMenu labelArray: commonSelectors.
-					choice := menu startUpWithCaption: 'Common selectors'.
-					^ choice = 0 ifFalse: [ Smalltalk browseAllTypedImplementorsOf: (commonSelectors at: choice) forAll: typeInfo types ]].
-
-			(choice between: 1 and: allTypes size) ifTrue: [ BrowserWindow fullOnClass: (allTypes at: choice) selector: nil ]]
-
-	
 ! !
 
 !SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/29/2018 19:16:35'!
@@ -3882,47 +4396,20 @@ showSelectionTypeInfo: aKeyboardEvent
 	self showSelectionTypeInfo.
 	^true! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 06:51:51'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 12:12:10'!
+showTypeInfoOf: aNodeUnderCursor in: methodNode definedAt: class 
+
+	(ParseNodeTypesDisplay of: aNodeUnderCursor in: methodNode definedAt: class) show
+! !
+
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 10:55:00'!
 typedImplementorsOfIt
 	
-	| class commonSupertype methodNode methodToAnalyze nodeAtRange receiverTypeInfo incompleteTypeInfoReasons types |
+	self 
+		withMethodNodeAndClassDo: [ :methodNode :class | 
+			BrowseTypedImplementors browseOf: methodNode definedIn: class withCursorAt: self startIndex in: morph ]
+		ifErrorsParsing: [ :anError | morph flash ].
 
-	class := self codeProvider selectedClassOrMetaClass.
-	methodNode := [ class methodNodeFor: model actualContents ] on: Error do: [ :anError |  ^ morph flash  ].
-	methodToAnalyze := class compiledMethodAt: methodNode selector ifAbsent: [ NotCompiledYetMethod class: class selector: methodNode selector ].
-	
-	self startIndex < methodNode selectorLastPosition ifTrue: [ ^ Smalltalk browseAllTypedImplementorsOf: methodToAnalyze ].
-	nodeAtRange := methodNode parseNodeIncluding: self startIndex ifAbsent: [ ^nil ].
-	
-	nodeAtRange key isMessageNode ifTrue: [ | messageNode sentSelector |
-		messageNode := nodeAtRange key.
-		sentSelector := messageNode selector key.
-		incompleteTypeInfoReasons := Set new.
-		types := [ messageNode receiver typesIn: methodToAnalyze ]
-			on: IncompleteTypeInfo 
-			do: [ :anError | 
-				incompleteTypeInfoReasons add: anError messageText.
-				anError resume ].
-		
-		types isEmpty ifTrue: [ 
-			(self confirm: 'There is no type info for ', messageNode receiver printString, '
-Do you want to see all implementors?') 
-				ifTrue: [ ^Smalltalk browseAllImplementorsOf: sentSelector ]
-				ifFalse: [ ^self ]].
-		
-		incompleteTypeInfoReasons notEmpty ifTrue: [ | confirmationQuestion |
-			confirmationQuestion := String streamContents: [ :stream |
-				stream nextPutAll: 'Incompete type info due to:'; newLine.
-				incompleteTypeInfoReasons do: [ :reason | stream nextPutAll: reason; newLine ]].
-			(self confirm: confirmationQuestion trueChoice: 'Continue' falseChoice: 'See all implementors' icons: #(acceptIcon cancelIcon)) 
-				ifFalse: [ ^Smalltalk browseAllImplementorsOf: sentSelector ]].
-			
-		receiverTypeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
-		commonSupertype := receiverTypeInfo commonSupertype.
-		commonSupertype = ProtoObject 
-			ifTrue: [ Smalltalk browseAllTypedImplementorsOf: sentSelector forAll: types ]
-			ifFalse: [Smalltalk browseAllImplementorsOf: sentSelector localTo: commonSupertype ]]
-		
 		! !
 
 !SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 22:58:30'!
@@ -3931,49 +4418,17 @@ typedImplementorsOfIt: aKeyboardEvent
 	self typedImplementorsOfIt.
 	^true! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:42:40'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 11:19:01'!
 typedSendersOfIt
 	
-	| class commonSupertype method methodNode methodToAnalyze nodeAtRange receiverTypeInfo incompleteTypeInfoReasons types |
+	self 
+		withMethodNodeAndClassDo: [ :methodNode :class | 
+			BrowseTypedSenders browseOf: methodNode definedIn: class withCursorAt: self startIndex in: morph ]
+		ifErrorsParsing: [ :anError | morph flash ].
 
-	class := self codeProvider selectedClassOrMetaClass.
-	methodNode := [ class methodNodeFor: model actualContents ] on: Error do: [ :anError |  ^ morph flash  ].
-	methodToAnalyze := class compiledMethodAt: methodNode selector ifAbsent: [ NotCompiledYetMethod class: class selector: methodNode selector ].
+
 	
-	self startIndex < methodNode selectorLastPosition ifTrue: [ ^ Smalltalk browseAllTypedCallsOn: methodToAnalyze ].
-	nodeAtRange := methodNode parseNodeIncluding: self startIndex ifAbsent: [ ^nil ].
-	
-	nodeAtRange key isMessageNode ifTrue: [ | messageNode sentSelector |
-		messageNode := nodeAtRange key.
-		sentSelector := messageNode selector key.
-		incompleteTypeInfoReasons := Set new.
-		types := [ messageNode receiver typesIn: methodToAnalyze ]
-			on: IncompleteTypeInfo 
-			do: [ :anError | 
-				incompleteTypeInfoReasons add: anError messageText.
-				anError resume ].
-		
-		types isEmpty ifTrue: [ 
-			(self confirm: 'There is no type info for ', messageNode receiver printString, '
-Do you want to see all senders?') 
-				ifTrue: [ ^Smalltalk browseAllCallsOn: sentSelector ]
-				ifFalse: [ ^self ]].
-		
-		incompleteTypeInfoReasons notEmpty ifTrue: [ | confirmationQuestion |
-			confirmationQuestion := String streamContents: [ :stream |
-				stream nextPutAll: 'Incompete type info due to:'; newLine.
-				incompleteTypeInfoReasons do: [ :reason | stream nextPutAll: reason; newLine ]].
-			(self confirm: confirmationQuestion trueChoice: 'Continue' falseChoice: 'See all sender' icons: #(acceptIcon cancelIcon)) 
-				ifFalse: [ ^Smalltalk browseAllCallsOn: sentSelector ]].
-			
-		receiverTypeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
-		commonSupertype := receiverTypeInfo commonSupertype.
-		method := commonSupertype lookupSelector: messageNode selector key.
-		(commonSupertype = ProtoObject or: [ method isNil ]) 
-			ifTrue: [ Smalltalk browseAllTypedCallsOn: sentSelector forAll: types ]
-			ifFalse: [ Smalltalk browseAllTypedCallsOn: method ]]
-		
-		! !
+! !
 
 !SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 22:58:40'!
 typedSendersOfIt: aKeyboardEvent
@@ -4019,6 +4474,11 @@ cmdShortcutsSpec
 		#(		$M	#typedImplementorsOfIt:			'Typed implementors of message under cursor')
 	)! !
 
+!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 12:04:16'!
+classAndSelector
+
+	^String streamContents: [:stream | self printClassAndSelectorOn: stream ]! !
+
 !MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:17:53'!
 doesSurelyTypedSend: aCompiledMethod 
 	
@@ -4028,6 +4488,22 @@ doesSurelyTypedSend: aCompiledMethod
 prefixStringVersionWith: aString
 
 	stringVersion := aString, stringVersion ! !
+
+!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 12:07:11'!
+printClassAndSelectorOn: aStream
+		
+	aStream nextPutAll: classSymbol.
+	classIsMeta ifTrue: [ aStream nextPutAll: ' class' ].
+	aStream
+		nextPutAll: '>>#';
+		nextPutAll: methodSymbol! !
+
+!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 12:05:19'!
+printOn: aStream
+	"Print the receiver on a stream"
+
+	super printOn: aStream.
+	self printClassAndSelectorOn: aStream! !
 
 !MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 19:03:07'!
 typedMessageSendersOf: aCompiledMethod 
