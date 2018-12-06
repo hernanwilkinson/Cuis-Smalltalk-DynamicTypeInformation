@@ -1,44 +1,8 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 1 December 2018 at 8:45:52 pm'!
-'Description TypeInfoError refactoring'!
-!provides: 'DynamicTypeInformation' 1 24!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 6 December 2018 at 8:39:40 pm'!
+'Description Add, remove and remove all in type info menu'!
+!provides: 'DynamicTypeInformation' 1 26!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
-
-!classDefinition: #TypeInfoError category: #DynamicTypeInformation!
-Error subclass: #TypeInfoError
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypeInfoError class' category: #DynamicTypeInformation!
-TypeInfoError class
-	instanceVariableNames: ''!
-
-!classDefinition: #NoImplementorForMessageSend category: #DynamicTypeInformation!
-TypeInfoError subclass: #NoImplementorForMessageSend
-	instanceVariableNames: 'methodReference'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-methodReference : <MethodReference>
-"!
-!classDefinition: 'NoImplementorForMessageSend class' category: #DynamicTypeInformation!
-NoImplementorForMessageSend class
-	instanceVariableNames: ''!
-
-!classDefinition: #NoReturnTypeInfo category: #DynamicTypeInformation!
-TypeInfoError subclass: #NoReturnTypeInfo
-	instanceVariableNames: 'methodReference'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-methodReference : <MethodReference>
-"!
-!classDefinition: 'NoReturnTypeInfo class' category: #DynamicTypeInformation!
-NoReturnTypeInfo class
-	instanceVariableNames: ''!
 
 !classDefinition: #TypedMessageSendsCollector category: #DynamicTypeInformation!
 ParseNodeVisitor subclass: #TypedMessageSendsCollector
@@ -50,7 +14,7 @@ ParseNodeVisitor subclass: #TypedMessageSendsCollector
 sent : <CompiledMethod>
 toAnalize : <CompiledMethod>
 sentSelector : <Symbol>
-sentMethodClass : <MethodNode class | TicTacToeState class | TicTacToe class> # Object class
+sentMethodClass : <MethodNode class | TicTacToeState class | TicTacToe class | TypedSendersOfTest class | SmallInteger class | Integer class | True class | False class | ContextPart class | TestCase class> # Object class
 sureSenders : <OrderedCollection>
 unsureSenders : <OrderedCollection>
 "!
@@ -102,7 +66,7 @@ TestCase subclass: #ReturnTypeInfoTest
 	category: 'DynamicTypeInformation'
 "
 iv1 : <>
-iv2 : <>
+iv2 : <SmallFloat64 | SmallInteger> # Number
 "!
 !classDefinition: 'ReturnTypeInfoTest class' category: #DynamicTypeInformation!
 ReturnTypeInfoTest class
@@ -125,7 +89,7 @@ TestCase subclass: #TypedSendersOfTest
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-v1 : <>
+v1 : <TypedSendersOfTest>
 "!
 !classDefinition: 'TypedSendersOfTest class' category: #DynamicTypeInformation!
 TypedSendersOfTest class
@@ -154,7 +118,7 @@ RenameSelector subclass: #TypedRenameSelector
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-implementor : <>
+implementor : <CompiledMethod>
 "!
 !classDefinition: 'TypedRenameSelector class' category: #DynamicTypeInformation!
 TypedRenameSelector class
@@ -162,20 +126,19 @@ TypedRenameSelector class
 
 !classDefinition: #BrowseTypedSelector category: #DynamicTypeInformation!
 Object subclass: #BrowseTypedSelector
-	instanceVariableNames: 'methodNode class cursorPosition morph methodToLookUp incompleteTypeInfoReasons sentSelector types commonSupertype'
+	instanceVariableNames: 'methodNode class cursorPosition morph methodToLookUp incompleteTypeInfoReasons sentSelector types'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
 methodNode : <MethodNode>
-class : <TicTacToe class>
+class : <TicTacToe class | FintechTest class | TusLibrosSystemFacade class> # Object class
 cursorPosition : <SmallInteger>
 morph : <InnerTextMorph>
 methodToLookUp : <CompiledMethod>
 incompleteTypeInfoReasons : <Set>
 sentSelector : <Symbol>
 types : <Array>
-commonSupertype : <TicTacToeState class>
 "!
 !classDefinition: 'BrowseTypedSelector class' category: #DynamicTypeInformation!
 BrowseTypedSelector class
@@ -208,9 +171,9 @@ Object subclass: #Customer
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-firstName : <>
-lastName : <>
-dateOfBirth : <>
+firstName : <String | SmallInteger> # Object
+lastName : <String | SmallInteger> # Object
+dateOfBirth : <Date | DateAndTime> # Object
 "!
 !classDefinition: 'Customer class' category: #DynamicTypeInformation!
 Customer class
@@ -242,6 +205,20 @@ Object subclass: #DynamicTypeInfo
 DynamicTypeInfo class
 	instanceVariableNames: ''!
 
+!classDefinition: #IncompleteTypeInfo category: #DynamicTypeInformation!
+Object subclass: #IncompleteTypeInfo
+	instanceVariableNames: 'methodReference reasonDescription'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+methodReference : <MethodReference>
+reasonDescription : <String>
+"!
+!classDefinition: 'IncompleteTypeInfo class' category: #DynamicTypeInformation!
+IncompleteTypeInfo class
+	instanceVariableNames: ''!
+
 !classDefinition: #NotCompiledYetMethod category: #DynamicTypeInformation!
 Object subclass: #NotCompiledYetMethod
 	instanceVariableNames: 'class selector'
@@ -256,16 +233,37 @@ selector : <>
 NotCompiledYetMethod class
 	instanceVariableNames: ''!
 
-!classDefinition: #ParseNodeTypesDisplay category: #DynamicTypeInformation!
-Object subclass: #ParseNodeTypesDisplay
-	instanceVariableNames: 'parseNodeToAnalize methodNodeOwner definingClass methodToAnalyze types incompleteTypeInfoReasons typeInfo labels lines selectedIndex icons'
+!classDefinition: #ParseNodeTypeInfo category: #DynamicTypeInformation!
+Object subclass: #ParseNodeTypeInfo
+	instanceVariableNames: 'labels lines icons actions parseNodeToAnalize definingClass typeInfo parseNodeTypesDisplay method'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-parseNodeToAnalize : <InstanceVariableNode | TempVariableNode | ReturnNode | MessageNode> # ParseNode
+labels : <>
+lines : <>
+icons : <>
+actions : <>
+parseNodeToAnalize : <LiteralVariableNode | InstanceVariableNode | MessageNode | VariableNode | MethodNode | ReturnNode | TempVariableNode> # ParseNode
+definingClass : <>
+typeInfo : <UndefinedObject | InstanceVariableTypeInfoInHierarchy | ReturnTypeInfo | ParseNodeTypeInfo | Array | MethodVariableTypeInfo> # Object
+parseNodeTypesDisplay : <>
+method : <CompiledMethod>
+"!
+!classDefinition: 'ParseNodeTypeInfo class' category: #DynamicTypeInformation!
+ParseNodeTypeInfo class
+	instanceVariableNames: ''!
+
+!classDefinition: #ParseNodeTypesDisplay category: #DynamicTypeInformation!
+Object subclass: #ParseNodeTypesDisplay
+	instanceVariableNames: 'parseNodeToAnalize methodNodeOwner definingClass methodToAnalyze types incompleteTypeInfoReasons typeInfo labels lines selectedIndex icons typesIndexLimit actions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DynamicTypeInformation'
+"
+parseNodeToAnalize : <InstanceVariableNode | LiteralNode | LiteralVariableNode | MessageNode | MethodNode | ReturnNode | TempVariableNode | VariableNode> # ParseNode
 methodNodeOwner : <MethodNode>
-definingClass : <ParseNodeTypesDisplay class | Metaclass | Customer class | SmalltalkEditor class | RenameSelectorTest class | TicTacToe class | MessageNode class | Behavior class | BrowseTypedSelector class> # ClassDescription
+definingClass : <TicTacToe class | TicTacToe2 class | VariableTypeInfo class | TypedSendersOfTest class | LiteralVariableNode class | ParseNodeTypesDisplay class | ParseNodeTypeInfo class | CompiledMethod class | VariableNode class | VariableTypeInfoTest class> # Object class
 methodToAnalyze : <CompiledMethod>
 types : <Array | Set> # Collection
 incompleteTypeInfoReasons : <Set | Array> # Collection
@@ -274,6 +272,8 @@ labels : <OrderedCollection>
 lines : <OrderedCollection>
 selectedIndex : <SmallInteger>
 icons : <OrderedCollection>
+typesIndexLimit : <>
+actions : <OrderedCollection>
 "!
 !classDefinition: 'ParseNodeTypesDisplay class' category: #DynamicTypeInformation!
 ParseNodeTypesDisplay class
@@ -296,7 +296,7 @@ Object subclass: #TypeInfoRootTestClass
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-ivroot : <>
+ivroot : <SmallFloat64>
 "!
 !classDefinition: 'TypeInfoRootTestClass class' category: #DynamicTypeInformation!
 TypeInfoRootTestClass class
@@ -441,90 +441,25 @@ MethodVariablesTypes class
 	instanceVariableNames: ''!
 
 
-!TypeInfoError methodsFor: 'as yet unclassified' stamp: 'HAW 10/27/2018 18:44:47'!
-isResumable
-	
-	^ true! !
+!ParseNodeTypeInfo commentStamp: '<historical>' prior: 0!
+I am an abstract superclass for ParseNode visitors that functions as a null visitor.  Here's the code that defines my interface:
 
-!NoImplementorForMessageSend methodsFor: 'initialization' stamp: 'HAW 12/1/2018 20:35:59'!
-initializeFor: aMethodReference 
-	
-	methodReference := aMethodReference ! !
-
-!NoImplementorForMessageSend methodsFor: 'accessing' stamp: 'HAW 12/1/2018 20:35:59'!
-methodReference
-	
-	^methodReference! !
-
-!NoImplementorForMessageSend methodsFor: 'browsing' stamp: 'HAW 12/1/2018 20:35:59'!
-browse
-	
-	BrowserWindow fullOnClass: methodReference actualClass selector: methodReference methodSymbol ! !
-
-!NoImplementorForMessageSend methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:35:59'!
-= anObject
-
-	^ self class = anObject class and: [ methodReference = anObject methodReference ]! !
-
-!NoImplementorForMessageSend methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:35:59'!
-hash
-
-	^methodReference hash! !
-
-!NoImplementorForMessageSend methodsFor: 'exceptionDescription' stamp: 'HAW 12/1/2018 20:44:45'!
-messageText
- 
-	^'Could not find implementation of #', methodReference methodSymbol , ' in ', methodReference actualClass name, ' hierarchy'! !
-
-!NoImplementorForMessageSend class methodsFor: 'signaling' stamp: 'HAW 12/1/2018 20:35:59'!
-signalFor: aMethodReference 
-	
-	(self for: aMethodReference) signal! !
-
-!NoImplementorForMessageSend class methodsFor: 'instance creation' stamp: 'HAW 12/1/2018 20:35:59'!
-for: aMethodReference 
-	
-	^self new initializeFor: aMethodReference ! !
-
-!NoReturnTypeInfo methodsFor: 'initialization' stamp: 'HAW 12/1/2018 11:59:32'!
-initializeFor: aMethodReference 
-	
-	methodReference := aMethodReference ! !
-
-!NoReturnTypeInfo methodsFor: 'accessing' stamp: 'HAW 12/1/2018 20:10:43'!
-methodReference
-	
-	^methodReference! !
-
-!NoReturnTypeInfo methodsFor: 'browsing' stamp: 'HAW 12/1/2018 20:14:05'!
-browse
-	
-	BrowserWindow fullOnClass: methodReference actualClass selector: methodReference methodSymbol ! !
-
-!NoReturnTypeInfo methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:09:53'!
-= anObject
-
-	^ self class = anObject class and: [ methodReference = anObject methodReference ]! !
-
-!NoReturnTypeInfo methodsFor: 'comparing' stamp: 'HAW 12/1/2018 20:10:12'!
-hash
-
-	^methodReference hash! !
-
-!NoReturnTypeInfo methodsFor: 'exceptionDescription' stamp: 'HAW 12/1/2018 12:05:42'!
-messageText
- 
-	^'There is no return type info for ', methodReference classAndSelector! !
-
-!NoReturnTypeInfo class methodsFor: 'signaling' stamp: 'HAW 12/1/2018 11:59:03'!
-signalFor: aMethodReference 
-	
-	(self for: aMethodReference) signal! !
-
-!NoReturnTypeInfo class methodsFor: 'instance creation' stamp: 'HAW 12/1/2018 11:59:18'!
-for: aMethodReference 
-	
-	^self new initializeFor: aMethodReference ! !
+(SystemNavigation default allImplementorsOf: #accept: localTo: ParseNode) do:
+	[:methodReference|
+	methodReference compiledMethod messages do:
+		[:sel|
+		((sel beginsWith: 'visit')
+		and: [sel numArgs = 1]) ifTrue:
+			[ParseNodeVisitor
+				compile: (String streamContents:
+							[:str|
+							str nextPutAll: sel;
+								space;
+								nextPut: $a.
+							methodReference classSymbol first isVowel ifTrue:
+								[str nextPut: $n].
+							str nextPutAll: methodReference classSymbol])
+				classified: 'visiting']]]!
 
 !TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 doesTypedSendSafely
@@ -557,20 +492,14 @@ unsureSenders
 	
 	^unsureSenders ! !
 
-!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 20:15:17'!
+!TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 12/3/2018 11:56:10'!
 visitMessageNode: aMessageNode
 	
 	(aMessageNode selector named: sentSelector) ifTrue: [ | receiverTypes incompleteTypeInfo incompleteTypeInfoReasons |
 		incompleteTypeInfo := false.
 		incompleteTypeInfoReasons := Set new.
+		receiverTypes := aMessageNode receiver typesIn: toAnalize addingIncompleteTypeInfoTo: incompleteTypeInfoReasons.			
 		
-		receiverTypes := [ aMessageNode receiver typesIn: toAnalize ]
-			on: TypeInfoError 
-			do: [ :anError | 
-				incompleteTypeInfoReasons add: anError messageText.
-				incompleteTypeInfo := true. 
-				anError resume ].
-			
 		receiverTypes isEmpty
 			ifTrue: [ unsureSenders add: aMessageNode->(Array with: 'Could not get receiver''s type info') ]
 			ifFalse: [ (receiverTypes anySatisfy: [ :aReceiverType | aReceiverType includesBehavior: sentMethodClass]) 
@@ -1365,14 +1294,14 @@ test04StoresMoreThanOneTypeCorrectly
 	self assert: (variableTypeInfo typesIncludes: self class).
 	self assert: (variableTypeInfo typesIncludes: 1 class).! !
 
-!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 10/15/2018 22:48:38'!
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:23:21'!
 test05DoesNotStoreTypesWhenContainerIsNil
 
 	| variableTypeInfo |
 
 	variableTypeInfo := VariableTypeInfo new initializeRawTypes: nil.
 
-	variableTypeInfo addType: self class.
+	variableTypeInfo addType: self class ifFull: [].
 
 	self assert: variableTypeInfo isTypesEmpty.
 	self assert: 0 equals: variableTypeInfo typesSize.
@@ -1493,12 +1422,12 @@ test16StoresTypesIsFalseWhenContainerIsNil
 
 	self deny: variableTypeInfo doesStoreTypes ! !
 
-!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 10/15/2018 18:35:33'!
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:24:07'!
 test17IsMegamorphicWhenContainerIsFull
 
 	| variableTypeInfo |
 
-	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array with: 2).
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
 
 	variableTypeInfo addType: 1 class.
 	variableTypeInfo addType: 1.0 class.
@@ -1666,6 +1595,169 @@ test29CommonSelectosGoesUpToIncludingProtoObject
 	self assert: expectedSelectors size equals: commonSelectors size.
 	self assert: (commonSelectors allSatisfy: [ :aSelector | expectedSelectors includes: aSelector])! !
 
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/3/2018 12:47:14'!
+test30CommonSupertypeIfGenericEvaluatesIfGenericBlockForObject
+
+	| variableTypeInfo |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+
+	variableTypeInfo addType: 1 class.
+	variableTypeInfo addType: $a class.
+
+	variableTypeInfo commonSupertypeIfGeneric: [ :aGenericSupertype | ^ self assert: aGenericSupertype equals: Object ].
+	self fail.! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/3/2018 12:49:03'!
+test31CommonSupertypeIfGenericEvaluatesIfGenericBlockForProtoObject
+
+	| variableTypeInfo |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+
+	variableTypeInfo addType: Object.
+	variableTypeInfo addType: MessageCatcher .
+
+	variableTypeInfo commonSupertypeIfGeneric: [ :aGenericSupertype | ^ self assert: aGenericSupertype equals: ProtoObject ].
+	self fail.! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/3/2018 12:55:14'!
+test32WithCommonSupertypeDoIfGenericEvaluatesDoBlockWhenNoGenericSupertype
+
+	| variableTypeInfo |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+
+	variableTypeInfo addType: 1 class.
+	variableTypeInfo addType: 1.0 class .
+
+	variableTypeInfo 
+		withCommonSupertypeDo: [ :commonSupertype | self assert: commonSupertype equals: Number ]
+		ifGeneric: [ :aGenericSupertype | self fail ]! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/3/2018 12:55:10'!
+test33WithCommonSupertypeDoIfGenericEvaluatesGenericBlockWhenGenericSupertype
+
+	| variableTypeInfo |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+
+	variableTypeInfo addType: 1 class.
+	variableTypeInfo addType: $a class .
+
+	variableTypeInfo 
+		withCommonSupertypeDo: [ :commonSupertype | self fail ]
+		ifGeneric: [ :aGenericSupertype | self assert: aGenericSupertype equals: Object ]! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:25:48'!
+test34AddingATypeWhenNoMoreSpaceEvaluatesIsFullBlock
+
+	| variableTypeInfo full |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+	full := false.
+	
+	variableTypeInfo addType: 1 class ifFull: [ self fail ].
+	variableTypeInfo addType: 1.0 class ifFull: [ self fail ].
+	variableTypeInfo addType: 'hello' class ifFull: [ full := true ].
+
+	self assert: full! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:27:57'!
+test35TypeIsNotMoreInTypesWhenRemoved
+
+	| variableTypeInfo  |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 3).
+	
+	variableTypeInfo addType: 1 class. 
+	variableTypeInfo addType: 1.0 class.
+	
+	variableTypeInfo removeType: 1 class.
+	
+	self assert: variableTypeInfo typesSize equals: 1.
+	self assert: (variableTypeInfo typesIncludes: 1.0 class).
+	self deny: (variableTypeInfo typesIncludes: 1 class).
+	! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:28:58'!
+test36RemovingTypeWhenTypesIsEmptyEvaluatesIfAbsent
+
+	| variableTypeInfo  |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 3).
+	
+	variableTypeInfo removeType: 1 class ifAbsent: [ ^self ].
+	
+	self fail.! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:29:56'!
+test37RemovingNotIncludedTypeEvaluatesIfAbsent
+
+	| variableTypeInfo  |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 3).
+	
+	variableTypeInfo addType: 1.0 class.
+	variableTypeInfo removeType: 1 class ifAbsent: [ ^self ].
+	
+	self fail.! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:31:51'!
+test38RemovingLastAddedTypeWorksAsExpected
+
+	| variableTypeInfo  |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+	
+	variableTypeInfo addType: 1 class.
+	variableTypeInfo addType: 1.0 class.
+	variableTypeInfo removeType: 1.0 class ifAbsent: [ self fail ].
+	
+	self assert: variableTypeInfo typesSize equals: 1.
+	variableTypeInfo addType: 'hello' class.
+	self assert: variableTypeInfo typesSize equals: 2.
+	self assert: (variableTypeInfo typesIncludes: 1 class).
+	self assert: (variableTypeInfo typesIncludes: 'hello' class).
+	
+	! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:33:47'!
+test39RemoveTypeSignalExceptionWhenTypeNotFound
+
+	| variableTypeInfo  |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 2).
+	
+	variableTypeInfo addType: 1 class.
+	
+	self 
+		should: [ variableTypeInfo removeType: 1.0 class ]
+		raise: Error
+		withExceptionDo: [:anError |
+			self assert: anError messageText equals: VariableTypeInfo typeNotFoundErrorDescription.
+			self assert: variableTypeInfo typesSize equals: 1.
+			self assert: (variableTypeInfo typesIncludes: 1 class) ]
+	
+	! !
+
+!VariableTypeInfoTest methodsFor: 'tests' stamp: 'HAW 12/6/2018 20:35:29'!
+test40TypesDoEvaluatesBlockOnEachType
+
+	| variableTypeInfo types |
+
+	variableTypeInfo := VariableTypeInfo new initializeRawTypes: (Array new: 3).
+	types := OrderedCollection new.
+	
+	variableTypeInfo addType: 1 class.
+	variableTypeInfo addType: 1.0 class.
+	
+	variableTypeInfo typesDo: [ :aType | types add: aType ].
+	
+	self assert: types size equals: 2.
+	self assert: (types includes: 1 class).
+	self assert: (types includes: 1.0 class)! !
+
 !VariableTypeInfoTest class methodsFor: 'as yet unclassified' stamp: 'HAW 10/16/2018 00:07:49'!
 createInstanceVariableRawTypesFor: anInstVarName
 
@@ -1735,17 +1827,17 @@ browseForAllTypes
 	
 	self subclassResponsibility ! !
 
-!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 11/30/2018 18:31:48'!
-browseForCommonSupertype
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/3/2018 14:51:58'!
+browseForCommonSupertype: aCommonSupertype
 	
 	self subclassResponsibility ! !
 
-!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/1/2018 11:15:21'!
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/6/2018 17:48:56'!
 browseTypedMessageNode: messageNode 
 
 	sentSelector := messageNode selector key.
 	incompleteTypeInfoReasons := Set new.
-	types := messageNode receiver typesIn: methodToLookUp addingIncompleteTypeInfoTo: incompleteTypeInfoReasons.
+	types := messageNode receiverOrCascadeReceiver typesIn: methodToLookUp addingIncompleteTypeInfoTo: incompleteTypeInfoReasons.
 
 	types isEmpty 
 		ifTrue: [ self browseTypedWithNoTypeInfoSendTo: messageNode receiver ]
@@ -1762,7 +1854,7 @@ Do you want to see all ', self browseTypeLabel, '?') ifTrue: [ self browseAll ]
 		
 ! !
 
-!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/1/2018 11:15:21'!
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/3/2018 14:52:18'!
 browseTypedWithTypeInfo
 	
 	| receiverTypeInfo |
@@ -1770,10 +1862,10 @@ browseTypedWithTypeInfo
 	self shouldBrowseAll ifTrue: [ ^self browseAll ].
 			
 	receiverTypeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
-	commonSupertype := receiverTypeInfo commonSupertype.
-	(commonSupertype = Object or: [ commonSupertype = ProtoObject ])
-		ifTrue: [ self browseForAllTypes ]
-		ifFalse: [ self browseForCommonSupertype ]
+	receiverTypeInfo 
+		withCommonSupertypeDo: [ :aCommonSupertype | self browseForCommonSupertype: aCommonSupertype ]	
+		 ifGeneric: [ :aGenericType | self browseForAllTypes ].
+		
 ! !
 
 !BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 11/30/2018 18:22:11'!
@@ -1843,10 +1935,10 @@ browseForAllTypes
 
 	Smalltalk browseAllTypedImplementorsOf: sentSelector forAll: types ! !
 
-!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 11/30/2018 18:37:07'!
-browseForCommonSupertype
+!BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 12/3/2018 14:52:25'!
+browseForCommonSupertype: aCommonSupertype
 
-	Smalltalk browseAllTypedImplementorsOf: sentSelector for: commonSupertype ! !
+	Smalltalk browseAllTypedImplementorsOf: sentSelector for: aCommonSupertype ! !
 
 !BrowseTypedImplementors methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 11:06:22'!
 browseTypeLabel
@@ -1873,12 +1965,12 @@ browseForAllTypes
 
 	 Smalltalk browseAllTypedCallsOn: sentSelector forAll: types ! !
 
-!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/1/2018 10:58:45'!
-browseForCommonSupertype
+!BrowseTypedSenders methodsFor: 'as yet unclassified' stamp: 'HAW 12/3/2018 14:52:34'!
+browseForCommonSupertype: aCommonSupertype
 
 	| implementor |
 	
-	implementor := commonSupertype lookupSelector: sentSelector .
+	implementor := aCommonSupertype lookupSelector: sentSelector .
 	implementor isNil
 		ifTrue: [ self browseForAllTypes ]
 		ifFalse: [ Smalltalk browseAllTypedCallsOn: implementor ]
@@ -2120,6 +2212,42 @@ smalltalkEditorMenuOptions
 		}`
 ! !
 
+!IncompleteTypeInfo methodsFor: 'initialization' stamp: 'HAW 12/3/2018 11:53:42'!
+initializeOf: aMethodReference describedAs: aReasonDescription
+	
+	methodReference := aMethodReference.
+	reasonDescription := aReasonDescription ! !
+
+!IncompleteTypeInfo methodsFor: 'accessing' stamp: 'HAW 12/1/2018 20:10:43'!
+methodReference
+	
+	^methodReference! !
+
+!IncompleteTypeInfo methodsFor: 'accessing' stamp: 'HAW 12/3/2018 11:54:34'!
+reasonDescription
+	
+	^reasonDescription ! !
+
+!IncompleteTypeInfo methodsFor: 'browsing' stamp: 'HAW 12/1/2018 20:14:05'!
+browse
+	
+	BrowserWindow fullOnClass: methodReference actualClass selector: methodReference methodSymbol ! !
+
+!IncompleteTypeInfo methodsFor: 'comparing' stamp: 'HAW 12/3/2018 11:54:13'!
+= anObject
+
+	^ self class = anObject class and: [ reasonDescription = anObject reasonDescription]! !
+
+!IncompleteTypeInfo methodsFor: 'comparing' stamp: 'HAW 12/3/2018 11:54:19'!
+hash
+
+	^reasonDescription hash! !
+
+!IncompleteTypeInfo class methodsFor: 'instance creation' stamp: 'HAW 12/3/2018 11:53:20'!
+of: aMethodReference describedAs: aReasonDescription
+	
+	^self new initializeOf: aMethodReference describedAs: aReasonDescription! !
+
 !NotCompiledYetMethod methodsFor: 'initialization' stamp: 'HAW 10/24/2018 20:08:07'!
 initializeClass: aClass selector: aSelector 
 
@@ -2165,6 +2293,171 @@ class: aClass selector: aSelector
 
 	^self new initializeClass: aClass selector: aSelector ! !
 
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:52:52'!
+visitAssignmentNode: anAssignmentNode
+	! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:53:02'!
+visitBlockNode: aBlockNode
+	
+		! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:53:22'!
+visitBraceNode: aBraceNode
+	! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:53:28'!
+visitCascadeNode: aCascadeNode
+	! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 18:05:29'!
+visitInstanceVariableNode: anInstanceVariableNode
+
+	typeInfo := method methodClass typeInfoOfInstanceVariableNamed: anInstanceVariableNode name ifAbsent: [ self resetTypeInfo ]
+	! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:45:58'!
+visitLiteralNode: aLiteralNode! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:45:58'!
+visitLiteralVariableNode: aLiteralVariableNode! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 17:47:55'!
+visitMessageNode: aMessageNode
+	
+	| implementors receiverTypes |
+	
+	receiverTypes := aMessageNode receiverOrCascadeReceiver typesIn: method addingIncompleteTypeInfoTo: Set new.
+	implementors := IdentitySet new.
+	receiverTypes do: [ :aType | (aType lookupSelector: aMessageNode selectorSymbol) ifNotNil: [ :implementor | implementors add: implementor ]].
+	
+	implementors size = 1 ifTrue: [ typeInfo := implementors anyOne returnTypeInfo ]! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 17:49:43'!
+visitMessageNodeInCascade: aMessageNode
+	
+	"does it with visitMessageNode - Hernan"! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 17:49:57'!
+visitMethodNode: aMethodNode
+	
+	"Used when cursor is in method selector - Hernan"
+	
+	typeInfo := method returnTypeInfo ! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:45:58'!
+visitNewArrayNode: aNewArrayNode! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:45:58'!
+visitRemoteTempVectorNode: aRemoteTempVectorNode! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 17:51:02'!
+visitReturnNode: aReturnNode
+	
+	typeInfo := method returnTypeInfo ! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:45:58'!
+visitSelectorNode: aSelectorNode! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 18:08:31'!
+visitTempVariableNode: aTempVariableNode
+
+	typeInfo := method typeInfoOfVariableNamed: aTempVariableNode name ifAbsent: [ self resetTypeInfo ]! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 12:45:58'!
+visitUndeclaredVariableNode: aVariableNode! !
+
+!ParseNodeTypeInfo methodsFor: 'visiting' stamp: 'HAW 12/6/2018 18:14:29'!
+visitVariableNode: aVariableNode
+
+! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:18:26'!
+addCrudOptions
+	
+	lines add: labels size.
+	
+	labels add: 'Add type ...'.
+	icons add: Theme current listAddIcon.
+	actions add: [ self addType ].
+	
+	labels add: 'Remove type ...'.
+	icons add: Theme current listRemoveIcon.
+	actions add: [ self removeType ].
+	
+	labels add: 'Remove all types'.
+	icons add: Theme current deleteIcon.
+	actions add: [ self removeAllTypes ].! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 17:10:24'!
+initializeOf: aParseNode in: aCompiledMethod 
+
+	parseNodeToAnalize := aParseNode.
+	method := aCompiledMethod ! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:11:26'!
+initializeTo: aParseNodeTypesDisplay
+
+	parseNodeTypesDisplay := aParseNodeTypesDisplay ! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:11:22'!
+initializeTo: aLabels lines: aLines icons: anIcons actions: anActions for: aParseNodeToAnalize in: aDefiningClass 
+
+	labels := aLabels.
+	lines := aLines.
+	icons := anIcons.
+	actions := anActions.
+	parseNodeToAnalize := aParseNodeToAnalize.
+	definingClass := aDefiningClass ! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 18:05:52'!
+resetTypeInfo
+
+	typeInfo := nil! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:11:50'!
+value 
+
+	parseNodeTypesDisplay parseNodeToAnalize accept: self.
+	
+	! !
+
+!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 18:16:42'!
+withTypeInfoDo: aBlock ifNone: aNoneBlock
+
+	self resetTypeInfo.
+	parseNodeToAnalize accept: self.
+	
+	^typeInfo ifNotNil: aBlock ifNil: aNoneBlock.
+	
+	! !
+
+!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:10:58'!
+addTo: aParseNodeTypesDisplay
+
+	^(self to: aParseNodeTypesDisplay) value! !
+
+!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:10:37'!
+addTo: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass 
+
+	^(self to: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass) value! !
+
+!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 17:09:42'!
+of: aParseNode in: aCompiledMethod 
+
+	^self new initializeOf: aParseNode in: aCompiledMethod 
+! !
+
+!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:11:09'!
+to: aParseNodeTypesDisplay
+
+	^self new initializeTo: aParseNodeTypesDisplay! !
+
+!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:11:11'!
+to: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass 
+
+	^self new initializeTo: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass! !
+
 !ParseNodeTypesDisplay methodsFor: 'initialization' stamp: 'HAW 11/30/2018 11:22:41'!
 initliazeOf: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
 
@@ -2177,7 +2470,7 @@ initliazeOf: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
 	
 ! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing' stamp: 'HAW 11/30/2018 12:12:02'!
+!ParseNodeTypesDisplay methodsFor: 'showing' stamp: 'HAW 12/6/2018 13:01:32'!
 show
 
 	self 
@@ -2185,39 +2478,74 @@ show
 		showTypes
 		! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 14:50:27'!
-addCommonSupertypLabel
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 15:19:11'!
+addCommonSupertypeLabel
+
+	typeInfo typesSize = 1 
+		ifTrue: [ | typeName |
+			typeName := typeInfo types anyOne name.
+			labels add: typeName.
+			actions add: [ self browseClassNamed: typeName ].
+			icons add: Theme current editFindReplaceIcon]
+		ifFalse: [
+			typeInfo 
+				withCommonSupertypeDo: [ :commonSupertype |
+					labels add: commonSupertype name.
+					actions add: [ self browseClassNamed: commonSupertype name ].
+					icons add: Theme current goTopIcon ]
+				ifGeneric: [ :genericType |
+					labels add: self commonSelectorsOption.
+					actions add: [ self showCommonSelectors ]. 
+					icons add: Theme current spreadsheetIcon ]]
+		! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 17:09:06'!
+addCrudOptions
+
+	(ParseNodeTypeInfo of: parseNodeToAnalize in: methodToAnalyze) 
+		withTypeInfoDo: [ :parseNoteTypeInfo | self addCrudOptionsFor: parseNoteTypeInfo ]
+		ifNone: []! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 15:23:42'!
+addCrudOptionsFor: aTypeInfo
+
+	lines add: labels size.
 	
-	typeInfo commonSupertype = Object 
-		ifTrue: [ 
-			labels add: self commonSelectorsOption.
-			icons add: Theme current spreadsheetIcon ]
-		ifFalse: [ 
-			labels add: typeInfo commonSupertype name.
-			icons add: (typeInfo typesSize = 1 ifTrue: [ Theme current editFindReplaceIcon ] ifFalse: [Theme current goTopIcon ])].
+	labels add: 'Add type ...'.
+	icons add: Theme current listAddIcon.
+	actions add: [ self addTypeTo: aTypeInfo ].
+	
+	labels add: 'Remove type ...'.
+	icons add: Theme current listRemoveIcon.
+	actions add: [ self removeTypeFrom: aTypeInfo ].
+	
+	labels add: 'Remove all types'.
+	icons add: Theme current deleteIcon.
+	actions add: [ self removeAllTypesFrom: aTypeInfo ].! !
 
-! !
-
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/1/2018 19:52:03'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 15:20:02'!
 addIncompleteTypesReasons
 	
 	incompleteTypeInfoReasons notEmpty ifTrue: [
 		lines add: labels size.
 		incompleteTypeInfoReasons do: [ :aTypeInfoError | 
-			labels add: aTypeInfoError messageText.
-			icons add: Theme current collapseIcon]]
+			labels add: aTypeInfoError reasonDescription.
+			actions add: [ aTypeInfoError browse ].
+			icons add: Theme current closeIcon ]]
 	
 	
 	! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 14:50:41'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 15:38:25'!
 addTypesLabels
 
-	typeInfo typesSize > 1 ifTrue: [
+	typeInfo typesSize > 1 ifTrue: [ | typeIcon |
 		lines add: 1.
+		typeIcon := self typeIcon.
 		typeInfo typesNames do: [ :aTypeName |
 			labels add: aTypeName.
-			icons add: Theme current editFindReplaceIcon ]].
+			actions add: [ self browseClassNamed: aTypeName ].
+			icons add: typeIcon ]].
 ! !
 
 !ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:10:33'!
@@ -2225,35 +2553,41 @@ browseClassNamed: aName
 
 	BrowserWindow fullOnClass: (Smalltalk classNamed: aName) selector: nil ! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/1/2018 19:57:20'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/3/2018 12:13:22'!
+browseIncompleteTypeInfo
+
+	^(incompleteTypeInfoReasons at: selectedIndex - typesIndexLimit) browse ! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 15:21:34'!
 browseSelected
 	
-	| typesIndexLimit |
+	| action |
 	
-	typesIndexLimit := labels size - incompleteTypeInfoReasons size.
-	
-	(selectedIndex between: 1 and: typesIndexLimit) 
-		ifTrue: [ | selected |
-		selected := labels at: selectedIndex.
-		selected = self commonSelectorsOption 
-			ifTrue: [ self showCommonSelectors ]
-			ifFalse: [ self browseClassNamed: selected ]].
-		
-	(selectedIndex between: typesIndexLimit + 1 and: labels size) 
-		ifTrue: [ (incompleteTypeInfoReasons at: selectedIndex - typesIndexLimit) browse ]
-			
-! !
+	action := actions at: selectedIndex ifAbsent: [ ^self ].
+	action value! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 14:50:10'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/3/2018 12:11:46'!
+browseSelectedTypeOrCommonSelectors
+
+	| selected |
+		
+	selected := labels at: selectedIndex.
+	selected = self commonSelectorsOption 
+		ifTrue: [ self showCommonSelectors ]
+		ifFalse: [ self browseClassNamed: selected ]! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 17:05:28'!
 calculateLabelsAndLines
 
 	labels := OrderedCollection new.
 	lines := OrderedCollection new.
 	icons := OrderedCollection new.
+	actions := OrderedCollection new.
 
 	self 
-		addCommonSupertypLabel;
+		addCommonSupertypeLabel;
 		addTypesLabels;
+		addCrudOptions;
 		addIncompleteTypesReasons
 ! !
 
@@ -2275,6 +2609,16 @@ initiliazeTypeInfo
 
 	typeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
 ! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/3/2018 12:12:17'!
+isIncompleteTypeInfoSelection
+	
+	^selectedIndex between: typesIndexLimit + 1 and: labels size! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/3/2018 12:10:59'!
+isTypeSelection
+	
+	^selectedIndex between: 1 and: typesIndexLimit! !
 
 !ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:18'!
 showCommonSelectors
@@ -2312,6 +2656,51 @@ showTypesWhenNotEmpty
 		calculateLabelsAndLines;
 		showTypesPopUp;
 		browseSelected	! !
+
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 15:38:34'!
+typeIcon
+
+	^Theme current editFindReplaceIcon! !
+
+!ParseNodeTypesDisplay methodsFor: 'accessing' stamp: 'HAW 12/6/2018 15:23:24'!
+definingClass
+	
+	^definingClass! !
+
+!ParseNodeTypesDisplay methodsFor: 'accessing' stamp: 'HAW 12/6/2018 15:21:56'!
+parseNodeToAnalize
+	
+	^parseNodeToAnalize! !
+
+!ParseNodeTypesDisplay methodsFor: 'crud' stamp: 'HAW 12/6/2018 17:58:33'!
+addTypeTo: aVariableTypeInfo
+
+	| className trimmedNamed |
+	
+	className := ClassNameRequestMorph request: 'Enter type to add' onCancel: [ ^self ].
+	trimmedNamed := className withBlanksTrimmed.
+	
+	(Smalltalk classNamed: trimmedNamed) ifNotNil: [ :aType | 
+		aVariableTypeInfo addType: aType ifFull: [ self inform: 'There is no more space to add type' ]]! !
+
+!ParseNodeTypesDisplay methodsFor: 'crud' stamp: 'HAW 12/6/2018 16:04:56'!
+removeAllTypesFrom: aVariableTypeInfo
+	
+	aVariableTypeInfo removeAllTypes! !
+
+!ParseNodeTypesDisplay methodsFor: 'crud' stamp: 'HAW 12/6/2018 15:43:28'!
+removeTypeFrom: aVariableTypeInfo
+	
+	| typeNamesToRemove typeNamesToRemoveIcons selectedTypeToRemoveIndex typeNameToRemove options |
+	
+	typeNamesToRemove := aVariableTypeInfo typesNames.
+	typeNamesToRemoveIcons := typeNamesToRemove collect: [ :aType | self typeIcon ].
+	
+	options := PopUpMenu labelArray: typeNamesToRemove lines: #() icons: typeNamesToRemoveIcons.
+	selectedTypeToRemoveIndex := options startUpWithCaption: 'Select type to remove'.
+	
+	typeNameToRemove := typeNamesToRemove at: selectedTypeToRemoveIndex ifAbsent: [ ^self ].
+	aVariableTypeInfo removeType: (Smalltalk classNamed: typeNameToRemove)! !
 
 !ParseNodeTypesDisplay class methodsFor: 'instance creation' stamp: 'HAW 11/30/2018 11:19:56'!
 of: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
@@ -2430,18 +2819,48 @@ instanceVariableRawTypesSizeFor: anInstVarName
 
 	^ 3! !
 
-!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 10/15/2018 18:35:33'!
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 12/6/2018 17:55:32'!
 addType: aType
 
+	^self addType: aType ifFull: [ self signalRawTypesIsFull]! !
+
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 12/6/2018 17:55:10'!
+addType: aType ifFull: aFullBlock
+
+	"If rawTypes is nil, it is assumed that type can not be added and therefore it is full - Hernan"
+	
 	rawTypes ifNotNil: [
 		rawTypes withIndexDo: [ :typeAtIndex :rawTypesIndex |
 			typeAtIndex = aType ifTrue: [ ^self ].
-			typeAtIndex ifNil: [ ^rawTypes at: rawTypesIndex put: aType ]]]! !
+			typeAtIndex ifNil: [ ^rawTypes at: rawTypesIndex put: aType ]]].
+	
+	aFullBlock value.! !
 
 !VariableTypeInfo methodsFor: 'types' stamp: 'HAW 11/2/2018 11:50:29'!
 isTypesEmpty
 	
 	^rawTypes isNil or: [ rawTypes isEmpty or: [rawTypes first isNil ]]! !
+
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 12/6/2018 16:07:27'!
+removeAllTypes
+	
+	rawTypes atAllPut: nil! !
+
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 12/6/2018 15:46:05'!
+removeType: aType
+
+	^self removeType: aType ifAbsent: [ self signalTypeNotFound]! !
+
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 12/6/2018 16:02:14'!
+removeType: aType ifAbsent: anAbsentBlock
+
+	| typeIndex |
+	
+	rawTypes ifNil: [ ^anAbsentBlock value ].
+	typeIndex := rawTypes indexOf: aType ifAbsent: [ ^anAbsentBlock value ].
+	
+	rawTypes replaceFrom: typeIndex to: rawTypes size - 1 with: rawTypes startingAt: typeIndex + 1.
+	rawTypes at: rawTypes size put: nil! !
 
 !VariableTypeInfo methodsFor: 'types' stamp: 'HAW 10/20/2018 20:06:47'!
 types
@@ -2453,6 +2872,11 @@ types
 	firstEmptyIndex = 1 ifTrue: [ ^#() ].
 	
 	^rawTypes copyFrom: 1 to: firstEmptyIndex-1 	! !
+
+!VariableTypeInfo methodsFor: 'types' stamp: 'HAW 12/6/2018 17:22:29'!
+typesDo: aBlock
+	
+	^self types do: aBlock ! !
 
 !VariableTypeInfo methodsFor: 'types' stamp: 'HAW 10/15/2018 22:45:30'!
 typesIncludes: aType
@@ -2571,6 +2995,11 @@ commonSupertype
 	
 	^self commonSupertypeIfNoTypes: [ ProtoObject ]! !
 
+!VariableTypeInfo methodsFor: 'common supertype' stamp: 'HAW 12/3/2018 12:55:49'!
+commonSupertypeIfGeneric: genericBlock
+	
+	^self withCommonSupertypeDo: [ :aCommonSupertype | aCommonSupertype ] ifGeneric: genericBlock! !
+
 !VariableTypeInfo methodsFor: 'common supertype' stamp: 'HAW 10/16/2018 15:18:32'!
 commonSupertypeIfNoTypes: aBlock
 
@@ -2586,6 +3015,18 @@ commonSupertypeIfNoTypes: aBlock
 	commonSupertype := self commonLowestTypeIn: commonSupertypes.
 	
 	^commonSupertype ! !
+
+!VariableTypeInfo methodsFor: 'common supertype' stamp: 'HAW 12/3/2018 12:54:22'!
+withCommonSupertypeDo: doBlock ifGeneric: ifGenericBlock
+ 
+	| commonSupertype block  |
+	
+	commonSupertype := self commonSupertype.
+	block := (commonSupertype = Object or: [ commonSupertype = ProtoObject ])
+		ifTrue: [ ifGenericBlock ]
+		ifFalse: [ doBlock  ].
+		
+	^block value: commonSupertype ! !
 
 !VariableTypeInfo methodsFor: 'common supertype - private' stamp: 'HAW 10/15/2018 17:37:34'!
 commonLowestTypeIn: commonSupertypes
@@ -2622,6 +3063,16 @@ isMegamorphic
 signal: aClass isNotInSuperclassesOf: anotherClass
 
 	self error: (self class errorDescriptionFor: aClass isNotInSuperclassesOf: anotherClass)! !
+
+!VariableTypeInfo methodsFor: 'exceptions' stamp: 'HAW 12/6/2018 17:56:14'!
+signalRawTypesIsFull
+
+	self error: self class rawTypesIfFullErrorDescription! !
+
+!VariableTypeInfo methodsFor: 'exceptions' stamp: 'HAW 12/6/2018 15:46:39'!
+signalTypeNotFound
+	
+	self error: self class typeNotFoundErrorDescription! !
 
 !VariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/17/2018 19:41:50'!
 addIfNoCommonSupertypeTo: allWithNoCommonSupertype 
@@ -2703,18 +3154,28 @@ variableName
 
 	self subclassResponsibility ! !
 
-!VariableTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 10/10/2018 20:37:07'!
+!VariableTypeInfo class methodsFor: 'error descriptions' stamp: 'HAW 10/10/2018 20:37:07'!
 errorDescriptionFor: aClass isNotInSuperclassesOf: anotherClass
 
 	^aClass name, ' in not in the superclass chain of ', anotherClass name! !
 
-!InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/20/2018 17:09:46'!
+!VariableTypeInfo class methodsFor: 'error descriptions' stamp: 'HAW 12/6/2018 17:56:43'!
+rawTypesIfFullErrorDescription
+
+	^'Can not add more types. Types collection is full'! !
+
+!VariableTypeInfo class methodsFor: 'error descriptions' stamp: 'HAW 12/6/2018 15:47:32'!
+typeNotFoundErrorDescription
+	
+	^'Type not found'! !
+
+!InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 17:53:21'!
 addTypeFrom: anInstance
 
 	| instVarType |
 	
 	instVarType := (anInstance instVarNamed: varName) class.
-	self addType: instVarType ! !
+	self addType: instVarType ifFull: []! !
 
 !InstanceVariableTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 10/23/2018 11:22:19'!
 identifier
@@ -4032,6 +4493,16 @@ returnTypes
 	
 	^self returnTypeInfo types! !
 
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 18:08:13'!
+typeInfoOfVariableNamed: aVarName 
+
+	^self methodVariablesTypes typeInfoOf: aVarName! !
+
+!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 18:08:31'!
+typeInfoOfVariableNamed: aVarName ifAbsent: aBlock
+
+	^self methodVariablesTypes typeInfoOf: aVarName ifAbsent: aBlock! !
+
 !CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:45:27'!
 typedMessageSendersOf: aCompiledMethod 
 	
@@ -4041,16 +4512,6 @@ typedMessageSendersOf: aCompiledMethod
 	self methodNode accept: sendersCollector.
 	
 	^sendersCollector ! !
-
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:05:40'!
-typesInfoOfVariableNamed: aVarName 
-
-	^self methodVariablesTypes typeInfoOf: aVarName! !
-
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:05:35'!
-typesInfoOfVariableNamed: aVarName ifAbsent: aBlock
-
-	^self methodVariablesTypes typeInfoOf: aVarName ifAbsent: aBlock! !
 
 !CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:08:07'!
 typesOfInstanceVariableNamed: anInstVarName
@@ -4191,20 +4652,10 @@ isLiteralVariableNode
 
 	^false! !
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:00:11'!
-typesIn: aCompiledMethod 
-	
-	^#()! !
+!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:41:46'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 20:15:17'!
-typesIn: aCompiledMethod addingIncompleteTypeInfoTo: reasons
-
-	^[self typesIn: aCompiledMethod ]
-		on: TypeInfoError 
-		do: [ :aTypeInfoError | 
-			reasons add: aTypeInfoError.
-			aTypeInfoError resume ].
-! !
+	self subclassResponsibility ! !
 
 !Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:26:10'!
 parseNodeAt: aRange ifAbsent: aBlockClosure 
@@ -4245,20 +4696,20 @@ typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 	
 	^sortedRanges ! !
 
-!AssignmentNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:18'!
-typesIn: aCompiledMethod 
+!AssignmentNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:41'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
-	^value typesIn: aCompiledMethod ! !
+	^value typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons ! !
 
-!BraceNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:25'!
-typesIn: aCompiledMethod 
+!BraceNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:41'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^elements 
 		inject: Set new
-		into: [ :types :aParseNode | types addAll: (aParseNode typesIn: aCompiledMethod). types ]! !
+		into: [ :types :aParseNode | types addAll: (aParseNode typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons). types ]! !
 
-!LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:43'!
-typesIn: aCompiledMethod 
+!LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^Array with: self literalValue class! !
 
@@ -4287,8 +4738,8 @@ isTruePseudoVariable
 	
 	^ key = 'true'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:51:09'!
-typesIn: aCompiledMethod 
+!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	self isSelfPseudoVariable ifTrue: [ ^Array with: aCompiledMethod methodClass ].
 	self isSuperPseudoVariable ifTrue: [ ^Array with: aCompiledMethod methodClass superclass ].
@@ -4299,8 +4750,8 @@ typesIn: aCompiledMethod
 	
 	self error: 'Unsupported variable node'! !
 
-!InstanceVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:35'!
-typesIn: aCompiledMethod 
+!InstanceVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^ aCompiledMethod typesOfInstanceVariableNamed: name ifAbsent: [ #() ]! !
 
@@ -4309,13 +4760,13 @@ isLiteralVariableNode
 
 	^true! !
 
-!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:52:55'!
-typesIn: aCompiledMethod 
+!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^ Array with: key value class! !
 
-!TempVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 17:51:09'!
-typesIn: aCompiledMethod 
+!TempVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^aCompiledMethod typesOfVariableNamed: name ifAbsent: [ #() ]! !
 
@@ -4324,27 +4775,43 @@ identifierPrintString
 	
 	^selector identifierPrintString ! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 20:42:48'!
-typesIn: aCompiledMethod 
+!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 17:47:34'!
+receiverOrCascadeReceiver
+	
+	"When in cascade, receiver is nil and originalReceiver is the cascade receiver - Hernan"
+	
+	^receiver ifNil: [ originalReceiver ]! !
+
+!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 17:46:37'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	| types sentSelector |
 
-	sentSelector := selector key.
-	types := (receiver typesIn: aCompiledMethod)
+	sentSelector := self selectorSymbol.
+	types := (self receiverOrCascadeReceiver typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons)
 		inject: Set new
-		into: [ :messageReturnTypes :aReceiverType | 
+		into: [ :messageReturnTypes :aReceiverType | 								
 			(aReceiverType lookupSelector: sentSelector) 
 				ifNil: [
-					"I could add self, the message node to see the sender... - Hernan"
-					NoImplementorForMessageSend signalFor: (MethodReference class: aReceiverType selector: sentSelector). ]
+					incompleteTypeInfoReasons add: (IncompleteTypeInfo 
+						of: (MethodReference class: aReceiverType selector: sentSelector) 
+						describedAs: 'There is no implementation of #', sentSelector, ' in ', aReceiverType name, '''s hierarchy') . ]
 				ifNotNil: [ :implementor | | returnTypes |
 					returnTypes := implementor returnTypes.
 					returnTypes isEmpty
-						ifTrue: [ NoReturnTypeInfo signalFor: implementor methodReference ]
+						ifTrue: [ incompleteTypeInfoReasons add: (IncompleteTypeInfo 
+							of: implementor methodReference
+							describedAs: 'There is no return type info for ', implementor classAndSelector) ]
 						ifFalse: [ messageReturnTypes addAll: returnTypes ]].
 			messageReturnTypes ].
 		
 	^types! !
+
+!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/4/2018 14:20:06'!
+identifierPrintString
+
+	^self selectorNode identifierPrintString .
+	! !
 
 !MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:22:51'!
 parseNodeAt: anInterval 
@@ -4367,25 +4834,35 @@ typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 	^encoder typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 ! !
 
+!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/4/2018 14:15:37'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
+ 
+	"I assume that if somebody wants the types of a method it is looking for the return types - Hernan"
+	^aCompiledMethod returnTypes ! !
+
 !ReturnNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
 identifierPrintString
 	
 	^'^'! !
 
-!ReturnNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:00:23'!
-typesIn: aCompiledMethod 
+!ReturnNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^aCompiledMethod returnTypes ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 10:52:35'!
+!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/4/2018 14:16:44'!
 showSelectionTypeInfo
 
 	self 
-		withMethodNodeAndClassDo: [ :methodNode :class | 
+		withMethodNodeAndClassDo: [ :methodNode :class | | cursorPosition |
+			cursorPosition := self startIndex.
 			methodNode 
-				withParseNodeIncluding: self startIndex
+				withParseNodeIncluding: cursorPosition 
 				do: [ :aNodeUnderCursor | self showTypeInfoOf: aNodeUnderCursor in: methodNode definedAt: class ]
-				ifAbsent: [ morph flash ]] 
+				ifAbsent: [ 
+					cursorPosition < methodNode selectorLastPosition 
+						ifTrue: [ self showTypeInfoOf: methodNode in: methodNode definedAt: class ]
+						ifFalse: [ morph flash ]]]
 		ifErrorsParsing: [ :anError | morph flash ].
 
 ! !
