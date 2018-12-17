@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 17 December 2018 at 4:28:54 pm'!
-'Description previous integration to Cuis 2526'!
-!provides: 'DynamicTypeInformation' 1 27!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3526] on 17 December 2018 at 7:13:31 pm'!
+'Description Only #classDefinitionText shows instance variables types'!
+!provides: 'DynamicTypeInformation' 1 28!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
@@ -9,15 +9,7 @@ ParseNodeVisitor subclass: #TypedMessageSendsCollector
 	instanceVariableNames: 'sent toAnalize sentSelector sentMethodClass sureSenders unsureSenders'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-sent : <CompiledMethod>
-toAnalize : <CompiledMethod>
-sentSelector : <Symbol>
-sentMethodClass : <MethodNode class | TicTacToeState class | TicTacToe class | TypedSendersOfTest class | SmallInteger class | Integer class | True class | False class | ContextPart class | TestCase class> # Object class
-sureSenders : <OrderedCollection>
-unsureSenders : <OrderedCollection>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'TypedMessageSendsCollector class' category: #DynamicTypeInformation!
 TypedMessageSendsCollector class
 	instanceVariableNames: ''!
@@ -47,13 +39,7 @@ TestCase subclass: #InstanceVariablesTypesTest
 	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-instVar1 : <>
-instVar2 : <>
-instVar3 : <>
-instVar4 : <>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'InstanceVariablesTypesTest class' category: #DynamicTypeInformation!
 InstanceVariablesTypesTest class
 	instanceVariableNames: ''!
@@ -63,11 +49,7 @@ TestCase subclass: #ReturnTypeInfoTest
 	instanceVariableNames: 'iv1 iv2'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-iv1 : <>
-iv2 : <SmallFloat64 | SmallInteger> # Number
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'ReturnTypeInfoTest class' category: #DynamicTypeInformation!
 ReturnTypeInfoTest class
 	instanceVariableNames: ''!
@@ -87,10 +69,7 @@ TestCase subclass: #TypedSendersOfTest
 	instanceVariableNames: 'v1'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-v1 : <TypedSendersOfTest>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'TypedSendersOfTest class' category: #DynamicTypeInformation!
 TypedSendersOfTest class
 	instanceVariableNames: ''!
@@ -100,13 +79,7 @@ TestCase subclass: #VariableTypeInfoTest
 	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-instVar1 : <>
-instVar2 : <>
-instVar3 : <>
-instVar4 : <>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'VariableTypeInfoTest class' category: #DynamicTypeInformation!
 VariableTypeInfoTest class
 	instanceVariableNames: ''!
@@ -116,10 +89,7 @@ RenameSelector subclass: #TypedRenameSelector
 	instanceVariableNames: 'implementor'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-implementor : <CompiledMethod>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'TypedRenameSelector class' category: #DynamicTypeInformation!
 TypedRenameSelector class
 	instanceVariableNames: ''!
@@ -129,17 +99,7 @@ Object subclass: #BrowseTypedSelector
 	instanceVariableNames: 'methodNode class cursorPosition morph methodToLookUp incompleteTypeInfoReasons sentSelector types'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-methodNode : <MethodNode>
-class : <TicTacToe class | AnObsoleteFintechTest class | TusLibrosSystemFacade class | ParseNodeTypesDisplay class | DamageRecorder class> # Object class
-cursorPosition : <SmallInteger>
-morph : <InnerTextMorph>
-methodToLookUp : <CompiledMethod>
-incompleteTypeInfoReasons : <Set>
-sentSelector : <Symbol>
-types : <Array>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'BrowseTypedSelector class' category: #DynamicTypeInformation!
 BrowseTypedSelector class
 	instanceVariableNames: ''!
@@ -169,13 +129,7 @@ Object subclass: #Customer2
 	instanceVariableNames: 'lastName dateOfBirth x firstName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-lastName : <>
-dateOfBirth : <>
-x : <>
-firstName : <>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'Customer2 class' category: #DynamicTypeInformation!
 Customer2 class
 	instanceVariableNames: ''!
@@ -195,11 +149,7 @@ Object subclass: #IncompleteTypeInfo
 	instanceVariableNames: 'methodReference reasonDescription'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-methodReference : <MethodReference>
-reasonDescription : <String>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'IncompleteTypeInfo class' category: #DynamicTypeInformation!
 IncompleteTypeInfo class
 	instanceVariableNames: ''!
@@ -209,11 +159,7 @@ Object subclass: #NotCompiledYetMethod
 	instanceVariableNames: 'class selector'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-class : <>
-selector : <>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'NotCompiledYetMethod class' category: #DynamicTypeInformation!
 NotCompiledYetMethod class
 	instanceVariableNames: ''!
@@ -223,12 +169,7 @@ Object subclass: #ParseNodeTypeInfo
 	instanceVariableNames: 'parseNodeToAnalize typeInfo method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-parseNodeToAnalize : <TempVariableNode | ReturnNode | MethodNode | MessageNode | InstanceVariableNode> # ParseNode
-typeInfo : <UndefinedObject | MethodVariableTypeInfo | ReturnTypeInfo | InstanceVariableTypeInfoInHierarchy> # VariableTypeInfo
-method : <CompiledMethod>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'ParseNodeTypeInfo class' category: #DynamicTypeInformation!
 ParseNodeTypeInfo class
 	instanceVariableNames: ''!
@@ -238,22 +179,7 @@ Object subclass: #ParseNodeTypesDisplay
 	instanceVariableNames: 'parseNodeToAnalize methodNodeOwner definingClass methodToAnalyze types incompleteTypeInfoReasons typeInfo labels lines selectedIndex icons typesIndexLimit actions'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-parseNodeToAnalize : <InstanceVariableNode | LiteralNode | LiteralVariableNode | MessageNode | MethodNode | ReturnNode | TempVariableNode | VariableNode> # ParseNode
-methodNodeOwner : <MethodNode>
-definingClass : <TicTacToe class | AnObsoleteTicTacToe2 class | VariableTypeInfo class | TypedSendersOfTest class | LiteralVariableNode class | ParseNodeTypesDisplay class | ParseNodeTypeInfo class | CompiledMethod class | VariableNode class | VariableTypeInfoTest class> # Object class
-methodToAnalyze : <CompiledMethod>
-types : <Array | Set> # Collection
-incompleteTypeInfoReasons : <Set | Array> # Collection
-typeInfo : <VariableTypeInfo>
-labels : <OrderedCollection>
-lines : <OrderedCollection>
-selectedIndex : <SmallInteger>
-icons : <OrderedCollection>
-typesIndexLimit : <>
-actions : <OrderedCollection>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'ParseNodeTypesDisplay class' category: #DynamicTypeInformation!
 ParseNodeTypesDisplay class
 	instanceVariableNames: ''!
@@ -273,10 +199,7 @@ Object subclass: #TypeInfoRootTestClass
 	instanceVariableNames: 'ivroot'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-ivroot : <SmallFloat64>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'TypeInfoRootTestClass class' category: #DynamicTypeInformation!
 TypeInfoRootTestClass class
 	instanceVariableNames: ''!
@@ -286,10 +209,7 @@ TypeInfoRootTestClass subclass: #TypeInfoSibling1TestClass
 	instanceVariableNames: 'ivsibling1'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-ivsibling1 : <>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'TypeInfoSibling1TestClass class' category: #DynamicTypeInformation!
 TypeInfoSibling1TestClass class
 	instanceVariableNames: ''!
@@ -309,10 +229,7 @@ Object subclass: #VariableTypeInfo
 	instanceVariableNames: 'rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-rawTypes : <UndefinedObject | Array> # Array
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'VariableTypeInfo class' category: #DynamicTypeInformation!
 VariableTypeInfo class
 	instanceVariableNames: ''!
@@ -322,11 +239,7 @@ VariableTypeInfo subclass: #InstanceVariableTypeInfo
 	instanceVariableNames: 'class varName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-class : <Parser class | Scanner class | MorphicCanvas class | BitBltCanvas class | EmptyLine class | TextLine class | AnObsoleteClassToAddSuperclass class | BlockClosure class | MethodContext class | AnObsoleteClassToAddParameter class | ChangeSelector class | AnObsoleteClassToAddInstVar class | Metaclass | AnObsoleteSuperclassWithInstVar class | FileEntry class | AnObsoleteSubclassWithInstVar class | AnObsoleteClassWithInstVar class | AnObsoleteClassToAddInstVar class | AnObsoleteClassToExtractTemp class | AnObsoleteClassToRefactorSuperclass class> # ClassDescription
-varName : <String>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'InstanceVariableTypeInfo class' category: #DynamicTypeInformation!
 InstanceVariableTypeInfo class
 	instanceVariableNames: ''!
@@ -356,12 +269,7 @@ VariableTypeInfo subclass: #MethodVariableTypeInfo
 	instanceVariableNames: 'varName varIndex method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-varName : <String>
-varIndex : <SmallInteger>
-method : <CompiledMethod>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'MethodVariableTypeInfo class' category: #DynamicTypeInformation!
 MethodVariableTypeInfo class
 	instanceVariableNames: ''!
@@ -371,10 +279,7 @@ VariableTypeInfo subclass: #ReturnTypeInfo
 	instanceVariableNames: 'method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-method : <CompiledMethod>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'ReturnTypeInfo class' category: #DynamicTypeInformation!
 ReturnTypeInfo class
 	instanceVariableNames: ''!
@@ -394,11 +299,7 @@ VariablesTypes subclass: #InstanceVariablesTypes
 	instanceVariableNames: 'class rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-class : <MethodContext class | Metaclass | BlockClosure class | TextLine class | EmptyLine class | InstanceVariableTypeInfoInClass class | InstanceVariableTypeInfoInHierarchy class | MethodVariableTypeInfo class | ReturnTypeInfo class | VariablesTypes class> # ClassDescription
-rawTypes : <Array | UndefinedObject> # Array
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'InstanceVariablesTypes class' category: #DynamicTypeInformation!
 InstanceVariablesTypes class
 	instanceVariableNames: ''!
@@ -408,13 +309,7 @@ VariablesTypes subclass: #MethodVariablesTypes
 	instanceVariableNames: 'method rawTypes variablesNames paramentersSize'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-method : <CompiledMethod>
-rawTypes : <Array | UndefinedObject> # Array
-variablesNames : <Array | OrderedCollection> # SequenceableCollection
-paramentersSize : <SmallInteger>
-"!
+	category: 'DynamicTypeInformation'!
 !classDefinition: 'MethodVariablesTypes class' category: #DynamicTypeInformation!
 MethodVariablesTypes class
 	instanceVariableNames: ''!
@@ -3715,6 +3610,14 @@ typedSource
 		currentCompiledMethod ifNotNil: [ currentCompiledMethod printTypeInfoOn: stream ]]
 			! !
 
+!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 19:12:15'!
+classDefinitionText
+	"return the text to display for the definition of the currently selected class"
+	
+	^self selectedClassOrMetaClass
+		ifNil: [''] 
+		ifNotNil: [ :theClass | theClass typedDefinition ]! !
+
 !Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/15/2018 23:08:28'!
 classOfInstVarNamed: aName
 
@@ -4022,45 +3925,6 @@ defaultRawTypesSize
 
 	^10! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/23/2018 13:54:49'!
-definition
-	"Answer a String that defines the receiver."
-
-	^String streamContents: [ :strm |
-		strm
-			nextPutAll: (superclass ifNotNil: [ superclass name ] ifNil: [ 'ProtoObject' ]);
-			nextPutAll: self kindOfSubclass;
-			store: self name.
-		strm
-			newLine;
-			tab;
-			nextPutAll: 'instanceVariableNames: ';
-			store: self instanceVariablesString.
-		strm
-			newLine;
-			tab;
-			nextPutAll: 'classVariableNames: ';
-			store: self classVariablesString.
-		strm
-			newLine;
-			tab;
-			nextPutAll: 'poolDictionaries: ';
-			store: self sharedPoolsString.
-		strm
-			newLine;
-			tab;
-			nextPutAll: 'category: ';
-			store: self category asString.
-
-		superclass ifNil: [ 
-			strm nextPutAll: '.'; newLine.
-			strm nextPutAll: self name.
-			strm space; nextPutAll: 'superclass: nil' ].
-		
-		self printInstanceVariablesTypesOn: strm 
-		
-		]! !
-
 !ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/16/2018 08:43:30'!
 initializeEachInstanceVariableRawTypes
 
@@ -4197,6 +4061,13 @@ typeInfoOfMethodVariableNamed: aVarName at: aSelector
 
 	^(self methodVariablesTypesAt: aSelector) typeInfoOf: aVarName! !
 
+!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 12/17/2018 19:03:20'!
+typedDefinition
+
+	^String streamContents: [ :stream |
+		stream nextPutAll: self definition.
+		self printInstanceVariablesTypesOn: stream]! !
+
 !ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 22:10:39'!
 typesOfInstanceVariableAt: anIndex
 
@@ -4224,19 +4095,6 @@ typesOfMethodVariableNamed: aVarName at: aSelector
 isSubclassesEmpty
 
 	^subclasses isNil ! !
-
-!Metaclass methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:55:06'!
-definition
-	"Refer to the comment in ClassDescription|definition."
-
-	^ String streamContents: [ :strm |
-		strm print: self;
-			newLine;
-			tab;
-			nextPutAll: 'instanceVariableNames: ';
-			store: self instanceVariablesString.
-			
-		self printInstanceVariablesTypesOn: strm]! !
 
 !Metaclass methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/17/2018 20:31:37'!
 isSubclassesEmpty
@@ -4592,6 +4450,11 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 		inject: Set new
 		into: [ :types :aParseNode | types addAll: (aParseNode typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons). types ]! !
 
+!LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 16:42:45'!
+nodeTypePrintString
+
+	^'literal'! !
+
 !LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
@@ -4622,6 +4485,11 @@ isTruePseudoVariable
 	
 	^ key = 'true'! !
 
+!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 16:41:12'!
+nodeTypePrintString
+
+	^'pseudo-var.'! !
+
 !VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
@@ -4648,6 +4516,11 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 isLiteralVariableNode
 
 	^true! !
+
+!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 16:41:53'!
+nodeTypePrintString
+
+	^'literal var.'! !
 
 !LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
