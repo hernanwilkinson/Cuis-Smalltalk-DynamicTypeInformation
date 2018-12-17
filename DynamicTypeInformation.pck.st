@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 6 December 2018 at 8:39:40 pm'!
-'Description Add, remove and remove all in type info menu'!
-!provides: 'DynamicTypeInformation' 1 26!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3508] on 17 December 2018 at 4:28:54 pm'!
+'Description previous integration to Cuis 2526'!
+!provides: 'DynamicTypeInformation' 1 27!
 SystemOrganization addCategory: #DynamicTypeInformation!
 
 
@@ -132,7 +132,7 @@ Object subclass: #BrowseTypedSelector
 	category: 'DynamicTypeInformation'
 "
 methodNode : <MethodNode>
-class : <TicTacToe class | FintechTest class | TusLibrosSystemFacade class> # Object class
+class : <TicTacToe class | AnObsoleteFintechTest class | TusLibrosSystemFacade class | ParseNodeTypesDisplay class | DamageRecorder class> # Object class
 cursorPosition : <SmallInteger>
 morph : <InnerTextMorph>
 methodToLookUp : <CompiledMethod>
@@ -162,21 +162,6 @@ BrowseTypedSelector subclass: #BrowseTypedSenders
 	category: 'DynamicTypeInformation'!
 !classDefinition: 'BrowseTypedSenders class' category: #DynamicTypeInformation!
 BrowseTypedSenders class
-	instanceVariableNames: ''!
-
-!classDefinition: #Customer category: #DynamicTypeInformation!
-Object subclass: #Customer
-	instanceVariableNames: 'firstName lastName dateOfBirth'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'DynamicTypeInformation'
-"
-firstName : <String | SmallInteger> # Object
-lastName : <String | SmallInteger> # Object
-dateOfBirth : <Date | DateAndTime> # Object
-"!
-!classDefinition: 'Customer class' category: #DynamicTypeInformation!
-Customer class
 	instanceVariableNames: ''!
 
 !classDefinition: #Customer2 category: #DynamicTypeInformation!
@@ -235,19 +220,13 @@ NotCompiledYetMethod class
 
 !classDefinition: #ParseNodeTypeInfo category: #DynamicTypeInformation!
 Object subclass: #ParseNodeTypeInfo
-	instanceVariableNames: 'labels lines icons actions parseNodeToAnalize definingClass typeInfo parseNodeTypesDisplay method'
+	instanceVariableNames: 'parseNodeToAnalize typeInfo method'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'DynamicTypeInformation'
 "
-labels : <>
-lines : <>
-icons : <>
-actions : <>
-parseNodeToAnalize : <LiteralVariableNode | InstanceVariableNode | MessageNode | VariableNode | MethodNode | ReturnNode | TempVariableNode> # ParseNode
-definingClass : <>
-typeInfo : <UndefinedObject | InstanceVariableTypeInfoInHierarchy | ReturnTypeInfo | ParseNodeTypeInfo | Array | MethodVariableTypeInfo> # Object
-parseNodeTypesDisplay : <>
+parseNodeToAnalize : <TempVariableNode | ReturnNode | MethodNode | MessageNode | InstanceVariableNode> # ParseNode
+typeInfo : <UndefinedObject | MethodVariableTypeInfo | ReturnTypeInfo | InstanceVariableTypeInfoInHierarchy> # VariableTypeInfo
 method : <CompiledMethod>
 "!
 !classDefinition: 'ParseNodeTypeInfo class' category: #DynamicTypeInformation!
@@ -263,7 +242,7 @@ Object subclass: #ParseNodeTypesDisplay
 "
 parseNodeToAnalize : <InstanceVariableNode | LiteralNode | LiteralVariableNode | MessageNode | MethodNode | ReturnNode | TempVariableNode | VariableNode> # ParseNode
 methodNodeOwner : <MethodNode>
-definingClass : <TicTacToe class | TicTacToe2 class | VariableTypeInfo class | TypedSendersOfTest class | LiteralVariableNode class | ParseNodeTypesDisplay class | ParseNodeTypeInfo class | CompiledMethod class | VariableNode class | VariableTypeInfoTest class> # Object class
+definingClass : <TicTacToe class | AnObsoleteTicTacToe2 class | VariableTypeInfo class | TypedSendersOfTest class | LiteralVariableNode class | ParseNodeTypesDisplay class | ParseNodeTypeInfo class | CompiledMethod class | VariableNode class | VariableTypeInfoTest class> # Object class
 methodToAnalyze : <CompiledMethod>
 types : <Array | Set> # Collection
 incompleteTypeInfoReasons : <Set | Array> # Collection
@@ -440,26 +419,6 @@ paramentersSize : <SmallInteger>
 MethodVariablesTypes class
 	instanceVariableNames: ''!
 
-
-!ParseNodeTypeInfo commentStamp: '<historical>' prior: 0!
-I am an abstract superclass for ParseNode visitors that functions as a null visitor.  Here's the code that defines my interface:
-
-(SystemNavigation default allImplementorsOf: #accept: localTo: ParseNode) do:
-	[:methodReference|
-	methodReference compiledMethod messages do:
-		[:sel|
-		((sel beginsWith: 'visit')
-		and: [sel numArgs = 1]) ifTrue:
-			[ParseNodeVisitor
-				compile: (String streamContents:
-							[:str|
-							str nextPutAll: sel;
-								space;
-								nextPut: $a.
-							methodReference classSymbol first isVowel ifTrue:
-								[str nextPut: $n].
-							str nextPutAll: methodReference classSymbol])
-				classified: 'visiting']]]!
 
 !TypedMessageSendsCollector methodsFor: 'as yet unclassified' stamp: 'HAW 10/29/2018 21:16:48'!
 doesTypedSendSafely
@@ -1789,6 +1748,21 @@ from: anOldSelector at: anImplementingClass to: aNewSelector implementors: aColl
 		initializeImplementingClass: anImplementingClass 
 ! !
 
+!TypedRenameSelector class methodsFor: 'as yet unclassified' stamp: 'HAW 12/13/2018 17:42:58'!
+addTypedImplementorsOf: anOldSelector in: aPotentialClassToRefactor to: implementors andTypedSendersTo: senders inSystem: aSystem 
+	
+	| typedImplementors typedSenders |
+	
+	typedImplementors := (aSystem typedImplementorsOf: anOldSelector in: aPotentialClassToRefactor) 
+		collect: [ :anImplementor | anImplementor compiledMethod ].
+	implementors addAll: typedImplementors.
+	
+	typedSenders := (aSystem allTypedCallsOn: aPotentialClassToRefactor>>anOldSelector) first
+		collect: [ :aSender | aSender compiledMethod ].
+	senders addAll: typedSenders.
+	
+	! !
+
 !BrowseTypedSelector methodsFor: 'initialization' stamp: 'HAW 11/30/2018 18:18:53'!
 initializeOf: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph
 
@@ -1846,10 +1820,10 @@ browseTypedMessageNode: messageNode
 		
 ! !
 
-!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/1/2018 11:15:04'!
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/14/2018 06:35:52'!
 browseTypedWithNoTypeInfoSendTo: receiver
 
-	(self confirm: 'There is no type info for ', receiver identifierPrintString, '
+	(self confirm: 'There is no type info for ', receiver nodeTypeAndIdentifierPrintString, '
 Do you want to see all ', self browseTypeLabel, '?') ifTrue: [ self browseAll ]
 		
 ! !
@@ -1991,86 +1965,39 @@ showBrowseTypedAnywayLabel
 	
 	^'Show typed senders anyway' ! !
 
-!Customer methodsFor: 'initialization' stamp: 'HAW 9/27/2018 16:44:01'!
-initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
-	
-	firstName := aFirstName.
-	lastName := aLastName.
-	dateOfBirth := aDateOfBirth! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 11/30/2018 14:46:58'!
-m1
-"self new m1"
-	| t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 |
-	 
-	t1 := nil.
-	t1 := 1.
-	t1 := t1 + (1/3).
-	t2 := 2.0.
-	t3 := 3.
-	t4 := 4.
-	t5 := 5.
-	t6 := 6.
-	t7 := 7.
-	t8 := 8.
-	t9 := t2+t3+t4+t5+t6+t7+t8.
-	t10 := 'hola'.
-	t1 := 'x'.
-	t9 := t9+1.
-	^t10! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:22:52'!
-m2
-
-	self m1.
-	^nil! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:23:12'!
-m3
-
-	^true and: [ false ]
-	! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/5/2018 18:00:31'!
-m4
-
-	[ :a | a factorial ] value: 10.
-	[ :a | a factorial ] value: 10.! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:23:29'!
-m5
-
-	[ ^10 factorial ] value! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:23:36'!
-m6
-
-	^false or: [ false ]! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 05:46:50'!
-m7
-
-	^self! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 05:50:07'!
-m8
-
-	^true! !
-
-!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 06:03:40'!
-m8: a
-
-	^a! !
-
-!Customer class methodsFor: 'instance creation' stamp: 'HAW 9/17/2018 12:09'!
-named: aFirstName with: aLastName bornOn: aDateOfBirth	^self new initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth	! !
-
 !Customer2 methodsFor: 'as yet unclassified' stamp: 'HAW 10/30/2018 16:23:18'!
 initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
 	
 	firstName := aFirstName.
 	lastName := aLastName.
 	dateOfBirth := aDateOfBirth.
+	! !
+
+!Customer2 methodsFor: 'as yet unclassified' stamp: 'HAW 12/7/2018 16:33:03'!
+m1
+
+	| t1 t2 |
+	
+	t2 := [ t1 := 1. t1 * 2 ].
+	
+	^t2 value! !
+
+!Customer2 methodsFor: 'as yet unclassified' stamp: 'HAW 12/7/2018 16:34:28'!
+m2
+
+	| t1 t2 |
+	
+	t1 := 1.
+	t2 := 2 + t1.
+	
+	^t2 value! !
+
+!Customer2 methodsFor: 'as yet unclassified' stamp: 'HAW 12/7/2018 16:40:37'!
+m3
+
+
+	^ #( 1 2 3) select: [ :a | | t1 | t1 := a odd. t1 ].
+	
 	! !
 
 !DynamicTypeInfo class methodsFor: 'initialization' stamp: 'HAW 11/28/2018 14:05:32'!
@@ -2372,55 +2299,16 @@ visitVariableNode: aVariableNode
 
 ! !
 
-!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:18:26'!
-addCrudOptions
-	
-	lines add: labels size.
-	
-	labels add: 'Add type ...'.
-	icons add: Theme current listAddIcon.
-	actions add: [ self addType ].
-	
-	labels add: 'Remove type ...'.
-	icons add: Theme current listRemoveIcon.
-	actions add: [ self removeType ].
-	
-	labels add: 'Remove all types'.
-	icons add: Theme current deleteIcon.
-	actions add: [ self removeAllTypes ].! !
-
 !ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 17:10:24'!
 initializeOf: aParseNode in: aCompiledMethod 
 
 	parseNodeToAnalize := aParseNode.
 	method := aCompiledMethod ! !
 
-!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:11:26'!
-initializeTo: aParseNodeTypesDisplay
-
-	parseNodeTypesDisplay := aParseNodeTypesDisplay ! !
-
-!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:11:22'!
-initializeTo: aLabels lines: aLines icons: anIcons actions: anActions for: aParseNodeToAnalize in: aDefiningClass 
-
-	labels := aLabels.
-	lines := aLines.
-	icons := anIcons.
-	actions := anActions.
-	parseNodeToAnalize := aParseNodeToAnalize.
-	definingClass := aDefiningClass ! !
-
 !ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 18:05:52'!
 resetTypeInfo
 
 	typeInfo := nil! !
-
-!ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:11:50'!
-value 
-
-	parseNodeTypesDisplay parseNodeToAnalize accept: self.
-	
-	! !
 
 !ParseNodeTypeInfo methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 18:16:42'!
 withTypeInfoDo: aBlock ifNone: aNoneBlock
@@ -2432,31 +2320,11 @@ withTypeInfoDo: aBlock ifNone: aNoneBlock
 	
 	! !
 
-!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:10:58'!
-addTo: aParseNodeTypesDisplay
-
-	^(self to: aParseNodeTypesDisplay) value! !
-
-!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:10:37'!
-addTo: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass 
-
-	^(self to: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass) value! !
-
 !ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 17:09:42'!
 of: aParseNode in: aCompiledMethod 
 
 	^self new initializeOf: aParseNode in: aCompiledMethod 
 ! !
-
-!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 15:11:09'!
-to: aParseNodeTypesDisplay
-
-	^self new initializeTo: aParseNodeTypesDisplay! !
-
-!ParseNodeTypeInfo class methodsFor: 'as yet unclassified' stamp: 'HAW 12/6/2018 13:11:11'!
-to: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass 
-
-	^self new initializeTo: labels lines: lines icons: icons actions: actions for: parseNodeToAnalize in: aDefiningClass! !
 
 !ParseNodeTypesDisplay methodsFor: 'initialization' stamp: 'HAW 11/30/2018 11:22:41'!
 initliazeOf: aParseNodeToAnalize in: aMethodNodeOwner definedAt: aClass
@@ -2499,7 +2367,7 @@ addCommonSupertypeLabel
 					icons add: Theme current spreadsheetIcon ]]
 		! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/6/2018 17:09:06'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/14/2018 06:45:12'!
 addCrudOptions
 
 	(ParseNodeTypeInfo of: parseNodeToAnalize in: methodToAnalyze) 
@@ -2620,32 +2488,34 @@ isTypeSelection
 	
 	^selectedIndex between: 1 and: typesIndexLimit! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:18'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/14/2018 06:25:36'!
 showCommonSelectors
 
 	 | commonSelectors menu selectedSelectorIndex |
 			
 	commonSelectors := typeInfo commonSelectorsPreviousToObject.
+	commonSelectors isEmpty ifTrue: [ ^self inform: 'There are no common selectors' ].
 	commonSelectors := commonSelectors sorted.
+	
 	menu := PopUpMenu labelArray: commonSelectors.
 	selectedSelectorIndex := menu startUpWithCaption: 'Common selectors'.
 	selectedSelectorIndex = 0 ifFalse: [ Smalltalk browseAllTypedImplementorsOf: (commonSelectors at: selectedSelectorIndex) forAll: typeInfo types ]! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:11:32'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/14/2018 06:36:08'!
 showTypes
 
 	types isEmpty 
-		ifTrue: [ self inform: 'There is no type info for ', parseNodeToAnalize identifierPrintString ]
+		ifTrue: [ self inform: 'There is no type info for ', parseNodeToAnalize nodeTypeAndIdentifierPrintString ]
 		ifFalse: [ self showTypesWhenNotEmpty ].
 	! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:24:28'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/14/2018 06:36:12'!
 showTypesPopUp
 
 	| menu |
 
 	menu := PopUpMenu labelArray: labels lines: lines icons: icons.
-	selectedIndex := menu startUpWithCaption: 'Types of ', parseNodeToAnalize identifierPrintString.
+	selectedIndex := menu startUpWithCaption: 'Type info for ', parseNodeToAnalize nodeTypeAndIdentifierPrintString .
 ! !
 
 !ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:13:56'!
@@ -4652,6 +4522,20 @@ isLiteralVariableNode
 
 	^false! !
 
+!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:35:25'!
+nodeTypeAndIdentifierPrintString
+	
+	^String streamContents: [ :stream | 
+		stream
+			nextPutAll: self nodeTypePrintString;
+			space;
+			nextPutAll: self identifierPrintString ]! !
+
+!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:33:40'!
+nodeTypePrintString
+	
+	^''! !
+
 !ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:41:46'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 
@@ -4750,6 +4634,11 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 	
 	self error: 'Unsupported variable node'! !
 
+!InstanceVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:36:53'!
+nodeTypePrintString
+
+	^'inst. var.'! !
+
 !InstanceVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
@@ -4765,15 +4654,27 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 	
 	^ Array with: key value class! !
 
+!TempVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:38:26'!
+nodeTypePrintString
+
+	^self isArg
+		ifTrue: [ 'parameter' ]
+		ifFalse: [ 'temporary' ]! !
+
 !TempVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^aCompiledMethod typesOfVariableNamed: name ifAbsent: [ #() ]! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
+!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:41:47'!
 identifierPrintString
 	
-	^selector identifierPrintString ! !
+	^'#', selector identifierPrintString ! !
+
+!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:40:34'!
+nodeTypePrintString
+
+	^'message'! !
 
 !MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 17:47:34'!
 receiverOrCascadeReceiver
@@ -4986,60 +4887,4 @@ printOn: aStream
 typedMessageSendersOf: aCompiledMethod 
 	
 	^self compiledMethod typedMessageSendersOf: aCompiledMethod ! !
-
-!ChangeSelector class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 19:26:15'!
-addTypedImplementorsOf: anOldSelector in: aPotentialClassToRefactor to: implementors andTypedSendersTo: senders inSystem: aSystem 
-	
-	| typedImplementors typedSenders |
-	
-	typedImplementors := (aSystem typedImplementorsOf: anOldSelector in: aPotentialClassToRefactor) 
-		collect: [ :anImplementor | anImplementor compiledMethod ].
-	implementors addAll: typedImplementors.
-	
-	typedSenders := (aSystem allTypedCallsOn: aPotentialClassToRefactor>>anOldSelector) first
-		collect: [ :aSender | aSender compiledMethod ].
-	senders addAll: typedSenders.
-	
-	! !
-
-!ChangeSelectorApplier methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 19:29:02'!
-calculateImplementorsAndSenders
-		
-	implementors := IdentitySet new.
-	senders := IdentitySet new.
-	
-	scopeChoice = 1 ifTrue: [ ^self implementorsAndSendersForClass ].
-	scopeChoice = 2 ifTrue: [ ^self implementorsAndSendersForHierarchy ].
-	scopeChoice = 3 ifTrue: [ ^self implementorsAndSendersInCategory ].
-	scopeChoice = 4 ifTrue: [ ^self implementorsAndSendersInCategoryAndHierarchy ].
-	scopeChoice = 5 ifTrue: [ ^self implementorsAndSendersInSystem ].
-	scopeChoice = 6 ifTrue: [ ^self typedImplementorsAndSender ].
-	
-	self error: 'Unknown scope option' 
-		
-		! !
-
-!ChangeSelectorApplier methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 19:29:28'!
-scopeOptionLabels
-	
-	^{'In Class'. 'In Hierarchy'. 'In Category'. 'In Hierarchy and its Categories'. 'In System'. 'Typed'}.! !
-
-!ChangeSelectorApplier methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 19:30:11'!
-typedImplementorsAndSender
-
-	^self refactoringClass addTypedImplementorsOf: oldSelector in: implementingClass to: implementors andTypedSendersTo: senders inSystem: Smalltalk! !
-
-!RenameSelectorApplier methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 19:32:04'!
-createRefactoring
-	
-	^ scopeChoice = 6 
-		ifTrue: [ self refactoringClass from: oldSelector at: implementingClass to: newSelector implementors: implementors senders: senders ]
-		ifFalse:  [ self refactoringClass from: oldSelector to: newSelector implementors: implementors senders: senders ]! !
-
-!RenameSelectorApplier methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 19:31:56'!
-refactoringClass
-
-	^scopeChoice = 6 
-		ifTrue: [ TypedRenameSelector ]
-		ifFalse: [ RenameSelector ]! !
 DynamicTypeInfo initialize!
