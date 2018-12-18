@@ -1,316 +1,326 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3526] on 17 December 2018 at 7:13:31 pm'!
-'Description Only #classDefinitionText shows instance variables types'!
-!provides: 'DynamicTypeInformation' 1 28!
-SystemOrganization addCategory: #DynamicTypeInformation!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3526] on 18 December 2018 at 4:01:54 pm'!
+'Description Package rename from DynamicTypeInformation to LiveTypeInformation'!
+!provides: 'LiveTypeInformation' 1 0!
+SystemOrganization addCategory: #LiveTypeInformation!
 
 
-!classDefinition: #TypedMessageSendsCollector category: #DynamicTypeInformation!
+!classDefinition: #TypedMessageSendsCollector category: #LiveTypeInformation!
 ParseNodeVisitor subclass: #TypedMessageSendsCollector
 	instanceVariableNames: 'sent toAnalize sentSelector sentMethodClass sureSenders unsureSenders'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypedMessageSendsCollector class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypedMessageSendsCollector class' category: #LiveTypeInformation!
 TypedMessageSendsCollector class
 	instanceVariableNames: ''!
 
-!classDefinition: #CustomerTest category: #DynamicTypeInformation!
+!classDefinition: #CustomerTest category: #LiveTypeInformation!
 TestCase subclass: #CustomerTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'CustomerTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'CustomerTest class' category: #LiveTypeInformation!
 CustomerTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #InstanceVariableTypeInfoTest category: #DynamicTypeInformation!
+!classDefinition: #InstanceVariableTypeInfoTest category: #LiveTypeInformation!
 TestCase subclass: #InstanceVariableTypeInfoTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'InstanceVariableTypeInfoTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'InstanceVariableTypeInfoTest class' category: #LiveTypeInformation!
 InstanceVariableTypeInfoTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #InstanceVariablesTypesTest category: #DynamicTypeInformation!
+!classDefinition: #InstanceVariablesTypesTest category: #LiveTypeInformation!
 TestCase subclass: #InstanceVariablesTypesTest
 	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'InstanceVariablesTypesTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'InstanceVariablesTypesTest class' category: #LiveTypeInformation!
 InstanceVariablesTypesTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #ReturnTypeInfoTest category: #DynamicTypeInformation!
+!classDefinition: #ReturnTypeInfoTest category: #LiveTypeInformation!
 TestCase subclass: #ReturnTypeInfoTest
 	instanceVariableNames: 'iv1 iv2'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'ReturnTypeInfoTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'ReturnTypeInfoTest class' category: #LiveTypeInformation!
 ReturnTypeInfoTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TypedImplementorsTest category: #DynamicTypeInformation!
+!classDefinition: #TypedImplementorsTest category: #LiveTypeInformation!
 TestCase subclass: #TypedImplementorsTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypedImplementorsTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypedImplementorsTest class' category: #LiveTypeInformation!
 TypedImplementorsTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TypedSendersOfTest category: #DynamicTypeInformation!
+!classDefinition: #TypedSendersOfTest category: #LiveTypeInformation!
 TestCase subclass: #TypedSendersOfTest
 	instanceVariableNames: 'v1'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypedSendersOfTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypedSendersOfTest class' category: #LiveTypeInformation!
 TypedSendersOfTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #VariableTypeInfoTest category: #DynamicTypeInformation!
+!classDefinition: #VariableTypeInfoTest category: #LiveTypeInformation!
 TestCase subclass: #VariableTypeInfoTest
 	instanceVariableNames: 'instVar1 instVar2 instVar3 instVar4'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'VariableTypeInfoTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'VariableTypeInfoTest class' category: #LiveTypeInformation!
 VariableTypeInfoTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TypedRenameSelector category: #DynamicTypeInformation!
+!classDefinition: #TypedRenameSelector category: #LiveTypeInformation!
 RenameSelector subclass: #TypedRenameSelector
 	instanceVariableNames: 'implementor'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypedRenameSelector class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypedRenameSelector class' category: #LiveTypeInformation!
 TypedRenameSelector class
 	instanceVariableNames: ''!
 
-!classDefinition: #BrowseTypedSelector category: #DynamicTypeInformation!
+!classDefinition: #BrowseTypedSelector category: #LiveTypeInformation!
 Object subclass: #BrowseTypedSelector
 	instanceVariableNames: 'methodNode class cursorPosition morph methodToLookUp incompleteTypeInfoReasons sentSelector types'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'BrowseTypedSelector class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'BrowseTypedSelector class' category: #LiveTypeInformation!
 BrowseTypedSelector class
 	instanceVariableNames: ''!
 
-!classDefinition: #BrowseTypedImplementors category: #DynamicTypeInformation!
+!classDefinition: #BrowseTypedImplementors category: #LiveTypeInformation!
 BrowseTypedSelector subclass: #BrowseTypedImplementors
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'BrowseTypedImplementors class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'BrowseTypedImplementors class' category: #LiveTypeInformation!
 BrowseTypedImplementors class
 	instanceVariableNames: ''!
 
-!classDefinition: #BrowseTypedSenders category: #DynamicTypeInformation!
+!classDefinition: #BrowseTypedSenders category: #LiveTypeInformation!
 BrowseTypedSelector subclass: #BrowseTypedSenders
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'BrowseTypedSenders class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'BrowseTypedSenders class' category: #LiveTypeInformation!
 BrowseTypedSenders class
 	instanceVariableNames: ''!
 
-!classDefinition: #Customer2 category: #DynamicTypeInformation!
+!classDefinition: #Customer category: #LiveTypeInformation!
+Object subclass: #Customer
+	instanceVariableNames: 'firstName lastName dateOfBirth'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'LiveTypeInformation'!
+!classDefinition: 'Customer class' category: #LiveTypeInformation!
+Customer class
+	instanceVariableNames: ''!
+
+!classDefinition: #Customer2 category: #LiveTypeInformation!
 Object subclass: #Customer2
 	instanceVariableNames: 'lastName dateOfBirth x firstName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'Customer2 class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'Customer2 class' category: #LiveTypeInformation!
 Customer2 class
 	instanceVariableNames: ''!
 
-!classDefinition: #DynamicTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #DynamicTypeInfo category: #LiveTypeInformation!
 Object subclass: #DynamicTypeInfo
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'DynamicTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'DynamicTypeInfo class' category: #LiveTypeInformation!
 DynamicTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #IncompleteTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #IncompleteTypeInfo category: #LiveTypeInformation!
 Object subclass: #IncompleteTypeInfo
 	instanceVariableNames: 'methodReference reasonDescription'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'IncompleteTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'IncompleteTypeInfo class' category: #LiveTypeInformation!
 IncompleteTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotCompiledYetMethod category: #DynamicTypeInformation!
+!classDefinition: #NotCompiledYetMethod category: #LiveTypeInformation!
 Object subclass: #NotCompiledYetMethod
 	instanceVariableNames: 'class selector'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'NotCompiledYetMethod class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'NotCompiledYetMethod class' category: #LiveTypeInformation!
 NotCompiledYetMethod class
 	instanceVariableNames: ''!
 
-!classDefinition: #ParseNodeTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #ParseNodeTypeInfo category: #LiveTypeInformation!
 Object subclass: #ParseNodeTypeInfo
 	instanceVariableNames: 'parseNodeToAnalize typeInfo method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'ParseNodeTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'ParseNodeTypeInfo class' category: #LiveTypeInformation!
 ParseNodeTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #ParseNodeTypesDisplay category: #DynamicTypeInformation!
+!classDefinition: #ParseNodeTypesDisplay category: #LiveTypeInformation!
 Object subclass: #ParseNodeTypesDisplay
 	instanceVariableNames: 'parseNodeToAnalize methodNodeOwner definingClass methodToAnalyze types incompleteTypeInfoReasons typeInfo labels lines selectedIndex icons typesIndexLimit actions'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'ParseNodeTypesDisplay class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'ParseNodeTypesDisplay class' category: #LiveTypeInformation!
 ParseNodeTypesDisplay class
 	instanceVariableNames: ''!
 
-!classDefinition: #PerfomanceTest category: #DynamicTypeInformation!
+!classDefinition: #PerfomanceTest category: #LiveTypeInformation!
 Object subclass: #PerfomanceTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'PerfomanceTest class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'PerfomanceTest class' category: #LiveTypeInformation!
 PerfomanceTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TypeInfoRootTestClass category: #DynamicTypeInformation!
+!classDefinition: #TypeInfoRootTestClass category: #LiveTypeInformation!
 Object subclass: #TypeInfoRootTestClass
 	instanceVariableNames: 'ivroot'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypeInfoRootTestClass class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypeInfoRootTestClass class' category: #LiveTypeInformation!
 TypeInfoRootTestClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #TypeInfoSibling1TestClass category: #DynamicTypeInformation!
+!classDefinition: #TypeInfoSibling1TestClass category: #LiveTypeInformation!
 TypeInfoRootTestClass subclass: #TypeInfoSibling1TestClass
 	instanceVariableNames: 'ivsibling1'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypeInfoSibling1TestClass class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypeInfoSibling1TestClass class' category: #LiveTypeInformation!
 TypeInfoSibling1TestClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #TypeInfoSibling2TestClass category: #DynamicTypeInformation!
+!classDefinition: #TypeInfoSibling2TestClass category: #LiveTypeInformation!
 TypeInfoRootTestClass subclass: #TypeInfoSibling2TestClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'TypeInfoSibling2TestClass class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'TypeInfoSibling2TestClass class' category: #LiveTypeInformation!
 TypeInfoSibling2TestClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #VariableTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #VariableTypeInfo category: #LiveTypeInformation!
 Object subclass: #VariableTypeInfo
 	instanceVariableNames: 'rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'VariableTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'VariableTypeInfo class' category: #LiveTypeInformation!
 VariableTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #InstanceVariableTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #InstanceVariableTypeInfo category: #LiveTypeInformation!
 VariableTypeInfo subclass: #InstanceVariableTypeInfo
 	instanceVariableNames: 'class varName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'InstanceVariableTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'InstanceVariableTypeInfo class' category: #LiveTypeInformation!
 InstanceVariableTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #InstanceVariableTypeInfoInClass category: #DynamicTypeInformation!
+!classDefinition: #InstanceVariableTypeInfoInClass category: #LiveTypeInformation!
 InstanceVariableTypeInfo subclass: #InstanceVariableTypeInfoInClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'InstanceVariableTypeInfoInClass class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'InstanceVariableTypeInfoInClass class' category: #LiveTypeInformation!
 InstanceVariableTypeInfoInClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #InstanceVariableTypeInfoInHierarchy category: #DynamicTypeInformation!
+!classDefinition: #InstanceVariableTypeInfoInHierarchy category: #LiveTypeInformation!
 InstanceVariableTypeInfo subclass: #InstanceVariableTypeInfoInHierarchy
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'InstanceVariableTypeInfoInHierarchy class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'InstanceVariableTypeInfoInHierarchy class' category: #LiveTypeInformation!
 InstanceVariableTypeInfoInHierarchy class
 	instanceVariableNames: ''!
 
-!classDefinition: #MethodVariableTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #MethodVariableTypeInfo category: #LiveTypeInformation!
 VariableTypeInfo subclass: #MethodVariableTypeInfo
 	instanceVariableNames: 'varName varIndex method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'MethodVariableTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'MethodVariableTypeInfo class' category: #LiveTypeInformation!
 MethodVariableTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #ReturnTypeInfo category: #DynamicTypeInformation!
+!classDefinition: #ReturnTypeInfo category: #LiveTypeInformation!
 VariableTypeInfo subclass: #ReturnTypeInfo
 	instanceVariableNames: 'method'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'ReturnTypeInfo class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'ReturnTypeInfo class' category: #LiveTypeInformation!
 ReturnTypeInfo class
 	instanceVariableNames: ''!
 
-!classDefinition: #VariablesTypes category: #DynamicTypeInformation!
+!classDefinition: #VariablesTypes category: #LiveTypeInformation!
 Object subclass: #VariablesTypes
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'VariablesTypes class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'VariablesTypes class' category: #LiveTypeInformation!
 VariablesTypes class
 	instanceVariableNames: ''!
 
-!classDefinition: #InstanceVariablesTypes category: #DynamicTypeInformation!
+!classDefinition: #InstanceVariablesTypes category: #LiveTypeInformation!
 VariablesTypes subclass: #InstanceVariablesTypes
 	instanceVariableNames: 'class rawTypes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'InstanceVariablesTypes class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'InstanceVariablesTypes class' category: #LiveTypeInformation!
 InstanceVariablesTypes class
 	instanceVariableNames: ''!
 
-!classDefinition: #MethodVariablesTypes category: #DynamicTypeInformation!
+!classDefinition: #MethodVariablesTypes category: #LiveTypeInformation!
 VariablesTypes subclass: #MethodVariablesTypes
 	instanceVariableNames: 'method rawTypes variablesNames paramentersSize'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'DynamicTypeInformation'!
-!classDefinition: 'MethodVariablesTypes class' category: #DynamicTypeInformation!
+	category: 'LiveTypeInformation'!
+!classDefinition: 'MethodVariablesTypes class' category: #LiveTypeInformation!
 MethodVariablesTypes class
 	instanceVariableNames: ''!
 
@@ -1859,6 +1869,80 @@ browseWhenAtMethodSelector
 showBrowseTypedAnywayLabel
 	
 	^'Show typed senders anyway' ! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 12/18/2018 16:00:53'!
+initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
+	
+	firstName := aFirstName.
+	lastName := aLastName.
+	dateOfBirth := aDateOfBirth ! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 11/30/2018 14:46:58'!
+m1
+"self new m1"
+	| t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 |
+	 
+	t1 := nil.
+	t1 := 1.
+	t1 := t1 + (1/3).
+	t2 := 2.0.
+	t3 := 3.
+	t4 := 4.
+	t5 := 5.
+	t6 := 6.
+	t7 := 7.
+	t8 := 8.
+	t9 := t2+t3+t4+t5+t6+t7+t8.
+	t10 := 'hola'.
+	t1 := 'x'.
+	t9 := t9+1.
+	^t10! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:22:52'!
+m2
+
+	self m1.
+	^nil! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:23:12'!
+m3
+
+	^true and: [ false ]
+	! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/5/2018 18:00:31'!
+m4
+
+	[ :a | a factorial ] value: 10.
+	[ :a | a factorial ] value: 10.! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:23:29'!
+m5
+
+	[ ^10 factorial ] value! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/4/2018 16:23:36'!
+m6
+
+	^false or: [ false ]! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 05:46:50'!
+m7
+
+	^self! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 05:50:07'!
+m8
+
+	^true! !
+
+!Customer methodsFor: 'initialization' stamp: 'HAW 10/29/2018 06:03:40'!
+m8: a
+
+	^a! !
+
+!Customer class methodsFor: 'instance creation' stamp: 'HAW 9/17/2018 12:09'!
+named: aFirstName with: aLastName bornOn: aDateOfBirth	^self new initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth	! !
 
 !Customer2 methodsFor: 'as yet unclassified' stamp: 'HAW 10/30/2018 16:23:18'!
 initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
@@ -3503,7 +3587,7 @@ printTypesInfoHeaderOn: aStream
 		newLine.	
 		! !
 
-!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 21:40:43'!
+!Object class methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/30/2018 21:40:43'!
 createReturnTypeInfoOf: aCompiledMethod
 
 	(aCompiledMethod selector = #class and: [ aCompiledMethod methodClass = Object ]) 
@@ -3513,7 +3597,7 @@ createReturnTypeInfoOf: aCompiledMethod
 	
 	^super createReturnTypeInfoOf: aCompiledMethod! !
 
-!Object class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 22:02:52'!
+!Object class methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/29/2018 22:02:52'!
 methodReturnRawTypesSizeOf: aCompiledMethod
 
 	(aCompiledMethod selector = #class and: [ aCompiledMethod methodClass = Object ]) ifTrue: [ ^0 ].
@@ -3521,12 +3605,12 @@ methodReturnRawTypesSizeOf: aCompiledMethod
 	
 	^super methodReturnRawTypesSizeOf: aCompiledMethod! !
 
-!Workspace methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 21:24:07'!
+!Workspace methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/28/2018 21:24:07'!
 selectedClassOrMetaClass
 	
 	^UndefinedObject ! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:19:18'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:19:18'!
 contentsSymbolQuints
 	"Answer a list of quintuplets representing information on the alternative views available in the code pane
 		first element:	the contentsSymbol used
@@ -3562,7 +3646,7 @@ contentsSymbolQuints
 														'byteCodes'		'the bytecodes that comprise the compiled method')
 	)! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:35:09'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 14:35:09'!
 isModeStyleable
 	"determine if Shout can style in the current mode"
 	^ self showingSource 
@@ -3570,12 +3654,12 @@ isModeStyleable
 		or: [self showingPrettyPrint 
 		or: [self showingDecompile]]]! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:07:24'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:07:24'!
 showingTypedSource
 	
 	^ self contentsSymbol == #typedSource! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/22/2018 20:45:31'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/22/2018 20:45:31'!
 showingTypedSourceString
 	
 	^ (self showingTypedSource 
@@ -3584,7 +3668,7 @@ showingTypedSourceString
 		ifFalse:
 			['<no>']), 'typed source'! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:40:25'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 15:40:25'!
 textToCompile: aText
 
 	| startOfTypeInfo |
@@ -3595,14 +3679,14 @@ textToCompile: aText
 	
 	! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:40:40'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 14:40:40'!
 toggleTypedSource
 
 	self showingTypedSource
 		ifTrue: [ self contentsSymbol: #source]
 		ifFalse: [ self contentsSymbol: #typedSource]! !
 
-!CodeProvider methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:37:12'!
+!CodeProvider methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 14:37:12'!
 typedSource
 
 	^ String streamContents: [ :stream | 
@@ -3610,7 +3694,7 @@ typedSource
 		currentCompiledMethod ifNotNil: [ currentCompiledMethod printTypeInfoOn: stream ]]
 			! !
 
-!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 19:12:15'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/17/2018 19:12:15'!
 classDefinitionText
 	"return the text to display for the definition of the currently selected class"
 	
@@ -3618,20 +3702,20 @@ classDefinitionText
 		ifNil: [''] 
 		ifNotNil: [ :theClass | theClass typedDefinition ]! !
 
-!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/15/2018 23:08:28'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/15/2018 23:08:28'!
 classOfInstVarNamed: aName
 
 	^ self selectedClassOrMetaClass instanceVariablesTypes commonSupertypeOf: aName ifNoTypes: [ nil ]
 	! !
 
-!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 17:03:13'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 17:03:13'!
 classOfTempVarNamed: aName
 
 	^currentCompiledMethod ifNotNil: [ | typeInfo |
 		typeInfo := currentCompiledMethod methodVariablesTypes typeInfoOf: aName ifAbsent: [ ^nil ].
 		typeInfo commonSupertypeIfNoTypes: [ nil ] ]! !
 
-!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:36:12'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 15:36:12'!
 contents: input notifying: aRequestor
 	"The retrieved information has changed and its source must now be
 	 updated. The information can be a variety of things, depending on
@@ -3672,7 +3756,7 @@ in this part of the browser.'.
 			^ false].
 	self error: 'unacceptable accept'! !
 
-!Browser methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:37:55'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 15:37:55'!
 selectedMessage
 	"Answer a copy of the source code for the selected message."
 
@@ -3694,7 +3778,7 @@ selectedMessage
 		
 	^textToShow copy ! !
 
-!MessageSet methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:40:28'!
+!MessageSet methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 15:40:28'!
 contents: aString notifying: aRequestor 
 	"Compile the code in aString. Notify aRequestor of any syntax errors. 
 	Answer false if the compilation fails. Otherwise, if the compilation 
@@ -3733,7 +3817,7 @@ contents: aString notifying: aRequestor
 	self triggerEvent: #annotationChanged.
 	^ true! !
 
-!MessageSet methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:36:37'!
+!MessageSet methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 14:36:37'!
 selectedMessage
 	"Answer the source method for the currently selected message."
 
@@ -3763,27 +3847,27 @@ selectedMessage
 
 	^self sourceStringPrettifiedAndDiffed! !
 
-!Behavior methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 21:07:29'!
+!Behavior methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/4/2018 21:07:29'!
 indexOfInstanceVariable: anInstVarName ifAbsent: aBlock
 
 	^self allInstVarNames indexOf: anInstVarName ifAbsent: aBlock ! !
 
-!Behavior methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 15:49:12'!
+!Behavior methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/4/2018 15:49:12'!
 initializeMethodsTypeInformation
 
 	self methodsDo: [ :aCompiledMethod | aCompiledMethod initializeTypeInformation ]! !
 
-!Behavior methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/17/2018 20:30:33'!
+!Behavior methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/17/2018 20:30:33'!
 isSubclassesEmpty
 
 	self subclassResponsibility ! !
 
-!Behavior methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 18:36:25'!
+!Behavior methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 18:36:25'!
 methodVariablesTypesOf: aMethod
 
 	^MethodVariablesTypes of: aMethod ! !
 
-!Behavior class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 15:00:52'!
+!Behavior class methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/30/2018 15:00:52'!
 createInstanceVariableTypeInfoInClassOf: anInstVarName with: types
 
 	anInstVarName = 'superclass' ifTrue: [^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: {Metaclass. UndefinedObject}].
@@ -3791,7 +3875,7 @@ createInstanceVariableTypeInfoInClassOf: anInstVarName with: types
 
 	! !
 
-!Behavior class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 15:00:45'!
+!Behavior class methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/30/2018 15:00:45'!
 createInstanceVariableTypeInfoInHierarchyOf: anInstVarName with: types
 
 	anInstVarName = 'superclass' ifTrue: [^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: {Metaclass. UndefinedObject }].
@@ -3799,88 +3883,88 @@ createInstanceVariableTypeInfoInHierarchyOf: anInstVarName with: types
 
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 22:34:28'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 22:34:28'!
 commonSelectorsOfInstanceVariableNamed: anInstVarName
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName) commonSelectors 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 22:37:08'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 22:37:08'!
 commonSelectorsOfInstanceVariableNamed: anInstVarName previousTo: aSuperclassToExclude
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName) commonSelectorsPreviousTo: aSuperclassToExclude	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 22:38:50'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 22:38:50'!
 commonSelectorsOfInstanceVariableNamedPreviousToObject: anInstVarName 
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName) commonSelectorsPreviousToObject! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:13:07'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:13:07'!
 commonSelectorsOfMethodVariableNamed: aVarName at: aSelector
 
 	^(self typeInfoOfMethodVariableNamed: aVarName at: aSelector) commonSelectors 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:13:47'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:13:47'!
 commonSelectorsOfMethodVariableNamed: aVarName at: aSelector previousTo: aSuperclassToExclude
 
 	^(self typeInfoOfMethodVariableNamed: aVarName at: aSelector) commonSelectorsPreviousTo: aSuperclassToExclude	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:14:26'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:14:26'!
 commonSelectorsOfMethodVariableNamedPreviousToObject: aVarName at: aSelector
 
 	^(self typeInfoOfMethodVariableNamed: aVarName at: aSelector) commonSelectorsPreviousToObject! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 20:50:14'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 20:50:14'!
 commonSupertypeOfInstanceVariableNamed: anInstVarName
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName) commonSupertype 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 22:39:42'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 22:39:42'!
 commonSupertypeOfInstanceVariableNamed: anInstVarName ifNoTypes: aBlock
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName) commonSupertypeIfNoTypes: aBlock 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:15:25'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:15:25'!
 commonSupertypeOfMethodVariableNamed: aVarName at: aSelector
 
 	^(self typeInfoOfMethodVariableNamed: aVarName at: aSelector) commonSupertype 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:15:50'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:15:50'!
 commonSupertypeOfMethodVariableNamed: aVarName at: aSelector ifNoTypes: aBlock
 
 	^(self typeInfoOfMethodVariableNamed: aVarName at: aSelector) commonSupertypeIfNoTypes: aBlock 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
 createInstanceVariableRawTypesFor: anInstVarName
 
 	^self createRawTypesOfSize: (self instanceVariableRawTypesSizeFor: anInstVarName).
 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 16:37:06'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 16:37:06'!
 createInstanceVariableTypeInfoInClassOf: anInstVarName with: types
 
 	^InstanceVariableTypeInfoInClass of: anInstVarName in: self are: types! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 16:37:30'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 16:37:30'!
 createInstanceVariableTypeInfoInHierarchyOf: anInstVarName with: types
 
 	^InstanceVariableTypeInfoInHierarchy of: anInstVarName in: self are: types! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/16/2018 08:41:00'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/16/2018 08:41:00'!
 createInstanceVariablesRawTypes
 
 	^ Array new: self instSize.
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
 createMethodReturnRawTypesOf: aMethod
 		
 	aMethod isQuickReturnSelf ifTrue: [ ^Array with: aMethod methodClass ].
@@ -3888,18 +3972,18 @@ createMethodReturnRawTypesOf: aMethod
 	
 	^self createRawTypesOfSize: (self methodReturnRawTypesSizeOf: aMethod) ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
 createMethodVariableRawTypesFor: varName in: method
 
 	^ self createRawTypesOfSize: (self methodVariableRawTypesSizeFor: varName in: method)
 ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 17:08:35'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 17:08:35'!
 createMethodVariableTypeInfoOf: aVarName at: index in: method are: types 
 
 	^ MethodVariableTypeInfo of: aVarName at: index in: method are: types ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
 createMethodVariablesRawTypesOf: aMethod
 
 	| methodNode |
@@ -3909,33 +3993,33 @@ createMethodVariablesRawTypesOf: aMethod
 	^ self createRawTypesOfSize: (methodNode arguments size + methodNode temporaries size)
 			! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 11/21/2018 19:53:13'!
 createRawTypesOfSize: aSize
 	
 	^aSize = 0 ifTrue: [ nil ] ifFalse: [ Array new: aSize ]
 ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 17:16:11'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 17:16:11'!
 createReturnTypeInfoOf: aCompiledMethod
 
 	^ReturnTypeInfo of: aCompiledMethod ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 18:19:19'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 18:19:19'!
 defaultRawTypesSize
 
 	^10! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/16/2018 08:43:30'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/16/2018 08:43:30'!
 initializeEachInstanceVariableRawTypes
 
 	self instanceVariablesTypes initializeEachInstanceVariableRawTypes	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 18:07:57'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 18:07:57'!
 initializeEachMethodVariableRawTypesOf: aMethod
 		
 	aMethod methodVariablesTypes initializeEachMethodVariableRawTypes! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/16/2018 08:41:39'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/16/2018 08:41:39'!
 initializeInstanceVariablesRawTypes
 
 	"
@@ -3946,7 +4030,7 @@ initializeInstanceVariablesRawTypes
 	self initializeEachInstanceVariableRawTypes
 		! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/16/2018 01:06:09'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/16/2018 01:06:09'!
 initializeInstanceVariablesRawTypesWithAllInstances
 
 	"
@@ -3957,166 +4041,166 @@ initializeInstanceVariablesRawTypesWithAllInstances
 		initializeInstanceVariablesRawTypes;
 		storeAllInstancesCurrentTypes! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 18:20:19'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 18:20:19'!
 instanceVariableRawTypesSizeFor: anInstVarName
 
 	^self defaultRawTypesSize ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/16/2018 01:04:22'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/16/2018 01:04:22'!
 instanceVariablesRawTypes
 	
 	^ instanceVariablesRawTypes ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/4/2018 20:06:00'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/4/2018 20:06:00'!
 instanceVariablesTypes
 
 	^InstanceVariablesTypes of: self! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 18:19:13'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 18:19:13'!
 methodReturnRawTypesSizeOf: aMethod
 
 	^self defaultRawTypesSize! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/20/2018 18:20:05'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/20/2018 18:20:05'!
 methodVariableRawTypesSizeFor: varName in: method
 
 	^self defaultRawTypesSize 
 
 ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:04:39'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:04:39'!
 methodVariablesTypesAt: aSelector
 
 	^(self compiledMethodAt: aSelector) methodVariablesTypes ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/23/2018 12:25:45'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/23/2018 12:25:45'!
 printInstanceVariablesTypesOn: aStream
 
 	^ self instanceVariablesTypes printVariablesTypesOn: aStream
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
 returnCommonSelectorsAt: aSelector
 
 	^(self returnTypeInfoAt: aSelector) commonSelectors 
 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
 returnCommonSelectorsAt: aSelector previousTo: aSuperclassToExclude
 
 	^(self returnTypeInfoAt: aSelector) commonSelectorsPreviousTo: aSuperclassToExclude
 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
 returnCommonSelectorsPreviousToObjectAt: aSelector 
 
 	^(self returnTypeInfoAt: aSelector) commonSelectorsPreviousToObject 
 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
 returnCommonSupertypeAt: aSelector
 
 	^(self returnTypeInfoAt: aSelector) commonSupertype 
 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
 returnCommonSupertypeAt: aSelector ifNoTypes: aBlock
 
 	^(self returnTypeInfoAt: aSelector) commonSupertypeIfNoTypes: aBlock 
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:03'!
 returnTypeInfoAt: aSelector
 
 	^(self compiledMethodAt: aSelector) returnTypeInfo ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:02:14'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:02:14'!
 returnTypesAt: aSelector
 
 	^(self returnTypeInfoAt: aSelector) types 
 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 10/5/2018 15:13:39'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 10/5/2018 15:13:39'!
 storeAllInstancesCurrentTypes
 
 	self instanceVariablesTypes storeAllInstancesCurrentTypes! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 20:48:30'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 20:48:30'!
 typeInfoOfInstanceVariableNamed: anInstVarName
 
 	^self instanceVariablesTypes typeInfoOf: anInstVarName ! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 15:57:58'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 15:57:58'!
 typeInfoOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock
 
 	^self instanceVariablesTypes typeInfoOf: anInstVarName ifAbsent: aBlock! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:08:50'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:08:50'!
 typeInfoOfMethodVariableNamed: aVarName at: aSelector
 
 	^(self methodVariablesTypesAt: aSelector) typeInfoOf: aVarName! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation-private' stamp: 'HAW 12/17/2018 19:03:20'!
+!ClassDescription methodsFor: '*LiveTypeInformation-private' stamp: 'HAW 12/17/2018 19:03:20'!
 typedDefinition
 
 	^String streamContents: [ :stream |
 		stream nextPutAll: self definition.
 		self printInstanceVariablesTypesOn: stream]! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 22:10:39'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/29/2018 22:10:39'!
 typesOfInstanceVariableAt: anIndex
 
 	^self typesOfInstanceVariableNamed: (self allInstVarNames at: anIndex)! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 20:49:14'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 20:49:14'!
 typesOfInstanceVariableNamed: anInstVarName
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName) types 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/24/2018 20:11:50'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/24/2018 20:11:50'!
 typesOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock
 
 	^(self instanceVariablesTypes typeInfoOf: anInstVarName ifAbsent: [ ^aBlock value ]) types 	
 	! !
 
-!ClassDescription methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 23:12:14'!
+!ClassDescription methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 23:12:14'!
 typesOfMethodVariableNamed: aVarName at: aSelector
 
 	^(self typeInfoOfMethodVariableNamed: aVarName at: aSelector) types 	
 	! !
 
-!Class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/17/2018 20:29:49'!
+!Class methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/17/2018 20:29:49'!
 isSubclassesEmpty
 
 	^subclasses isNil ! !
 
-!Metaclass methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/17/2018 20:31:37'!
+!Metaclass methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/17/2018 20:31:37'!
 isSubclassesEmpty
 
 	self subclassesDo: [ :aSubclass | ^false ].
 	^true ! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:34:14'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:34:14'!
 initializeReturnRawTypes
 	
 	returnRawTypes := method 
 		ifNil: [ nil ]
 		ifNotNil: [ method methodClass createMethodReturnRawTypesOf: method ]! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:34:39'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:34:39'!
 initializeTypeInformation
 
 	self initializeVariablesRawTypes.
 	self initializeReturnRawTypes
 ! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:34:39'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:34:39'!
 initializeVariablesRawTypes
 
 	(method isNil or: [ method numTemps = 0 ])
@@ -4126,12 +4210,12 @@ initializeVariablesRawTypes
 			variablesRawTypes := methodClass createMethodVariablesRawTypesOf: method.
 			methodClass initializeEachMethodVariableRawTypesOf: method. ]! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:35:23'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:35:23'!
 returnRawTypes
 	
 	^returnRawTypes ! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 18:42:17'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 18:42:17'!
 setMethod: aMethod
 
 	| propertyOrPragma "<Association|Pragma>" |
@@ -4144,17 +4228,17 @@ setMethod: aMethod
 		
 ! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 20:31:31'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/28/2018 20:31:31'!
 storeOn: aStream
 
 	"review this!!"! !
 
-!AdditionalMethodState methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:35:36'!
+!AdditionalMethodState methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:35:36'!
 variablesRawTypes
 	
 	^variablesRawTypes ! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:17:39'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/31/2018 08:17:39'!
 doesSurelyTypedSend: aCompiledMethod 
 	
 	| typedMessageSendsCollector |
@@ -4163,12 +4247,12 @@ doesSurelyTypedSend: aCompiledMethod
 	
 	^typedMessageSendsCollector doesTypedSendSafely! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'NPM 10/10/2018 14:05:31'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'NPM 10/10/2018 14:05:31'!
 hasDynamicTypeInformation
 	
 	^ self penultimateLiteral isKindOf: AdditionalMethodState! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 18:42:05'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 18:42:05'!
 initializeTypeInformation
 	
 	| additionalMethodState |
@@ -4177,17 +4261,17 @@ initializeTypeInformation
 	self penultimateLiteral: additionalMethodState.
 	additionalMethodState initializeTypeInformation ! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:35:23'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/29/2018 21:35:23'!
 isQuickReturnSelf
 	
 	^self primitive = 256! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 18:36:01'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 18:36:01'!
 methodVariablesTypes
 
 	^self methodClass methodVariablesTypesOf: self! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 14:43:21'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 14:43:21'!
 printTypeInfoOn: aStream
 
 	| variablesTypes beforeVariablesTypesPosition |
@@ -4204,34 +4288,34 @@ printTypeInfoOn: aStream
 	aStream newLine.
 	variablesTypes printTypesInfoFooterOn: aStream! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:35:23'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:35:23'!
 returnRawTypes
 	
 	^(self penultimateLiteral isKindOf: AdditionalMethodState)
 		ifTrue: [ self penultimateLiteral returnRawTypes ]
 		ifFalse: [ nil ]! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/20/2018 17:15:27'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 17:15:27'!
 returnTypeInfo
 
 	^ self methodClass createReturnTypeInfoOf: self ! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 01:26:02'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/21/2018 01:26:02'!
 returnTypes
 	
 	^self returnTypeInfo types! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 18:08:13'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/6/2018 18:08:13'!
 typeInfoOfVariableNamed: aVarName 
 
 	^self methodVariablesTypes typeInfoOf: aVarName! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 18:08:31'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/6/2018 18:08:31'!
 typeInfoOfVariableNamed: aVarName ifAbsent: aBlock
 
 	^self methodVariablesTypes typeInfoOf: aVarName ifAbsent: aBlock! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 18:45:27'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/27/2018 18:45:27'!
 typedMessageSendersOf: aCompiledMethod 
 	
 	| sendersCollector |
@@ -4241,34 +4325,34 @@ typedMessageSendersOf: aCompiledMethod
 	
 	^sendersCollector ! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:08:07'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/21/2018 00:08:07'!
 typesOfInstanceVariableNamed: anInstVarName
 
 	^self methodClass typesOfInstanceVariableNamed: anInstVarName ! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/24/2018 20:12:03'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/24/2018 20:12:03'!
 typesOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock
 
 	^self methodClass typesOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 00:26:27'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/21/2018 00:26:27'!
 typesOfVariableNamed: aVarName
 
 	^self methodVariablesTypes typesOf: aVarName! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 16:03:59'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 16:03:59'!
 typesOfVariableNamed: aVarName ifAbsent: aBlock
 
 	^self methodVariablesTypes typesOf: aVarName ifAbsent: aBlock! !
 
-!CompiledMethod methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 14:35:36'!
+!CompiledMethod methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 14:35:36'!
 variablesRawTypes
 	
 	^(self penultimateLiteral isKindOf: AdditionalMethodState)
 		ifTrue: [ self penultimateLiteral variablesRawTypes ]
 		ifFalse: [ nil ]! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:20:38'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/29/2018 21:20:38'!
 allTypedCallsOn: aSentCompiledMethod 
 	
 	| allSenders sureTypedSenders unsureTypedSenders |
@@ -4285,7 +4369,7 @@ allTypedCallsOn: aSentCompiledMethod
 		
 	^Array with: sureTypedSenders with: unsureTypedSenders ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/26/2018 15:02:47'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/26/2018 15:02:47'!
 browseAllTypedCallsOn: aSentCompiledMethod 
 	
 	| unsureTypedSenders sureTypedSenders typedSenders |
@@ -4300,7 +4384,7 @@ browseAllTypedCallsOn: aSentCompiledMethod
 		name: 'Typed Senders of ' , aSentCompiledMethod classAndSelector
 		autoSelect: aSentCompiledMethod selector ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/29/2018 21:21:22'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/29/2018 21:21:22'!
 browseAllTypedCallsOn: sentSelector forAll: types  
 	"
 	Smalltalk browseAllTypedCallsOn: #digitLength forAll: (Array with: LargePositiveInteger with: SmallInteger)
@@ -4333,19 +4417,19 @@ browseAllTypedCallsOn: sentSelector forAll: types
 		name: 'Typed Senders of ' , sentSelector, ' of ', (sentImplementors collect: [:aSentImplementor | aSentImplementor methodClass name ]) asCommaStringAnd 
 		autoSelect: sentSelector  ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 17:52:49'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/30/2018 17:52:49'!
 browseAllTypedImplementorsOf: aMethod
 
 	self browseAllTypedImplementorsOf: aMethod selector for: aMethod methodClass
 ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 17:50:28'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/30/2018 17:50:28'!
 browseAllTypedImplementorsOf: aSelector for: aClass
 
 	self browseAllTypedImplementorsOf: aSelector forAll: (Array with: aClass)
 ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 15:29:26'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/27/2018 15:29:26'!
 browseAllTypedImplementorsOf: aSelector forAll: types
 
 	| implementors |
@@ -4357,7 +4441,7 @@ browseAllTypedImplementorsOf: aSelector forAll: types
 		browseMessageList: implementors asArray sort
 		name: 'Typed Implementors of ' , aSelector, ' in ', types asCommaStringAnd ! !
 
-!SystemDictionary methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 15:29:26'!
+!SystemDictionary methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/27/2018 15:29:26'!
 typedImplementorsOf: aSelector in: aClass 
 	
 	| implementors addSelectorIfDefined |
@@ -4370,17 +4454,17 @@ typedImplementorsOf: aSelector in: aClass
 	
 	^implementors! !
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
+!ParseNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
 identifierPrintString
 	
 	^String streamContents: [ :stream | self printOn: stream indent: 0 ]! !
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:45:32'!
+!ParseNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/30/2018 11:45:32'!
 isLiteralVariableNode
 
 	^false! !
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:35:25'!
+!ParseNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:35:25'!
 nodeTypeAndIdentifierPrintString
 	
 	^String streamContents: [ :stream | 
@@ -4389,23 +4473,23 @@ nodeTypeAndIdentifierPrintString
 			space;
 			nextPutAll: self identifierPrintString ]! !
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:33:40'!
+!ParseNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:33:40'!
 nodeTypePrintString
 	
 	^''! !
 
-!ParseNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:41:46'!
+!ParseNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:41:46'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 
 	self subclassResponsibility ! !
 
-!Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:26:10'!
+!Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 21:26:10'!
 parseNodeAt: aRange ifAbsent: aBlockClosure 
 
 	sourceRanges associationsDo: [ :nodeToRange | nodeToRange value = aRange ifTrue: [ ^ nodeToRange key ]].
 	^aBlockClosure value! !
 
-!Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 23:19:46'!
+!Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 23:19:46'!
 parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
 
 	| minimum nodeWithRangeAtPosition |
@@ -4425,7 +4509,7 @@ parseNodeIncluding: aPosition ifAbsent: aBlockClosure
 	^ nodeWithRangeAtPosition ifNil: aBlockClosure ifNotNil: [ nodeWithRangeAtPosition ]
 			! !
 
-!Encoder methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:30:24'!
+!Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/31/2018 08:30:24'!
 typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 	
 	| ranges sortedRanges sendersCollector |
@@ -4438,59 +4522,59 @@ typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 	
 	^sortedRanges ! !
 
-!AssignmentNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:41'!
+!AssignmentNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:41'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^value typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons ! !
 
-!BraceNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:41'!
+!BraceNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:41'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^elements 
 		inject: Set new
 		into: [ :types :aParseNode | types addAll: (aParseNode typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons). types ]! !
 
-!LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 16:42:45'!
+!LiteralNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/17/2018 16:42:45'!
 nodeTypePrintString
 
 	^'literal'! !
 
-!LiteralNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!LiteralNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^Array with: self literalValue class! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:57:13'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 13:57:13'!
 isFalsePseudoVariable
 	
 	^key = 'false'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 12:15:09'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 12:15:09'!
 isNilPseudoVariable
 	
 	^ key = 'nil'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 01:07:27'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/21/2018 01:07:27'!
 isSuperPseudoVariable
 	
 	^key = 'super'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/21/2018 01:05:18'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/21/2018 01:05:18'!
 isThisContextPseudoVariable
 	
 	^key = 'thisContext'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 13:56:52'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 13:56:52'!
 isTruePseudoVariable
 	
 	^ key = 'true'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 16:41:12'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/17/2018 16:41:12'!
 nodeTypePrintString
 
 	^'pseudo-var.'! !
 
-!VariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	self isSelfPseudoVariable ifTrue: [ ^Array with: aCompiledMethod methodClass ].
@@ -4502,61 +4586,61 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 	
 	self error: 'Unsupported variable node'! !
 
-!InstanceVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:36:53'!
+!InstanceVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:36:53'!
 nodeTypePrintString
 
 	^'inst. var.'! !
 
-!InstanceVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!InstanceVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^ aCompiledMethod typesOfInstanceVariableNamed: name ifAbsent: [ #() ]! !
 
-!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/30/2018 11:45:00'!
+!LiteralVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/30/2018 11:45:00'!
 isLiteralVariableNode
 
 	^true! !
 
-!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/17/2018 16:41:53'!
+!LiteralVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/17/2018 16:41:53'!
 nodeTypePrintString
 
 	^'literal var.'! !
 
-!LiteralVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!LiteralVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^ Array with: key value class! !
 
-!TempVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:38:26'!
+!TempVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:38:26'!
 nodeTypePrintString
 
 	^self isArg
 		ifTrue: [ 'parameter' ]
 		ifFalse: [ 'temporary' ]! !
 
-!TempVariableNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!TempVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^aCompiledMethod typesOfVariableNamed: name ifAbsent: [ #() ]! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:41:47'!
+!MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:41:47'!
 identifierPrintString
 	
 	^'#', selector identifierPrintString ! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/14/2018 06:40:34'!
+!MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:40:34'!
 nodeTypePrintString
 
 	^'message'! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 17:47:34'!
+!MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/6/2018 17:47:34'!
 receiverOrCascadeReceiver
 	
 	"When in cascade, receiver is nil and originalReceiver is the cascade receiver - Hernan"
 	
 	^receiver ifNil: [ originalReceiver ]! !
 
-!MessageNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/6/2018 17:46:37'!
+!MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/6/2018 17:46:37'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	| types sentSelector |
@@ -4581,50 +4665,50 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 		
 	^types! !
 
-!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/4/2018 14:20:06'!
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/4/2018 14:20:06'!
 identifierPrintString
 
 	^self selectorNode identifierPrintString .
 	! !
 
-!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:22:51'!
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 21:22:51'!
 parseNodeAt: anInterval 
 	self shouldBeImplemented.! !
 
-!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 21:23:52'!
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 21:23:52'!
 parseNodeAt: aRange ifAbsent: aBlockClosure 
 	
 	^encoder parseNodeAt: aRange ifAbsent: aBlockClosure ! !
 
-!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/23/2018 23:01:06'!
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 23:01:06'!
 parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
 	
 	^encoder parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
 ! !
 
-!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/28/2018 20:03:54'!
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 20:03:54'!
 typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 
 	^encoder typedMessageSendSelectorKeywordPositionsOf: aCompiledMethod ifAbsent: aBlock
 ! !
 
-!MethodNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/4/2018 14:15:37'!
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/4/2018 14:15:37'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
  
 	"I assume that if somebody wants the types of a method it is looking for the return types - Hernan"
 	^aCompiledMethod returnTypes ! !
 
-!ReturnNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
+!ReturnNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
 identifierPrintString
 	
 	^'^'! !
 
-!ReturnNode methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!ReturnNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^aCompiledMethod returnTypes ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/4/2018 14:16:44'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/4/2018 14:16:44'!
 showSelectionTypeInfo
 
 	self 
@@ -4641,19 +4725,19 @@ showSelectionTypeInfo
 
 ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/29/2018 19:16:35'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/29/2018 19:16:35'!
 showSelectionTypeInfo: aKeyboardEvent
 
 	self showSelectionTypeInfo.
 	^true! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/30/2018 12:12:10'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/30/2018 12:12:10'!
 showTypeInfoOf: aNodeUnderCursor in: methodNode definedAt: class 
 
 	(ParseNodeTypesDisplay of: aNodeUnderCursor in: methodNode definedAt: class) show
 ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 10:55:00'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/1/2018 10:55:00'!
 typedImplementorsOfIt
 	
 	self 
@@ -4663,13 +4747,13 @@ typedImplementorsOfIt
 
 		! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 22:58:30'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/28/2018 22:58:30'!
 typedImplementorsOfIt: aKeyboardEvent
 
 	self typedImplementorsOfIt.
 	^true! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 11:19:01'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/1/2018 11:19:01'!
 typedSendersOfIt
 	
 	self 
@@ -4681,13 +4765,13 @@ typedSendersOfIt
 	
 ! !
 
-!SmalltalkEditor methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 22:58:40'!
+!SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/28/2018 22:58:40'!
 typedSendersOfIt: aKeyboardEvent
 
 	self typedSendersOfIt.
 	^true! !
 
-!SmalltalkEditor class methodsFor: '*DynamicTypeInformation' stamp: 'HAW 11/29/2018 19:16:35'!
+!SmalltalkEditor class methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/29/2018 19:16:35'!
 cmdShortcutsSpec
 	"
 	self initialize
@@ -4725,22 +4809,22 @@ cmdShortcutsSpec
 		#(		$M	#typedImplementorsOfIt:			'Typed implementors of message under cursor')
 	)! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 12:04:16'!
+!MethodReference methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/1/2018 12:04:16'!
 classAndSelector
 
 	^String streamContents: [:stream | self printClassAndSelectorOn: stream ]! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/31/2018 08:17:53'!
+!MethodReference methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/31/2018 08:17:53'!
 doesSurelyTypedSend: aCompiledMethod 
 	
 	^self compiledMethod doesSurelyTypedSend: aCompiledMethod ! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/28/2018 10:54:27'!
+!MethodReference methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/28/2018 10:54:27'!
 prefixStringVersionWith: aString
 
 	stringVersion := aString, stringVersion ! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 12:07:11'!
+!MethodReference methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/1/2018 12:07:11'!
 printClassAndSelectorOn: aStream
 		
 	aStream nextPutAll: classSymbol.
@@ -4749,14 +4833,14 @@ printClassAndSelectorOn: aStream
 		nextPutAll: '>>#';
 		nextPutAll: methodSymbol! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 12/1/2018 12:05:19'!
+!MethodReference methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/1/2018 12:05:19'!
 printOn: aStream
 	"Print the receiver on a stream"
 
 	super printOn: aStream.
 	self printClassAndSelectorOn: aStream! !
 
-!MethodReference methodsFor: '*DynamicTypeInformation' stamp: 'HAW 10/27/2018 19:03:07'!
+!MethodReference methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/27/2018 19:03:07'!
 typedMessageSendersOf: aCompiledMethod 
 	
 	^self compiledMethod typedMessageSendersOf: aCompiledMethod ! !
