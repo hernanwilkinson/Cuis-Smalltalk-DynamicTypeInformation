@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3526] on 18 December 2018 at 4:01:54 pm'!
-'Description Package rename from DynamicTypeInformation to LiveTypeInformation'!
-!provides: 'LiveTypeInformation' 1 0!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3526] on 21 December 2018 at 8:22:46 am'!
+'Description Changes on Autocompleter to show selectors for a message send based on types. It also allows to show commons selectors with generic common supertype'!
+!provides: 'LiveTypeInformation' 1 1!
 SystemOrganization addCategory: #LiveTypeInformation!
 
 
@@ -1733,13 +1733,39 @@ Do you want to see all ', self browseTypeLabel, '?') ifTrue: [ self browseAll ]
 		
 ! !
 
-!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/3/2018 14:52:18'!
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/19/2018 17:32:40'!
 browseTypedWithTypeInfo
 	
-	| receiverTypeInfo |
+	incompleteTypeInfoReasons isEmpty 
+		ifTrue: [ self browseTypedWithTypeInfoNoMatterIncompleteTypeInfo ]
+		ifFalse: [ self browseTypedWithTypeInfoAndIncompleteTypeInfo ]
+		
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/19/2018 17:51:35'!
+browseTypedWithTypeInfoAndIncompleteTypeInfo
 	
-	self shouldBrowseAll ifTrue: [ ^self browseAll ].
-			
+	| menu labels icons selectionIndex |
+	
+	labels := OrderedCollection with: self showBrowseTypedAnywayLabel with: self seeAllLabel.
+	icons := OrderedCollection with: Theme current acceptIcon with: Theme current acceptIcon.
+	incompleteTypeInfoReasons := incompleteTypeInfoReasons asArray.
+	incompleteTypeInfoReasons do: [ :anIncompleteTypeInfo | 
+		labels add: anIncompleteTypeInfo reasonDescription.
+		icons add: Theme current closeIcon ].
+	
+	menu := PopUpMenu labelArray: labels lines: #(2) icons: icons.
+	selectionIndex := menu startUpWithCaption: self incompleteTypeInfoQuestionTitle.
+	selectionIndex = 1 ifTrue: [ ^self browseTypedWithTypeInfoNoMatterIncompleteTypeInfo ].
+	selectionIndex = 2 ifTrue: [ ^self browseAll ].
+	selectionIndex > 2 ifTrue: [ ^(incompleteTypeInfoReasons at: selectionIndex - 2) browse ]
+! !
+
+!BrowseTypedSelector methodsFor: 'browsing-private' stamp: 'HAW 12/19/2018 17:33:02'!
+browseTypedWithTypeInfoNoMatterIncompleteTypeInfo
+
+	| receiverTypeInfo |
+
 	receiverTypeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
 	receiverTypeInfo 
 		withCommonSupertypeDo: [ :aCommonSupertype | self browseForCommonSupertype: aCommonSupertype ]	
@@ -1751,32 +1777,6 @@ browseTypedWithTypeInfo
 browseWhenAtMethodSelector
 	
 	self subclassResponsibility ! !
-
-!BrowseTypedSelector methodsFor: 'browsing-asking-private' stamp: 'HAW 12/1/2018 11:25:31'!
-askToSeeAll
-	
-	^(PopUpMenu 
-		confirm: self incompleteTypeQuestionTitle 
-		trueChoice: self showBrowseTypedAnywayLabel 
-		falseChoice: self seeAllLabel 
-		icons: #(acceptIcon cancelIcon)) not! !
-
-!BrowseTypedSelector methodsFor: 'browsing-asking-private' stamp: 'HAW 12/1/2018 11:25:21'!
-incompleteTypeQuestionTitle
-	
-	^String streamContents: [ :stream |
-		stream nextPutAll: 'Incomplete type info due to:'; newLine.
-		incompleteTypeInfoReasons 
-			do: [ :reason | stream nextPutAll: reason ]
-			separatedBy: [ stream newLine ]].
-	
-! !
-
-!BrowseTypedSelector methodsFor: 'browsing-asking-private' stamp: 'HAW 11/30/2018 18:33:05'!
-shouldBrowseAll
-
-	^ incompleteTypeInfoReasons notEmpty and: [ self askToSeeAll ]
-! !
 
 !BrowseTypedSelector methodsFor: 'browsing-labels-private' stamp: 'HAW 12/1/2018 11:06:22'!
 browseTypeLabel
@@ -1792,6 +1792,11 @@ seeAllLabel
 showBrowseTypedAnywayLabel
 	
 	self subclassResponsibility ! !
+
+!BrowseTypedSelector methodsFor: 'as yet unclassified' stamp: 'HAW 12/19/2018 17:51:35'!
+incompleteTypeInfoQuestionTitle
+	
+	^'Incomplete type info. What do you want to do?'! !
 
 !BrowseTypedSelector class methodsFor: 'instance creation' stamp: 'HAW 11/30/2018 18:41:34'!
 browseOf: aMethodNode definedIn: aClass withCursorAt: aPosition in: aMorph
@@ -1877,9 +1882,9 @@ initializeNamed: aFirstName with: aLastName bornOn: aDateOfBirth
 	lastName := aLastName.
 	dateOfBirth := aDateOfBirth ! !
 
-!Customer methodsFor: 'initialization' stamp: 'HAW 11/30/2018 14:46:58'!
+!Customer methodsFor: 'initialization' stamp: 'HAW 12/18/2018 16:29:59'!
 m1
-"self new m1"
+"self new m1" 
 	| t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 |
 	 
 	t1 := nil.
@@ -2188,6 +2193,11 @@ selector
 	
 	^selector! !
 
+!NotCompiledYetMethod methodsFor: 'as yet unclassified' stamp: 'HAW 12/19/2018 16:16:55'!
+typesOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock
+
+	^class typesOfInstanceVariableNamed: anInstVarName ifAbsent: aBlock! !
+
 !NotCompiledYetMethod methodsFor: 'as yet unclassified' stamp: 'HAW 10/24/2018 20:09:43'!
 typesOfVariableNamed: aVarName ifAbsent: aBlockClosure 
 	
@@ -2488,13 +2498,13 @@ showTypes
 		ifFalse: [ self showTypesWhenNotEmpty ].
 	! !
 
-!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/14/2018 06:36:12'!
+!ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 12/19/2018 18:30:25'!
 showTypesPopUp
 
 	| menu |
 
 	menu := PopUpMenu labelArray: labels lines: lines icons: icons.
-	selectedIndex := menu startUpWithCaption: 'Type info for ', parseNodeToAnalize nodeTypeAndIdentifierPrintString .
+	selectedIndex := menu startUpWithCaption: 'Type info of ', parseNodeToAnalize nodeTypeAndIdentifierPrintString .
 ! !
 
 !ParseNodeTypesDisplay methodsFor: 'showing - private' stamp: 'HAW 11/30/2018 12:13:56'!
@@ -2864,6 +2874,11 @@ commonSupertypeIfNoTypes: aBlock
 	commonSupertype := self commonLowestTypeIn: commonSupertypes.
 	
 	^commonSupertype ! !
+
+!VariableTypeInfo methodsFor: 'common supertype' stamp: 'HAW 12/19/2018 18:03:49'!
+commonSupertypeOrCommonSelectorsPreviousToObjectIfGeneric
+	
+	^self commonSupertypeIfGeneric: [ :genericSuperclass | self commonSelectorsPreviousToObject ]! !
 
 !VariableTypeInfo methodsFor: 'common supertype' stamp: 'HAW 12/3/2018 12:54:22'!
 withCommonSupertypeDo: doBlock ifGeneric: ifGenericBlock
@@ -3702,18 +3717,21 @@ classDefinitionText
 		ifNil: [''] 
 		ifNotNil: [ :theClass | theClass typedDefinition ]! !
 
-!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/15/2018 23:08:28'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 18:02:46'!
 classOfInstVarNamed: aName
 
-	^ self selectedClassOrMetaClass instanceVariablesTypes commonSupertypeOf: aName ifNoTypes: [ nil ]
+	^self selectedClassOrMetaClass ifNotNil: [ :selected | | typeInfo |
+		typeInfo := selected typeInfoOfInstanceVariableNamed: aName ifAbsent: [ ^nil ].
+		typeInfo commonSupertypeOrCommonSelectorsPreviousToObjectIfGeneric ]
+	
 	! !
 
-!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/20/2018 17:03:13'!
+!Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 18:22:44'!
 classOfTempVarNamed: aName
 
 	^currentCompiledMethod ifNotNil: [ | typeInfo |
-		typeInfo := currentCompiledMethod methodVariablesTypes typeInfoOf: aName ifAbsent: [ ^nil ].
-		typeInfo commonSupertypeIfNoTypes: [ nil ] ]! !
+		typeInfo := currentCompiledMethod typeInfoOfVariableNamed: aName ifAbsent: [ ^nil ].
+		typeInfo commonSupertypeOrCommonSelectorsPreviousToObjectIfGeneric ]! !
 
 !Browser methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 15:36:12'!
 contents: input notifying: aRequestor
@@ -4483,30 +4501,22 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 
 	self subclassResponsibility ! !
 
-!Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 21:26:10'!
-parseNodeAt: aRange ifAbsent: aBlockClosure 
+!Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 13:34:58'!
+topParseNodeIncluding: aPosition ifAbsent: anAbsentBlock
 
-	sourceRanges associationsDo: [ :nodeToRange | nodeToRange value = aRange ifTrue: [ ^ nodeToRange key ]].
-	^aBlockClosure value! !
+	| biggestRangeSize nodeWithRangeAtPosition |
 
-!Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 23:19:46'!
-parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
-
-	| minimum nodeWithRangeAtPosition |
-	
-	minimum := nil.
+	biggestRangeSize := 0.
 	nodeWithRangeAtPosition := nil.
-	sourceRanges associationsDo: [ :nodeAtRange | | currentNodeRange currentNodeRangeSize ranges |
-		currentNodeRange := nodeAtRange value.
-		ranges := currentNodeRange isInterval ifTrue: [ Array with: currentNodeRange ] ifFalse: [ currentNodeRange ].
-		ranges do: [ :aRange |
-			(aRange includes: aPosition) ifTrue: [ 
+
+	sourceRanges associationsDo: [ :nodeAtRange |
+		self withRangesOf: nodeAtRange including: aPosition do: [ :aRange | | currentNodeRangeSize |
 				currentNodeRangeSize := aRange size.
-				(minimum isNil or: [currentNodeRangeSize < minimum]) ifTrue: [ 
-					minimum := currentNodeRangeSize.
-					nodeWithRangeAtPosition := nodeAtRange key -> aRange ]]]].
-	
-	^ nodeWithRangeAtPosition ifNil: aBlockClosure ifNotNil: [ nodeWithRangeAtPosition ]
+				currentNodeRangeSize > biggestRangeSize ifTrue: [
+					biggestRangeSize := currentNodeRangeSize.
+					nodeWithRangeAtPosition := nodeAtRange key -> aRange ]]].
+
+	^ nodeWithRangeAtPosition ifNil: anAbsentBlock ifNotNil: [ nodeWithRangeAtPosition ]
 			! !
 
 !Encoder methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/31/2018 08:30:24'!
@@ -4543,6 +4553,11 @@ nodeTypePrintString
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
 	^Array with: self literalValue class! !
+
+!SelectorNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 18:34:16'!
+identifierPrintString
+	
+	^key printString ! !
 
 !VariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 13:57:13'!
 isFalsePseudoVariable
@@ -4623,10 +4638,15 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 	
 	^aCompiledMethod typesOfVariableNamed: name ifAbsent: [ #() ]! !
 
-!MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:41:47'!
+!UndeclaredVariableNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/18/2018 20:25:42'!
+typesIn: aCompiledMethod addingIncompleteTypeInfoTo: aSet 
+	
+	^#()! !
+
+!MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 18:36:48'!
 identifierPrintString
 	
-	^'#', selector identifierPrintString ! !
+	^selector identifierPrintString ! !
 
 !MessageNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/14/2018 06:40:34'!
 nodeTypePrintString
@@ -4671,19 +4691,15 @@ identifierPrintString
 	^self selectorNode identifierPrintString .
 	! !
 
-!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 21:22:51'!
-parseNodeAt: anInterval 
-	self shouldBeImplemented.! !
-
-!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 21:23:52'!
-parseNodeAt: aRange ifAbsent: aBlockClosure 
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 18:31:08'!
+nodeTypePrintString
 	
-	^encoder parseNodeAt: aRange ifAbsent: aBlockClosure ! !
+	^'method'! !
 
-!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 10/23/2018 23:01:06'!
-parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
-	
-	^encoder parseNodeIncluding: aPosition ifAbsent: aBlockClosure 
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 13:35:04'!
+topParseNodeIncluding: aPosition ifAbsent: anAbsentBlock
+
+	^encoder topParseNodeIncluding: aPosition ifAbsent: anAbsentBlock
 ! !
 
 !MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/28/2018 20:03:54'!
@@ -4698,15 +4714,24 @@ typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons
 	"I assume that if somebody wants the types of a method it is looking for the return types - Hernan"
 	^aCompiledMethod returnTypes ! !
 
+!MethodNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 13:32:43'!
+withTopParseNodeIncluding: aPosition do: aBlock ifAbsent: anAbsentBlock
+
+	| nodeAndPosition |
+	
+	nodeAndPosition :=self topParseNodeIncluding: aPosition ifAbsent: [ ^ anAbsentBlock value ].
+	^aBlock value: nodeAndPosition key.! !
+
 !ReturnNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 11/27/2018 05:56:18'!
 identifierPrintString
 	
 	^'^'! !
 
-!ReturnNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/3/2018 11:40:40'!
+!ReturnNode methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 16:33:50'!
 typesIn: aCompiledMethod addingIncompleteTypeInfoTo: incompleteTypeInfoReasons  
 	
-	^aCompiledMethod returnTypes ! !
+	^aCompiledMethod returnTypes
+! !
 
 !SmalltalkEditor methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/4/2018 14:16:44'!
 showSelectionTypeInfo
@@ -4844,4 +4869,38 @@ printOn: aStream
 typedMessageSendersOf: aCompiledMethod 
 	
 	^self compiledMethod typedMessageSendersOf: aCompiledMethod ! !
+
+!SmalltalkCompleter methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 17:04:45'!
+returnTypeOf: aNodeUnderCursor in: aMethodNode  
+	
+	| methodToAnalyze typeInfo types methodClass |
+	
+	methodClass := aMethodNode encoder classEncoding.
+	methodToAnalyze := methodClass compiledMethodAt: aMethodNode selector ifAbsent: [ NotCompiledYetMethod class: methodClass selector: aMethodNode selector ].
+	
+	types := aNodeUnderCursor typesIn: methodToAnalyze addingIncompleteTypeInfoTo: Set new.
+	typeInfo := VariableTypeInfo new initializeRawTypes: types asArray.
+	
+	^typeInfo 
+		withCommonSupertypeDo: [ :commonSupertype | commonSupertype ]
+		ifGeneric: [ :genericType | typeInfo commonSelectorsPreviousToObject ]
+! !
+
+!SmalltalkCompleter methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 16:52:50'!
+returnTypeOfEnclosedExpresionIn: methodNode at: aPosition
+
+	^ methodNode  
+		withTopParseNodeIncluding: aPosition
+		do: [ :aNodeUnderCursor | | nodeToAnalyze |
+			nodeToAnalyze := aNodeUnderCursor isReturn ifTrue: [ aNodeUnderCursor expr ] ifFalse: [ aNodeUnderCursor ].
+			self returnTypeOf: nodeToAnalyze in: methodNode ]
+		ifAbsent: [ nil ]! !
+
+!SmalltalkCompleter methodsFor: '*LiveTypeInformation' stamp: 'HAW 12/19/2018 16:58:53'!
+returnTypeOfNodeUnderCursorIn: methodNode at: aPosition
+
+	^methodNode
+		withParseNodeIncluding: aPosition 
+		do: [ :aNodeUnderCursor | self returnTypeOf: aNodeUnderCursor in: methodNode ]
+		ifAbsent: [ nil ]! !
 DynamicTypeInfo initialize!
