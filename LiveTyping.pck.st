@@ -1,6 +1,6 @@
-'From Cuis 5.0 of 7 November 2016 [latest update: #3544] on 28 December 2018 at 12:21:09 pm'!
-'Description Rename from LiveTypeInformation to LiveTyping'!
-!provides: 'LiveTyping' 1 0!
+'From Cuis 5.0 of 7 November 2016 [latest update: #3562] on 2 January 2019 at 5:52:53 pm'!
+'Description Typo fixed'!
+!provides: 'LiveTyping' 1 1!
 SystemOrganization addCategory: #LiveTyping!
 
 
@@ -379,7 +379,7 @@ in: toAnalizeCompiledMethod of: aSentCompiledMethod
 	^self new initializeIn: toAnalizeCompiledMethod of: aSentCompiledMethod 
 ! !
 
-!CustomerTest methodsFor: 'as yet unclassified' stamp: 'HAW 9/27/2018 16:44:07'!
+!CustomerTest methodsFor: 'as yet unclassified' stamp: 'HAW 1/2/2019 17:52:11'!
 test01
 
 	Customer named: 'Juan' with: 'Perez' bornOn: Date today.
@@ -2057,10 +2057,10 @@ of: aMethodReference describedAs: aReasonDescription
 	
 	^self new initializeOf: aMethodReference describedAs: aReasonDescription! !
 
-!LiveTyping class methodsFor: 'initialization' stamp: 'HAW 12/28/2018 12:09:11'!
+!LiveTyping class methodsFor: 'initialization' stamp: 'HAW 12/28/2018 17:36:05'!
 initialize
 
-	Utilities informUser: 'Initializing live typeping' during: [ self initializeLiveTyping ]! !
+	Utilities informUser: 'Initializing live typing' during: [ self initializeLiveTyping ]! !
 
 !LiveTyping class methodsFor: 'initialization' stamp: 'HAW 12/28/2018 12:09:04'!
 initializeLiveTyping
